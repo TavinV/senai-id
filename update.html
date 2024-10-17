@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senai ID</title>
+    <!-- Stylesheets  -->
+    <link rel="stylesheet" href="/stylesheets/update.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <header>
+        <div class="header-red-container">
+            <a class="header-link" href="">Suporte</a>
+            <button class="hamburger-menu" onclick="toggleMenu()"><i class='bx bx-menu'></i></button>
+        </div>
+        <nav>
+            <div class="header-white-container">
+                <button class="return-button"><i class='bx bx-left-arrow-alt'></i></button>
+                <a href=""><img class="senai-logo" src="img/SENAI_logo.png"></a>
+                <div class="inf-header">
+                    <a href="">
+                        <p class="senai-id">Senai ID</p>
+                    </a>
+                    <a href="">
+                        <p class="update-link">Atualizar Cadastro</p>
+                    </a>
+                    <div class="notifications-header"></div>
+                </div>
+                <div class="profile-div">
+                    <p class="profile-text">Olá, Fulano</p>
+                    <div class="profile-img"></div>
+                </div>
+            </div>
+
+            <!-- Menu para dispositivos móveis -->
+            <div class="mobile-menu" id="mobileMenu">
+                <a class="hide-mobile" href="">Senai ID</a>
+                <a class="hide-mobile" href="">Atualizar Cadastro</a>
+                <a class="hide-mobile" href="">Suporte</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="form1">
+
+            <div class="top-form">
+                <h1 class="text-aluno">Buscar aluno</h1>
+                <i class='bx bx-envelope'></i>
+            </div>
+            
+            <div class="icon-input">
+                <input id="login" required type="text">
+                <div class="floating-label">RG</div>
+            </div>
+
+        </div>
+    </main>
+    
+    
+
+
+    <script>
+        // Função para abrir/fechar o menu no mobile
+        function toggleMenu() {
+            var menu = document.getElementById("mobileMenu");
+            menu.classList.toggle("active");
+        }
+    </script>    
+</body>
+
+</html>
