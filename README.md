@@ -19,3 +19,9 @@ Este projeto foi desenvolvido como parte do Trabalho de Conclusão de Curso da t
 
 [Figma](https://www.figma.com/design/w9qOEVxM1P0bWb4MGrbmdp/TCC?node-id=0-1&t=pvHIlhOgWShJXMp6-1)
 
+## Autores
+
+- [Igor Teixeira](https://github.com/igor-teixeira-souza)
+- [Leonardo Porfirio](https://github.com/leocorrea01)
+- [Lucas Gomes](https://www.github.com/lucasesgomes)
+- [Otávio Vinícius](https://www.github.com/TavinV)
