@@ -1,6 +1,9 @@
 # Senai ID - Sistema de Carteirinha Digital
 
+<p align="justify">
 Este projeto foi desenvolvido como parte do Trabalho de Conclusão de Curso da turma I1P - Desenvolvimento de Sistemas (2025), no SENAI. O objetivo principal é facilitar o o gerenciamento dos alunos, bem como o controle de acesso e redução de filas na entrada e saída.
+</p>
+  
 
 ## Funcionalidades
 
