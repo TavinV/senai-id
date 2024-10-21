@@ -25,6 +25,16 @@
     --header-icon-size: 36px;
 }
 
+button{
+    transition: all .3s ease;
+}
+button:hover{
+    scale: 1.02;
+}
+button:active{
+    scale: 0.98;
+}
+
 body {
     overflow-x: hidden;
     width: 100vw;
@@ -261,43 +271,56 @@ main::before {
 
 /* Página de login (update.html) */
 
-.form1 {
+.registrar-aluno {
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: space-around;
-    height: 500px;
-    width: 400px;
+    width: 100%; /* Para ocupar 100% da largura disponível */
+    max-width: 600px; /* Mantém o tamanho máximo de 600px */
+    margin: 40 auto; /* Centraliza o container com espaço nas laterais */
     border-radius: 10px;
     border: 1px solid var(--preto);
     background-color: var(--branco);
+    padding: 25px 10px;
 }
 
-.top-form {
+.registrar-aluno form {
+    width: 95%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    height: 40px;
-    width: 400px;
     gap: 20px;
 }
 
-.top-form > h1 {
+.registrar-aluno h2 {
+    color: var(--vermelho);
+    font-size: 2.3rem;
+    margin-bottom: 30px;
+}
+
+.registrar-aluno span{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 10px;
+}
+
+.registrar-aluno span button{
+    width: 40%;
+    aspect-ratio: 1 /1 ;
+    border: 2px solid var(--vermelho);
+    background-color: transparent;
+    transition: all .3s ease;
+}
+
+
+
+.registrar-aluno span button i{
+    font-size: 4rem;
     color: var(--vermelho);
 }
-
-.top-form > i {
-    font-size: 30px;
-}
-
-
-
-
-
-
-
-
-
-
 
 .icon-input {
     position: relative;
@@ -313,7 +336,9 @@ main::before {
 .icon-input input {
     width: 100%;
     height: 2.5rem;
+    background-color: transparent;
     border: none;
+    z-index: 2;
     outline: none;
 }
 .icon-input:focus-within .floating-label,
@@ -323,6 +348,19 @@ main::before {
     transform: translateY(-25px);
 }
 
+#data_nascimento::-webkit-calendar-picker-indicator{
+    display: none;
+}
+
+#data_nascimento {
+    opacity: 0;
+}
+
+#data_nascimento:focus, #data_nascimento:valid {
+    opacity: 1;
+}
+
+
 .icon-input i {
     font-size: 1.5rem;
 }
@@ -331,6 +369,8 @@ main::before {
     transition: all .3s ease;
     position: absolute;
     font-size: 1.2rem;
+    z-index: 1;
     left: 10px;
     top: 10px; 
 }
+

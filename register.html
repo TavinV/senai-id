@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senai ID</title>
     <!-- Stylesheets  -->
-    <link rel="stylesheet" href="/stylesheets/update.css">
+    <link rel="stylesheet" href="/stylesheets/register.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
@@ -45,18 +45,40 @@
     </header>
 
     <main>
-        <div class="form1">
-
-            <div class="top-form">
-                <h1 class="text-aluno">Buscar aluno</h1>
-                <i class='bx bx-envelope'></i>
-            </div>
-            
-            <div class="icon-input">
-                <input id="login" required type="text">
-                <div class="floating-label">RG</div>
-            </div>
-
+        <div class="registrar-aluno">
+            <h2>
+                Registrar aluno
+            </h2>
+            <form>
+                <div class="icon-input">
+                    <input id="nome" required type="text">
+                    <div class="floating-label">Nome</div>
+                </div>
+                <div class="icon-input">
+                    <input id="rg" minlength="10" maxlength="10" required type="text">
+                    <div class="floating-label">Rg</div>
+                </div>
+                <div class="icon-input">
+                    <input id="data_nascimento" required type="date">
+                    <div class="floating-label">Data de Nascimento</div>
+                </div>
+                <div class="icon-input">
+                    <input id="Curso" required type="text">
+                    <div class="floating-label">Curso</div>
+                </div>
+                <div class="icon-input">
+                    <input id="matricula" minlength="8" maxlength="8" required type="number">
+                    <div class="floating-label">Matricula</div>
+                </div>
+            </form>
+            <span>
+                <button>
+                    <i class='bx bx-camera' ></i>
+                </button>
+                <button>
+                    <i class='bx bx-check'></i>
+                </button>
+            </span>
         </div>
     </main>
     
