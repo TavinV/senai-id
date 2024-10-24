@@ -134,7 +134,7 @@ main::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url("backgrounds/senai-bg.jpg");
+    background-image: url("../backgrounds/senai-bg.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -291,7 +291,7 @@ main::before {
     max-width: 450px;
     margin: 40 auto;
     border-radius: 10px;
-    height: 600px;
+    height: 700px;
     border: 1px solid var(--preto);
     background-color: var(--branco);
     padding: 25px 10px;
@@ -329,7 +329,7 @@ main::before {
 }
 
 .registrar-aluno span button i {
-    font-size: 7rem;
+    font-size: clamp(2rem, 2vw + 1rem, 4rem);
     color: var(--vermelho);
 }
 
