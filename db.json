@@ -1,0 +1,48 @@
+{
+    "administradores": [
+        {
+            "nome": "Carlos",
+            "login": "carlos_adm",
+            "senha": "senhaSegura123",
+            "foto_perfil": "carlos_foto.jpg"
+        },
+        {
+            "nome": "Secretaria",
+            "login": "secretaria_adm",
+            "senha": "senhaSegura456",
+            "foto_perfil": "secretaria_foto.jpg"
+        }
+    ],
+    "alunos": [
+        {
+            "nome": "Leonardo Porfirio",
+            "login": "leonardo_porfirio",
+            "senha": "senhaAluno123",
+            "foto_perfil": "leonardo_foto.jpg",
+            "rg": "123456789",
+            "matricula": "20230001",
+            "curso": "Desenvolvimento de Sistemas",
+            "data_nascimento": "2000-05-14"
+        },
+        {
+            "nome": "Otávio Vinícius Flauzino de Souza",
+            "login": "otavio_souza",
+            "senha": "senhaAluno456",
+            "foto_perfil": "otavio_foto.jpg",
+            "rg": "987654321",
+            "matricula": "20230002",
+            "curso": "Análise e Desenvolvimento de Sistemas",
+            "data_nascimento": "1998-11-20"
+        },
+        {
+            "nome": "Igor Teixeira de Souza",
+            "login": "igor_souza",
+            "senha": "senhaAluno789",
+            "foto_perfil": "igor_foto.jpg",
+            "rg": "1122334455",
+            "matricula": "20230003",
+            "curso": "Automação Industrial",
+            "data_nascimento": "1999-03-25"
+        }
+    ]
+}
