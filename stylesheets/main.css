@@ -103,6 +103,7 @@ a:has(.senai-logo) {
     display: flex;
     align-items: center;
 }
+
 .senai-logo {
     width: min(160px, 55vw);
 }
@@ -140,21 +141,22 @@ main::before {
 
 .login-form-container {
     width: 30rem;
-    height: 30rem;
     max-width: calc(100% - 40px);
     background-color: var(--branco);
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: space-around;
-    padding: 10px 10px;
+    padding: 15px 10px;
+    gap: 40px;
     border-radius: 10px;
     box-shadow: var(--sombra-padrao);
 }
 
-.login-form-container > form {
+.login-form-container>form {
     width: 90%;
-    height: 60%;
+    height: max-content;
+    gap: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -163,7 +165,7 @@ main::before {
 
 .login-form-container h2 {
     color: var(--vermelho);
-    font-size: 2.3rem;
+    font-size: clamp(1.5rem, 2.5vw, 2.8rem);
 }
 
 
@@ -175,7 +177,7 @@ main::before {
     width: 90%;
     padding: 10px;
     height: 3rem;
-    border: 2px solid var(--vermelho); 
+    border: 2px solid var(--vermelho);
 }
 
 .icon-input input {
@@ -186,24 +188,28 @@ main::before {
     z-index: 2;
     outline: none;
 }
+
 .icon-input:focus-within .floating-label,
-.icon-input input:valid ~ .floating-label {
+.icon-input input:valid~.floating-label {
     background-color: var(--branco);
     color: var(--vermelho);
-    transform: translateY(-25px);
+    transform: translate(-10px, -22px);
+    padding: 0px 5px;
+    scale: 0.8;
 }
 
 .icon-input i {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
 }
 
 .floating-label {
+    display: flex;
+    align-items: center;
     transition: all .3s ease;
     position: absolute;
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
     z-index: 1;
     left: 10px;
-    top: 10px; 
 }
 
 #hidden-eye-icon {
@@ -213,6 +219,8 @@ main::before {
 .login-links {
     width: 90%;
     display: flex;
+    flex-wrap: wrap;
+    line-height: 30px;
     justify-content: space-between;
 }
 
@@ -232,7 +240,7 @@ main::before {
     width: 90%;
     padding: 10px;
     background-color: var(--vermelho);
-    font-size: 1.2rem;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
     color: var(--branco);
     outline: none;
     border-radius: 8px;
@@ -243,6 +251,66 @@ main::before {
 .login-form-container button:hover {
     transform: scale(1.02);
 }
+
 .login-form-container button:active {
     transform: scale(0.98);
+}
+
+@media (max-width: 370px) {
+    .login-form-container {
+        width: 100%;
+        max-width: 100%;
+        padding: 10px;
+        gap: 20px;
+        border-radius: 8px;
+    }
+
+    .login-form-container h2 {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+    }
+
+    .login-form-container>form {
+        width: 100%;
+        gap: 20px;
+    }
+
+    .icon-input {
+        padding: 15px;
+        height: 2.7rem;
+    }
+
+    .icon-input input {
+        height: 2.5rem;
+        font-size: 1rem;
+    }
+
+
+    .floating-label {
+        font-size: 1rem;
+    }
+
+    .icon-input:focus-within .floating-label,
+    .icon-input input:valid~.floating-label {
+        background-color: var(--branco);
+        color: var(--vermelho);
+        transform: translate(-8px, -20px);
+        scale: 0.9;
+    }
+
+    .login-links {
+        flex-direction: column;
+        gap: 15px;
+        line-height: 25px;
+    }
+
+    .login-links span {
+        gap: 10px;
+        accent-color: var(--vermelho);
+        justify-content: flex-start;
+    }
+
+    .login-form-container button {
+        font-size: clamp(1rem, 3vw, 1.3rem);
+        padding: 8px;
+    }
 }

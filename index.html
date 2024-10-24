@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Senai ID</title>
 
     <!-- Stylesheets  -->
@@ -28,12 +27,12 @@
             <h2>Faça o Login</h2>
             <form class="login-form">
                 <div class="icon-input">
-                    <input id="login" required type="text">
+                    <input id="login" required autocomplete="off" type="text">
                     <i class='bx bx-user'></i>
                     <div class="floating-label">Login</div>
                 </div>
                 <div class="icon-input">
-                    <input id="password" required type="password">
+                    <input id="password" required autocomplete="off" type="password">
                     <i onclick="togglePassword()" class='bx bx-show' id="hidden-eye-icon"></i>
                     <div class="floating-label">Senha</div>
                 </div>

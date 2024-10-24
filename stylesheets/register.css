@@ -25,13 +25,15 @@
     --header-icon-size: 36px;
 }
 
-button{
+button {
     transition: all .3s ease;
 }
-button:hover{
+
+button:hover {
     scale: 1.02;
 }
-button:active{
+
+button:active {
     scale: 0.98;
 }
 
@@ -114,7 +116,6 @@ header {
 }
 
 main {
-    padding-top: 5%;
     position: relative;
     width: 100vw;
     min-height: 100vh;
@@ -217,7 +218,7 @@ main::before {
 /* Estilos responsivos */
 @media (max-width: 768px) {
 
-    nav{
+    nav {
         height: 0px;
     }
 
@@ -271,15 +272,26 @@ main::before {
 
 /* Página de login (update.html) */
 
+.register-preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 95vw;
+    scale: 0.8;
+    gap: 100px;
+}
+
+
 .registrar-aluno {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    width: 100%; /* Para ocupar 100% da largura disponível */
-    max-width: 600px; /* Mantém o tamanho máximo de 600px */
-    margin: 40 auto; /* Centraliza o container com espaço nas laterais */
+    width: 100%;
+    max-width: 450px;
+    margin: 40 auto;
     border-radius: 10px;
+    height: 600px;
     border: 1px solid var(--preto);
     background-color: var(--branco);
     padding: 25px 10px;
@@ -300,26 +312,101 @@ main::before {
     margin-bottom: 30px;
 }
 
-.registrar-aluno span{
+.registrar-aluno span {
     width: 90%;
     display: flex;
     justify-content: space-between;
     padding: 20px 10px;
 }
 
-.registrar-aluno span button{
-    width: 40%;
-    aspect-ratio: 1 /1 ;
+.registrar-aluno span button {
+    width: 30%;
+    aspect-ratio: 1 /1;
     border: 2px solid var(--vermelho);
     background-color: transparent;
     transition: all .3s ease;
+    position: relative;
 }
 
-
-
-.registrar-aluno span button i{
-    font-size: 4rem;
+.registrar-aluno span button i {
+    font-size: 7rem;
     color: var(--vermelho);
+}
+
+.registrar-aluno span button input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.carteirinha-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 450px;
+    border-radius: 10px;
+    border: 1px solid var(--preto);
+    background-color: var(--branco);
+    padding: 25px 10px;
+}
+
+.carteirinha-preview .top-inf {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 20px;
+    width: 95%;
+}
+
+.carteirinha-preview .top-inf .senai-logo {
+    height: 30px;
+}
+
+.carteirinha-preview .top-inf .pfp {
+    height: 140px;
+    aspect-ratio: 1 / 1;
+    border-radius: 100px;
+    box-shadow: var(--sombra-padrao);
+    border: 1px solid black;
+}
+
+.carteirinha-preview .top-inf h3 {
+    font-size: 1.8em;
+    text-align: center;
+}
+
+.bottom-inf {
+    width: 75%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.bottom-inf .info-collumn {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.bottom-inf .info-collumn h5 {
+    font-size: 1em;
+}
+
+.bottom-inf .info-collumn h4 {
+    font-size: 1.4em;
+}
+
+.carteirinha-preview .curso {
+    margin-top: 5rem;
+    font-size: 1.7em;
+    text-align: center;
 }
 
 .icon-input {
@@ -330,7 +417,7 @@ main::before {
     width: 90%;
     padding: 10px;
     height: 3rem;
-    border: 2px solid var(--vermelho); 
+    border: 2px solid var(--vermelho);
 }
 
 .icon-input input {
@@ -340,15 +427,19 @@ main::before {
     border: none;
     z-index: 2;
     outline: none;
+    font-size: 1.2rem;
 }
+
+
+
 .icon-input:focus-within .floating-label,
-.icon-input input:valid ~ .floating-label {
+.icon-input input:valid~.floating-label {
     background-color: var(--branco);
     color: var(--vermelho);
     transform: translateY(-25px);
 }
 
-#data_nascimento::-webkit-calendar-picker-indicator{
+#data_nascimento::-webkit-calendar-picker-indicator {
     display: none;
 }
 
@@ -356,7 +447,8 @@ main::before {
     opacity: 0;
 }
 
-#data_nascimento:focus, #data_nascimento:valid {
+#data_nascimento:focus,
+#data_nascimento:valid {
     opacity: 1;
 }
 
@@ -371,6 +463,5 @@ main::before {
     font-size: 1.2rem;
     z-index: 1;
     left: 10px;
-    top: 10px; 
+    top: 10px;
 }
-

@@ -45,34 +45,37 @@
     </header>
 
     <main>
-        <div class="registrar-aluno">
-            <h2>
+        <div class="register-preview-container">
+
+            <div class="registrar-aluno">
+                <h2>
                 Registrar aluno
             </h2>
             <form>
                 <div class="icon-input">
-                    <input id="nome" required type="text">
+                    <input id="nome" autocomplete="off"required type="text">
                     <div class="floating-label">Nome</div>
                 </div>
                 <div class="icon-input">
-                    <input id="rg" minlength="10" maxlength="10" required type="text">
+                    <input id="rg" autocomplete="off" minlength="10" maxlength="10" required type="number">
                     <div class="floating-label">Rg</div>
                 </div>
                 <div class="icon-input">
-                    <input id="data_nascimento" required type="date">
+                    <input id="data_nascimento" autocomplete="off"required type="date">
                     <div class="floating-label">Data de Nascimento</div>
                 </div>
                 <div class="icon-input">
-                    <input id="Curso" required type="text">
+                    <input id="curso" autocomplete="off"required type="text">
                     <div class="floating-label">Curso</div>
                 </div>
                 <div class="icon-input">
-                    <input id="matricula" minlength="8" maxlength="8" required type="number">
+                    <input id="matricula" minlength="8" maxlength="8" autocomplete="off"required type="number">
                     <div class="floating-label">Matricula</div>
                 </div>
             </form>
             <span>
                 <button>
+                    <input id="foto-aluno" type="file">
                     <i class='bx bx-camera' ></i>
                 </button>
                 <button>
@@ -80,6 +83,37 @@
                 </button>
             </span>
         </div>
+        <div class="carteirinha-preview">
+            <div class="top-inf">
+                <img class="senai-logo"src="img/SENAI_logo.png">
+                <h3>Escola Nami Jafet</h3>
+                <img id="carteirinha-pfp" class="pfp" src="img/placeholder.jpg">
+                <h3 id="nome_previsu">-</h3>
+            </div>
+            <div class="bottom-inf">
+                <div class="info-collumn">
+                    <div class="info-group">
+                        <h5>Rg</h5>
+                        <h4 id="rg_previsu">-</h4>
+                    </div>
+                    <div class="info-group">
+                        <h5>Nascido em</h5>
+                        <h4 id="data_nascimento_previsu">-</h4>
+                    </div>
+                </div>
+                <div class="info-collumn">
+                    <div class="info-group">
+                        <h5>Matrícula</h5>
+                        <h4 id="matricula_previsu">-</h4>
+                    </div>
+                    <div class="info-group">
+                        <img src="img/selo.svg" alt="">
+                    </div>
+                </div>
+            </div>
+            <h2 id="curso_previsu" class="curso">Curso</h2>
+        </div>
+    </div>
     </main>
     
     
@@ -91,7 +125,8 @@
             var menu = document.getElementById("mobileMenu");
             menu.classList.toggle("active");
         }
-    </script>    
+    </script>   
+    <script src="src/previsualizacao-carteirinha.js"></script> 
 </body>
 
 </html>

@@ -1,10 +1,10 @@
 // Inputs
-const nomeInput = document.getElementById('nome-input');
-const rgInput = document.getElementById('rg-input');
-const dataNascimentoInput = document.getElementById('data-nascimento-input');
-const cursoInput = document.getElementById('curso-input');
-const matriculaInput = document.getElementById('matricula-input');
-const carteirinha_pfp_input = document.getElementById('carteirinha-pfp-input');
+const nomeInput = document.getElementById('nome');
+const rgInput = document.getElementById('rg');
+const dataNascimentoInput = document.getElementById('data_nascimento');
+const cursoInput = document.getElementById('curso');
+const matriculaInput = document.getElementById('matricula');
+const carteirinha_pfp_input = document.getElementById('foto-aluno');
 
 // Elementos da pré-visualização da carteirinha
 const nomePrevisu = document.getElementById('nome_previsu');
@@ -14,28 +14,42 @@ const dataNascimentoPrevisu = document.getElementById('data_nascimento_previsu')
 const cursoPrevisu = document.getElementById('curso_previsu');
 const carteirinhaPFP = document.getElementById('carteirinha-pfp')
 
+// Função para atualizar os valores da pré-visualização
+function atualizarPrevisu() {
+    nomePrevisu.textContent = nomeInput.value || '-'; // Texto padrão se vazio
+    rgPrevisu.textContent = rgInput.value || '-';
+    matriculaPrevisu.textContent = matriculaInput.value || '-';
+    dataNascimentoPrevisu.textContent = dataNascimentoInput.value || '-';
+    cursoPrevisu.textContent = cursoInput.value || 'Curso';
+}
 
-nomeInput.addEventListener('keydown', ()=>{
-    nomePrevisu.innerHTML = nomeInput.value.trim()
-})
+// Adicionar eventos de input para atualizar a pré-visualização
+nomeInput.addEventListener('input', atualizarPrevisu);
+rgInput.addEventListener('input', atualizarPrevisu);
+dataNascimentoInput.addEventListener('input', atualizarPrevisu);
+cursoInput.addEventListener('input', atualizarPrevisu);
+matriculaInput.addEventListener('input', atualizarPrevisu);
 
-rgInput.addEventListener('keydown', ()=>{
-    rgPrevisu.innerHTML = rgInput.value.trim()
-})
+// Chamar a função uma vez para garantir que a pré-visualização comece com o valor correto
+atualizarPrevisu();
 
-matriculaInput.addEventListener('keydown', ()=>{
-    matriculaPrevisu.innerHTML = matriculaInput.value.trim()
-})
+// Carregar a foto de perfil
 
-dataNascimentoInput.addEventListener('focusout', ()=>{
-    dataNascimentoPrevisu.innerHTML = dataNascimentoInput.value
-})
+carteirinha_pfp_input.addEventListener('change', (e) => {
+    if (e.target.files.length === 0) {
+        alert('Sem arquivos')
+    } else {
+        const file = e.target.files[0];
+        const reader = new FileReader();
 
-cursoInput.addEventListener('keydown', ()=>{
-    console.log('key')
-    cursoPrevisu.innerHTML = cursoInput.value.trim()
-})
+        // Função para quando o arquivo for carregado
+        reader.onload = function (event) {
+            const imageUrl = event.target.result; // Este é o link da imagem
 
-carteirinha_pfp_input.addEventListener('change', ()=>{
-    console.log(carteirinha_pfp_input.files)
+            // Aqui você pode adicionar a imagem ao HTML, por exemplo, em um elemento <img>
+            carteirinhaPFP.src = imageUrl
+        };
+
+        reader.readAsDataURL(file);
+    }
 })
