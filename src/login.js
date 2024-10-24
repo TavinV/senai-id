@@ -12,14 +12,22 @@ login_form.addEventListener('submit', (e) => {
 
 function validar_login(login, password) {
     // Verificando se é aluno
-    let resposta = "Não encontrado"
     fetch(`${fake_db_url}/alunos`)
         .then(resposta => resposta.json()).then(dados => {
             dados.forEach(registro => {
-                if (registro.login === login && registro.senha === password) {
-                    resposta = "aluno"
+                if (registro.login === login && registro.senha === password){
+                    window.location.replace(`../pages/access/carteirinha.html?id=${registro.id}`);
+                    return
                 }
             });
         })
-    alert(resposta)
+        fetch(`${fake_db_url}/administradores`)
+        .then(resposta => resposta.json()).then(dados => {
+            dados.forEach(registro => {
+                if (registro.login === login && registro.senha === password){
+                    window.location.replace(`../pages/register/register.html?id=${registro.id}`);
+                    return
+                }
+            });
+        })
 }

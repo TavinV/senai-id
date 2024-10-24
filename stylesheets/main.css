@@ -128,7 +128,7 @@ main::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url("backgrounds/senai-bg.jpg");
+    background-image: url("../pages/backgrounds/senai-bg.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -147,7 +147,7 @@ main::before {
     align-items: center;
     flex-direction: column;
     justify-content: space-around;
-    padding: 15px 10px;
+    padding: 70px 10px;
     gap: 40px;
     border-radius: 10px;
     box-shadow: var(--sombra-padrao);
@@ -193,7 +193,7 @@ main::before {
 .icon-input input:valid~.floating-label {
     background-color: var(--branco);
     color: var(--vermelho);
-    transform: translate(-10px, -22px);
+    transform: translate(-10px, -30px);
     padding: 0px 5px;
     scale: 0.8;
 }

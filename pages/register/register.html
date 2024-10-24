@@ -30,7 +30,7 @@
                     <div class="notifications-header"></div>
                 </div>
                 <div class="profile-div">
-                    <p class="profile-text">Olá, Fulano</p>
+                    <p class="profile-text"></p>
                     <div class="profile-img"></div>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                     <div class="floating-label">Nome</div>
                 </div>
                 <div class="icon-input">
-                    <input id="rg" autocomplete="off" minlength="10" maxlength="10" required type="number">
+                    <input id="rg" autocomplete="off" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==10) return false;" required type="number">
                     <div class="floating-label">Rg</div>
                 </div>
                 <div class="icon-input">
@@ -69,7 +69,7 @@
                     <div class="floating-label">Curso</div>
                 </div>
                 <div class="icon-input">
-                    <input id="matricula" minlength="8" maxlength="8" autocomplete="off"required type="number">
+                    <input id="matricula"pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==8) return false;" autocomplete="off"required type="number">
                     <div class="floating-label">Matricula</div>
                 </div>
             </form>
@@ -126,7 +126,8 @@
             menu.classList.toggle("active");
         }
     </script>   
-    <script src="../../src/previsualizacao-carteirinha.js"></script> 
+    <script src="previsualizacao-carteirinha.js"></script> 
+    <script src="load_info.js"></script> 
 </body>
 
 </html>
