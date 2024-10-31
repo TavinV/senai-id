@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senai ID</title>
+
+    <!-- Stylesheets  -->
+    <link rel="stylesheet" href="stylesheets/main.css">
+    <link rel="shortcut icon" href="./img/senai_logo_quadrada.png" type="image/x-icon">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <header>
+        <div class="header-red-container">
+            <a class="header-link" href="">Suporte</a>
+        </div>
+            <div class="header-white-container">
+                <button class="return-button"><i class='bx bx-left-arrow-alt'></i></button>
+                <a href=""><img class="senai-logo" src="img/SENAI_logo.png"></a>
+            </div>
+    </header>
+
+    <main>
+        <div class="login-form-container">
+            <h2>Faça o Login</h2>
+            <form id="login-form" class="login-form">
+                <div class="icon-input">
+                    <input id="login" required autocomplete="off" type="text">
+                    <i class='bx bx-user'></i>
+                    <div class="floating-label">Login</div>
+                </div>
+                <div class="icon-input">
+                    <input id="senha" required autocomplete="off" type="password">
+                    <i onclick="togglePassword()" class='bx bx-show' id="hidden-eye-icon"></i>
+                    <div class="floating-label">Senha</div>
+                </div>
+                <h3 id="mensagem-erro"></h3>
+                <div class="login-links">
+                    <a href="">Esqueci minha senha</a>
+                    <span>
+                        <label for="remember-me">Lembrar de mim</label>
+                        <input type="checkbox" id="remember-me">
+                    </span>
+                </div>
+                <button action="submit">Entrar</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // Função para abrir/fechar o menu no mobile
+        function togglePassword() {
+            const passwordInput = document.getElementById('senha');
+            const icon = document.getElementById('hidden-eye-icon');
+        
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text"; 
+                icon.classList.remove('bx-show');
+                icon.classList.add('bx-hide');
+            } else {
+                passwordInput.type = "password"; 
+                icon.classList.remove('bx-hide'); 
+                icon.classList.add('bx-show');
+            }
+            
+        }
+    </script>    
+    <script src="src/login.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,321 @@
+/* CONTEÚDOS GENÉRICOS */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+    text-decoration: none;
+    font-weight: 550;
+}
+
+:root {
+    /* Cores baseadas no documento de identidade visual do Senai. */
+    --vermelho: #e30613;
+    --branco: #ffff;
+    --preto: #000000;
+    --cinza: #878787;
+
+    --sombra-padrao: rgba(0, 0, 0, 0.16) 0px 1px 6px;
+
+    /* Tamanho dos Botões de ícones no header */
+
+    --header-icon-size: 36px;
+}
+
+body {
+    overflow-x: hidden;
+    width: 100vw;
+}
+
+header {
+    width: 100vw;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+}
+
+.header-red-container {
+    position: relative;
+    background-color: var(--vermelho);
+    z-index: 10;
+    width: 100vw;
+    display: flex;
+    height: 35px;
+    padding-left: 1%;
+    padding-right: 1%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-red-container>a {
+    text-decoration: none;
+    font-weight: 550;
+    color: var(--branco);
+}
+
+.header-red-container>button,
+.header-white-container>button {
+    width: var(--header-icon-size);
+    height: var(--header-icon-size);
+    font-size: var(--header-icon-size);
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+}
+
+.hamburger-menu {
+    display: flex;
+    color: var(--branco);
+    display: none;
+    align-items: center;
+    width: var(--header-icon-size);
+    height: var(--header-icon-size);
+    font-size: var(--header-icon-size);
+    text-align: center;
+}
+
+.header-white-container {
+    position: relative;
+    background-color: var(--branco);
+    box-shadow: var(--sombra-padrao);
+    padding: 10px 0px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 10;
+
+}
+
+.return-button {
+    position: absolute;
+    display: none;
+    left: calc(1% - 5px);
+}
+
+a:has(.senai-logo) {
+    height: min-content;
+    display: flex;
+    align-items: center;
+}
+
+.senai-logo {
+    width: min(160px, 55vw);
+}
+
+main {
+    padding-top: 50px;
+    position: relative;
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: hidden;
+}
+
+/* Inserindo a imagem de fundo */
+main::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../pages/backgrounds/senai-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    filter: blur(5px);
+    opacity: 0.2;
+    z-index: -1;
+}
+
+/* Página de login (index.html) */
+
+.login-form-container {
+    width: 30rem;
+    max-width: calc(100% - 40px);
+    background-color: var(--branco);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 70px 10px;
+    gap: 40px;
+    border-radius: 10px;
+    box-shadow: var(--sombra-padrao);
+}
+
+.login-form-container>form {
+    width: 90%;
+    height: max-content;
+    gap: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.login-form-container form #mensagem-erro {
+    color: var(--vermelho);
+    font-weight: 700;
+}
+
+.login-form-container h2 {
+    color: var(--vermelho);
+    font-size: clamp(1.5rem, 2.5vw, 2.8rem);
+}
+
+
+.icon-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    padding: 10px;
+    height: 3rem;
+    border: 2px solid var(--vermelho);
+}
+
+.icon-input input {
+    width: 100%;
+    height: 2.5rem;
+    background-color: transparent;
+    border: none;
+    z-index: 2;
+    outline: none;
+}
+
+.icon-input:focus-within .floating-label,
+.icon-input input:valid~.floating-label {
+    background-color: var(--branco);
+    color: var(--vermelho);
+    transform: translate(-10px, -22px);
+    padding: 0px 5px;
+    scale: 0.8;
+}
+
+.icon-input i {
+    font-size: 1.6rem;
+}
+
+.floating-label {
+    display: flex;
+    align-items: center;
+    transition: all .3s ease;
+    position: absolute;
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    z-index: 1;
+    left: 10px;
+}
+
+#hidden-eye-icon {
+    cursor: pointer;
+}
+
+.login-links {
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    line-height: 30px;
+    justify-content: space-between;
+}
+
+.login-links a {
+    color: var(--vermelho);
+    text-decoration: underline;
+}
+
+.login-links span {
+    display: flex;
+    gap: 10px;
+    accent-color: var(--vermelho);
+    justify-content: space-around;
+}
+
+.login-form-container button {
+    width: 90%;
+    padding: 10px;
+    background-color: var(--vermelho);
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    color: var(--branco);
+    outline: none;
+    border-radius: 8px;
+    border: none;
+    transition: all .2s ease;
+}
+
+.login-form-container button:hover {
+    transform: scale(1.02);
+}
+
+.login-form-container button:active {
+    transform: scale(0.98);
+}
+
+@media (max-width: 370px) {
+    .login-form-container {
+        width: 100%;
+        max-width: 100%;
+        padding: 10px;
+        gap: 20px;
+        border-radius: 8px;
+    }
+
+    .login-form-container h2 {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+    }
+
+    .login-form-container>form {
+        width: 100%;
+        gap: 20px;
+    }
+
+    .icon-input {
+        padding: 15px;
+        height: 2.7rem;
+    }
+
+    .icon-input input {
+        height: 2.5rem;
+        font-size: 1rem;
+    }
+
+
+    .floating-label {
+        font-size: 1rem;
+    }
+
+    .icon-input:focus-within .floating-label,
+    .icon-input input:valid~.floating-label {
+        background-color: var(--branco);
+        color: var(--vermelho);
+        transform: translate(-8px, -20px);
+        scale: 0.9;
+    }
+
+    .login-links {
+        flex-direction: column;
+        gap: 15px;
+        line-height: 25px;
+    }
+
+    .login-links span {
+        gap: 10px;
+        accent-color: var(--vermelho);
+        justify-content: flex-start;
+    }
+
+    .login-form-container button {
+        font-size: clamp(1rem, 3vw, 1.3rem);
+        padding: 8px;
+    }
+}
