@@ -191,6 +191,7 @@ main::before {
     background-color: transparent;
     border: none;
     z-index: 2;
+    font-size: 1.2em;
     outline: none;
 }
 
@@ -198,7 +199,7 @@ main::before {
 .icon-input input:valid~.floating-label {
     background-color: var(--branco);
     color: var(--vermelho);
-    transform: translate(-10px, -22px);
+    transform: translate(-10px, -130%);
     padding: 0px 5px;
     scale: 0.8;
 }

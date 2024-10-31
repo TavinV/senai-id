@@ -313,7 +313,7 @@ main::before {
 }
 
 .registrar-aluno span {
-    width: 90%;
+    width: 95%;
     display: flex;
     justify-content: space-between;
     padding: 20px 10px;
@@ -426,17 +426,17 @@ main::before {
     background-color: transparent;
     border: none;
     z-index: 2;
+    font-size: 1.2em;
     outline: none;
-    font-size: 1.2rem;
 }
-
-
 
 .icon-input:focus-within .floating-label,
 .icon-input input:valid~.floating-label {
     background-color: var(--branco);
     color: var(--vermelho);
-    transform: translateY(-25px);
+    transform: translate(-10px, -130%);
+    padding: 0px 5px;
+    scale: 0.8;
 }
 
 #data_nascimento::-webkit-calendar-picker-indicator {
