@@ -7,44 +7,51 @@ const curso = document.getElementById('curso');
 const matricula = document.getElementById('matricula');
 const carteirinha_pfp = document.getElementById('carteirinha-pfp');
 
+async function carregarFoto(id) {
+    try {
+        const resposta = await axios.get(`http://localhost:3000/carteirinha/userfotoperfil/${id}`, {
+            responseType: 'blob'  // Define que a resposta será um blob (arquivo binário)
+        });
+
+        const urlImagem = URL.createObjectURL(resposta.data);
+
+        document.getElementById('carteirinha-pfp').src = urlImagem;
+
+    } catch (erro) {
+        if (erro.response && erro.response.status === 404) {
+            document.getElementById('carteirinha-pfp').src = '../../img/404_image.jpg';
+        } else {
+            console.error("Erro ao carregar a foto:", erro);
+        }
+    }
+}
+
 
 async function carregarCarteirinha() {
-    try {
-        const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get('id');
-        console.log(id);
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
 
-        console.log(document.cookie)
 
-        // Fetch para obter informações do usuário
-        const resposta = await fetch(`http://localhost:3000/carteirinha/users/1`, { credentials: 'include' });
-        const teste_cookies = await fetch(`http://localhost:3000/test-cookie`, { credentials: "include" })
-        if (!resposta.ok) {
-            throw new Error("Erro ao buscar informações do usuário.");
-        }
-        const dados = await resposta.json();
-        const user = dados.user;
+    axios.get(`http://localhost:3000/carteirinha/users/${id}`, { withCredentials: true })
+        .then(function (resposta) {
+            const { curso, data_nascimento, matricula, nome, rg } = resposta.data.user
+            document.getElementById("nome").innerHTML = nome;
 
-        nome.innerHTML = user.nome;
-        rg.innerHTML = user.rg;
-        dataNascimento.innerHTML = user.data_nascimento;
-        curso.innerHTML = user.curso;
-        matricula.innerHTML = user.matricula;
+            document.getElementById("rg").innerHTML = rg;
+            document.getElementById("data_nascimento").innerHTML = data_nascimento;
+            document.getElementById("matricula").innerHTML = matricula;
+            document.getElementById("curso").innerHTML = curso;
 
-        // Fetch para obter a imagem de perfil como Blob
-        const imagemResposta = await fetch(`http://localhost:3000/carteirinha/users/${id}/profile-image`);
-        const imagemBlob = await imagemResposta.blob();
+            // Buscando a foto de perfil
 
-        // Converte o Blob para uma URL usando FileReader
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            carteirinha_pfp.innerHTML = `<img src="${e.target.result}" alt="Imagem de perfil" />`;
-        };
-        reader.readAsDataURL(imagemBlob);
+            carregarFoto(id)
 
-    } catch (error) {
-        console.log(error);
-    }
+        }).catch((erro) => {
+            if (erro.status === 404) {
+                window.location.href = '../error/notfound.html'
+            }
+        })
+
 }
 
 
