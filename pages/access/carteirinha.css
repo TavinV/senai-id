@@ -57,15 +57,29 @@ header {
     width: 100vw;
     display: flex;
     height: 35px;
-    padding-left: 1%;
-    padding-right: 1%;
+    padding: 0 3%;
     justify-content: space-between;
     align-items: center;
 }
 
-.header-red-container>a {
+.header-red-container a {
     text-decoration: none;
     font-weight: 550;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    color: var(--branco);
+}
+
+.header-red-container a>button {
+    background: transparent;
+    border: none;
+    outline: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1em;
     color: var(--branco);
 }
 

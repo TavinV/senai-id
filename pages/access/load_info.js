@@ -7,7 +7,12 @@ const curso = document.getElementById('curso');
 const matricula = document.getElementById('matricula');
 const carteirinha_pfp = document.getElementById('carteirinha-pfp');
 
-async function carregarFoto(id, token) {
+function encerrarSessao() {
+    localStorage.removeItem('senai-id-token')
+    window.location.reload()
+}
+
+async function carregarFoto(token) {
     try {
         const resposta = await axios.get(`http://localhost:3000/carteirinha/userfotoperfil/`, {
             responseType: 'blob',  // Define que a resposta será um blob (arquivo binário),
@@ -19,17 +24,19 @@ async function carregarFoto(id, token) {
         document.getElementById('carteirinha-pfp').src = urlImagem;
 
     } catch (erro) {
-        if (erro.response && erro.response.status === 404) {
-            document.getElementById('carteirinha-pfp').src = '../../img/404_image.jpg';
-        } else {
-            console.error("Erro ao carregar a foto:", erro);
-        }
+        document.getElementById('carteirinha-pfp').src = '../../img/404_image.jpg';
+
+        console.error("Erro ao carregar a foto:", erro);
     }
 }
 
 
 async function carregarCarteirinha() {
-    const token = localStorage.getItem('senai-id-token') || ''
+    const token = localStorage.getItem('senai-id-token')
+    if (!token) {
+        window.location.href = '../error/notfound.html'
+    }
+
     axios.get(`http://localhost:3000/carteirinha/users/`, { headers: { 'Authorization': `Bearer ${token}` } })
         .then(function (resposta) {
             console.log(resposta)
@@ -42,7 +49,7 @@ async function carregarCarteirinha() {
             document.getElementById("curso").innerHTML = curso;
 
             // Buscando a foto de perfil
-            carregarFoto(id, token)
+            carregarFoto(token)
 
         }).catch((erro) => {
             if (erro.status === 404) {
