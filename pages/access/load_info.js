@@ -9,7 +9,7 @@ const carteirinha_pfp = document.getElementById('carteirinha-pfp');
 
 function encerrarSessao() {
     localStorage.removeItem('senai-id-token')
-    window.location.reload()
+    window.location.href = '../../index.html'
 }
 
 async function carregarFoto(token) {
@@ -34,7 +34,7 @@ async function carregarFoto(token) {
 async function carregarCarteirinha() {
     const token = localStorage.getItem('senai-id-token')
     if (!token) {
-        window.location.href = '../error/notfound.html'
+        window.location.href = '../../index.html'
     }
 
     axios.get(`http://localhost:3000/carteirinha/users/`, { headers: { 'Authorization': `Bearer ${token}` } })
