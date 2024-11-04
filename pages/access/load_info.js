@@ -7,10 +7,11 @@ const curso = document.getElementById('curso');
 const matricula = document.getElementById('matricula');
 const carteirinha_pfp = document.getElementById('carteirinha-pfp');
 
-async function carregarFoto(id) {
+async function carregarFoto(id, token) {
     try {
-        const resposta = await axios.get(`http://localhost:3000/carteirinha/userfotoperfil/${id}`, {
-            responseType: 'blob'  // Define que a resposta será um blob (arquivo binário)
+        const resposta = await axios.get(`http://localhost:3000/carteirinha/userfotoperfil/`, {
+            responseType: 'blob',  // Define que a resposta será um blob (arquivo binário),
+            headers: { 'Authorization': `Bearer ${token}` }
         });
 
         const urlImagem = URL.createObjectURL(resposta.data);
@@ -28,13 +29,11 @@ async function carregarFoto(id) {
 
 
 async function carregarCarteirinha() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
-
-
-    axios.get(`http://localhost:3000/carteirinha/users/${id}`, { withCredentials: true })
+    const token = localStorage.getItem('senai-id-token') || ''
+    axios.get(`http://localhost:3000/carteirinha/users/`, { headers: { 'Authorization': `Bearer ${token}` } })
         .then(function (resposta) {
-            const { curso, data_nascimento, matricula, nome, rg } = resposta.data.user
+            console.log(resposta)
+            const { id, curso, data_nascimento, matricula, nome, rg } = resposta.data.user
             document.getElementById("nome").innerHTML = nome;
 
             document.getElementById("rg").innerHTML = rg;
@@ -43,11 +42,13 @@ async function carregarCarteirinha() {
             document.getElementById("curso").innerHTML = curso;
 
             // Buscando a foto de perfil
-
-            carregarFoto(id)
+            carregarFoto(id, token)
 
         }).catch((erro) => {
             if (erro.status === 404) {
+                window.location.href = '../error/notfound.html'
+            }
+            if (erro.status === 400) {
                 window.location.href = '../error/notfound.html'
             }
         })

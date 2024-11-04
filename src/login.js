@@ -9,10 +9,10 @@ form.addEventListener('submit', (e) => {
 
     axios.post(api_url, { login: login, senha: senha }, { withCredentials: true })
         .then(function (resposta) {
-            console.log(resposta.status)
             const url = resposta.data.url
 
             if (resposta.status == 200 && url) {
+                localStorage.setItem('senai-id-token', resposta.data.token);
                 window.location.href = url
             }
         })
