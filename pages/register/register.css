@@ -57,8 +57,7 @@ header {
     width: 100vw;
     display: flex;
     height: 35px;
-    padding-left: 1%;
-    padding-right: 1%;
+    padding: 0 3%;
     justify-content: space-between;
     align-items: center;
 }
@@ -66,6 +65,17 @@ header {
 .header-red-container>a {
     text-decoration: none;
     font-weight: 550;
+    color: var(--branco);
+}
+
+.header-red-container a>button {
+    background: transparent;
+    border: none;
+    outline: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1em;
     color: var(--branco);
 }
 
@@ -217,7 +227,9 @@ main::before {
 
 /* Estilos responsivos */
 @media (max-width: 768px) {
-
+    #encerrar-sessao {
+        display: none;
+    }
     nav {
         height: 0px;
     }
@@ -254,6 +266,21 @@ main::before {
         padding: 15px;
         border-bottom: 1px solid var(--cinza);
         text-align: center;
+        color: var(--preto);
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+    .mobile-menu a button{
+        background: transparent;
+        text-align: center;
+        border: none;
+        outline: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1em;
         color: var(--preto);
     }
 

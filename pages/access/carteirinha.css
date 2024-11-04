@@ -80,6 +80,7 @@ header {
     justify-content: space-between;
     align-items: center;
     font-size: 1em;
+    width: 100%;
     color: var(--branco);
 }
 

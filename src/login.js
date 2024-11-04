@@ -3,8 +3,28 @@ const form = document.querySelector('form');
 
 function encerrarSessao() {
     localStorage.removeItem('senai-id-token')
-    window.location.reload()
 }
+
+async function verificar_acesso(token){
+    if (!token) {
+        return
+    }
+
+    axios.get(`http://localhost:3000/inicio`, { headers: { 'Authorization': `Bearer ${token}` } })
+    .then(function(resposta){
+        console.log(resposta)
+        const url = resposta.data.url
+
+        if (resposta.status == 200 && url) {
+            localStorage.setItem('senai-id-token', resposta.data.token);
+            window.location.href = url
+        }
+    }).catch((erro) => {
+        console.log(erro)
+    })
+} 
+
+verificar_acesso(localStorage.getItem('senai-id-token'))
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
