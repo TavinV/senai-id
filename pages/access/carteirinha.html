@@ -19,13 +19,14 @@
             <a class="header-link" href="">Suporte</a>
             <a id="encerrar-sessao"><button onclick="encerrarSessao()">Encerrar sessão</button></a>
         </div>
-            <div class="header-white-container">
-                <button class="return-button"><i class='bx bx-left-arrow-alt'></i></button>
-                <a href=""><img class="senai-logo" src="../../img/SENAI_logo.png"></a>
-            </div>
+        <div class="header-white-container">
+            <button class="return-button"><i class='bx bx-left-arrow-alt'></i></button>
+            <a href=""><img class="senai-logo" src="../../img/SENAI_logo.png"></a>
+        </div>
     </header>
     
     <main>
+        <div class="escurecer-tela"></div>
         <div class="carteirinha">
             <div class="top-inf">
                 <img class="senai-logo"src="../../img/SENAI_logo.png">
@@ -62,7 +63,7 @@
             <button class="acess-id" type="submit" onclick="openPopup()">Acessar</button>
             
             <div class="popup" id="popup">
-                <div class="close-acess" onclick="closePopup()">
+                <div class="close-access" onclick="closePopup()">
                     <i class='bx bx-x'></i>
                 </div>
 
@@ -83,12 +84,15 @@
 
         // Funções para a abertura do acesso em forma de Popup
         let popup = document.getElementById('popup');
+        let escurecer_tela = document.querySelector('.escurecer-tela');
 
         function openPopup() {
             popup.classList.add("open-popup");
+            escurecer_tela.classList.add("active")
         }
         function closePopup() {
             popup.classList.remove("open-popup");
+            escurecer_tela.classList.remove("active")
         }
         
     </script>   

@@ -465,7 +465,8 @@ main::before {
 .popup {
     max-width: 100vw;
     width: 100%;
-    height: 31em;
+    /* height: 31em; */
+    aspect-ratio: 1/1;
     background-color: var(--branco);
     border-radius: 15px;
     position: absolute;
@@ -479,6 +480,7 @@ main::before {
     visibility: hidden;
     transition: transform 0.4s, top 0.4s;
     scale: 0.7;
+    z-index: 8;
 }
 
 .open-popup {
@@ -497,7 +499,21 @@ main::before {
 }
 
 .popup i {
-    margin-top: 5px;
-    margin-left: 8em;
     font-size: 50px;
+}
+
+.close-access {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.escurecer-tela.active {
+    z-index: 7;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.342);
 }
