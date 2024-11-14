@@ -462,6 +462,7 @@ main::before {
 
 }
 
+
 .popup {
     max-width: 100vw;
     width: 100%;
@@ -481,13 +482,14 @@ main::before {
     transition: transform 0.4s, top 0.4s;
     scale: 0.7;
     z-index: 8;
+    padding: 0 0 5rem 0;
 }
 
 .open-popup {
     visibility: visible;
     top: -25em;
     transform: translate(-50%, -50%) scale(1);
-
+    
 }
 
 .popup img {
@@ -499,15 +501,22 @@ main::before {
 }
 
 .popup i {
-    font-size: 50px;
+    background-color: #cccccc;
+    font-size: 2.5em;
 }
 
 .close-access {
+    padding: 35px 35px;
     height: 50px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: flex-start;
+}
+
+.close-access i {
+    border: 2px solid rgb(148, 148, 148);
+    border-radius: 100%;
 }
 
 .escurecer-tela.active {
