@@ -36,7 +36,6 @@ async function carregarCarteirinha() {
     if (!token) {
         window.location.href = '../../index.html'
     }
-
     axios.get(`http://localhost:3000/carteirinha/users/`, { headers: { 'Authorization': `Bearer ${token}` } })
         .then(function (resposta) {
             console.log(resposta)
@@ -57,6 +56,9 @@ async function carregarCarteirinha() {
             }
             if (erro.status === 400) {
                 window.location.href = '../error/notfound.html'
+            }
+            if (erro.status === 403) {
+                window.location.href = '../error/forbidden.html';
             }
         })
 

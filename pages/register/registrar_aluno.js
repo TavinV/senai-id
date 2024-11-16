@@ -8,26 +8,32 @@ const carteirinha_pfp = document.getElementById('foto-aluno');
 
 
 async function registerUser(formData) {
+    const token = localStorage.getItem('senai-id-token')
     console.log("register user")
-    try {
-        const resposta = await fetch(`http://localhost:3000/admSenaiID/registrar`, {
-            method: 'POST',
-            body: formData
-        });
 
-        if (!resposta.ok) {
-            throw new Error(`Erro na requisição: ${resposta.status}`);
-        }
+    try {
+        const resposta = await axios.post('http://localhost:3000/admSenaiID/registrar', formData, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data' // Necessário para enviar arquivos
+            }
+        });
+        console.log('Usuário registrado com sucesso:', resposta.data);
     } catch (error) {
-        console.error('Erro:', error);
+        if (error.response && error.response.status === 403) {
+            window.location.href = '../error/forbidden.html';
+        } else {
+            console.error('Erro ao registrar usuário:', error);
+        }
     }
 }
 
 
 cadastroForm.addEventListener('submit', (e) => {
     let foto = carteirinha_pfp.files[carteirinha_pfp.files.length - 1]
+    e.preventDefault()
     const formData = new FormData(); // Cria um novo FormData
-    formData.append('adm', false);
+    formData.append('cargo', 'aluno');
     formData.append('nome', nome.value.trim());
     formData.append('rg', rg.value);
     formData.append('data_nascimento', dataNascimento.value);
