@@ -1,4 +1,4 @@
-// const fake_db_url = 'http://localhost:3000'
+const api_url = 'http://localhost:3000';
 
 const nome = document.getElementById('nome');
 const rg = document.getElementById('rg');
@@ -30,13 +30,13 @@ async function carregarFoto(token) {
     }
 }
 
-
 async function carregarCarteirinha() {
     const token = localStorage.getItem('senai-id-token')
     if (!token) {
         window.location.href = '../../index.html'
     }
-    axios.get(`http://localhost:3000/carteirinha/users/`, { headers: { 'Authorization': `Bearer ${token}` } })
+
+    axios.get(`${api_url}/carteirinha/users/`, { headers: { 'Authorization': `Bearer ${token}` } })
         .then(function (resposta) {
             console.log(resposta)
             const { id, curso, data_nascimento, matricula, nome, rg } = resposta.data.user
@@ -64,8 +64,35 @@ async function carregarCarteirinha() {
 
 }
 
+function reroute() {
+    const paginasDosCargos = {
+        aluno: '../access/carteirinha.html',
+        funcionario: '../employees-access/carteirinha.html',
+        secretaria: '../register/register.html',
+        erro_servidor: '../error/servererror.html'
+    }
+
+    const token = localStorage.getItem('senai-id-token')
+    axios.get(`${api_url}/rerouter`, { headers: { 'Authorization': `Bearer ${token}` } })
+        .then(function (resposta) {
+            const cargo = resposta.data.cargo
+            const url = paginasDosCargos[cargo]
+
+            if (cargo != "aluno") {
+                window.location.href = url
+            }
+        }).catch((erro) => {
+            // Usuário não está conectado, mantemos ele na página de login.
+            if (erro.status != 500) {
+                return
+            } else {
+                window.location.href = paginasDosCargos.erro_servidor
+            }
+        })
+}
 
 window.addEventListener('load', function () {
+    reroute()
     carregarCarteirinha();
 });
 

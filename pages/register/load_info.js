@@ -20,7 +20,6 @@ async function carregarPainelAdm() {
             // Carregando as informações do usuário Secretaria
             profile_text.innerHTML = nome
 
-
         }).catch((erro) => {
             if (erro.status === 400) {
                 window.location.href = '../error/notfound.html'

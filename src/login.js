@@ -1,46 +1,54 @@
-const api_url = 'http://localhost:3000/login';
+const api_url = 'http://localhost:3000';
 const form = document.querySelector('form');
 
 function encerrarSessao() {
     localStorage.removeItem('senai-id-token')
 }
 
-async function verificar_acesso(token){
-    if (!token) {
-        return
-    }
 
-    axios.get(`http://localhost:3000/inicio`, { headers: { 'Authorization': `Bearer ${token}` } })
-    .then(function(resposta){
-        console.log(resposta)
-        const url = resposta.data.url
+const paginasDosCargos = {
+    aluno: 'pages/access/carteirinha.html',
+    funcionario: 'pages/employees-access/carteirinha.html',
+    secretaria: 'pages/register/register.html',
+    erro_servidor: 'pages/error/servererror.html'
+}
 
-        if (resposta.status == 200 && url) {
-            localStorage.setItem('senai-id-token', resposta.data.token);
+function reroute() {
+
+    const token = localStorage.getItem('senai-id-token')
+    axios.get(`${api_url}/rerouter`, { headers: { 'Authorization': `Bearer ${token}` } })
+        .then(function (resposta) {
+            const cargo = resposta.data.cargo
+            const url = paginasDosCargos[cargo]
             window.location.href = url
-        }
-    }).catch((erro) => {
-        console.log(erro)
-    })
-} 
-
-verificar_acesso(localStorage.getItem('senai-id-token'))
+        }).catch((erro) => {
+            // Usuário não está conectado, mantemos ele na página de login.
+            if (erro.status != 500) {
+                return
+            } else {
+                window.location.href = paginasDosCargos.erro_servidor
+            }
+        })
+}
+reroute()
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     const login = document.getElementById('login').value.trim();
     const senha = document.getElementById('senha').value.trim();
 
-    axios.post(api_url, { login: login, senha: senha })
+    axios.post(`${api_url}/login`, { login: login, senha: senha })
         .then(function (resposta) {
-            const url = resposta.data.url
+            const cargo = resposta.data.cargo
+            const urlRedirect = paginasDosCargos[cargo];
 
-            if (resposta.status == 200 && url) {
+            if (resposta.status == 200 && urlRedirect) {
                 localStorage.setItem('senai-id-token', resposta.data.token);
-                window.location.href = url
+                window.location.href = urlRedirect
             }
         })
         .catch(function (erro) {
+            console.log(erro)
             document.getElementById('mensagem-erro').innerHTML = "Usuário e(ou) senha incorretos!"
         })
 

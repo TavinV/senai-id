@@ -1,4 +1,5 @@
 // const fake_db_url = 'http://localhost:3000'
+const api_url = `http://localhost:3000`
 
 const nome = document.getElementById('nome');
 const rg = document.getElementById('rg');
@@ -31,39 +32,35 @@ async function carregarFoto(token) {
 }
 
 
-async function carregarCarteirinha() {
-    const token = localStorage.getItem('senai-id-token')
-    if (!token) {
-        window.location.href = '../../index.html'
+function reroute() {
+    const paginasDosCargos = {
+        aluno: '../access/carteirinha.html',
+        funcionario: '../employees-access/carteirinha.html',
+        secretaria: '../register/register.html',
+        erro_servidor: '../error/servererror.html'
     }
 
-    axios.get(`http://localhost:3000/carteirinha/users/`, { headers: { 'Authorization': `Bearer ${token}` } })
+    const token = localStorage.getItem('senai-id-token')
+    axios.get(`${api_url}/rerouter`, { headers: { 'Authorization': `Bearer ${token}` } })
         .then(function (resposta) {
-            console.log(resposta)
-            const { id, curso, data_nascimento, matricula, nome, rg } = resposta.data.user
-            document.getElementById("nome").innerHTML = nome;
+            const cargo = resposta.data.cargo
+            const url = paginasDosCargos[cargo]
 
-            document.getElementById("rg").innerHTML = rg;
-            document.getElementById("data_nascimento").innerHTML = data_nascimento;
-            document.getElementById("matricula").innerHTML = matricula;
-            document.getElementById("curso").innerHTML = curso;
-
-            // Buscando a foto de perfil
-            carregarFoto(token)
-
-        }).catch((erro) => {
-            if (erro.status === 404) {
-                window.location.href = '../error/notfound.html'
+            if (cargo != "funcionario") {
+                window.location.href = url
             }
-            if (erro.status === 400) {
-                window.location.href = '../error/notfound.html'
+        }).catch((erro) => {
+            // Usuário não está conectado, mantemos ele na página de login.
+            if (erro.status != 500) {
+                return
+            } else {
+                window.location.href = paginasDosCargos.erro_servidor
             }
         })
-
 }
 
 
 window.addEventListener('load', function () {
-    carregarCarteirinha();
+    reroute()
 });
 
