@@ -13,7 +13,7 @@
 
 :root {
     /* Cores baseadas no documento de identidade visual do Senai. */
-    --vermelho: #e30613;
+    --destaque: #e30613;
     --branco: #ffff;
     --preto: #000000;
     --cinza: #878787;
@@ -40,7 +40,7 @@ header {
 
 .header-red-container {
     position: relative;
-    background-color: var(--vermelho);
+    background-color: var(--destaque);
     z-index: 10;
     width: 100vw;
     display: flex;
@@ -152,13 +152,16 @@ main::before {
 }
 
 error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 2.4em;
-    color: var(--vermelho);
+    color: var(--destaque);
 }
 
 .error-container a {
     color: var(--branco);
-    background-color: var(--vermelho);
+    background-color: var(--destaque);
     padding: 3%;
     font-size: 1.3em;
     border-radius: 4px;

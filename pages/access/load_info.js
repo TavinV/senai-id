@@ -14,7 +14,7 @@ function encerrarSessao() {
 
 async function carregarFoto(token) {
     try {
-        const resposta = await axios.get(`http://localhost:3000/carteirinha/userfotoperfil/`, {
+        const resposta = await axios.get(`${api_url}/carteirinha/users/fotoperfil/`, {
             responseType: 'blob',  // Define que a resposta será um blob (arquivo binário),
             headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -25,6 +25,23 @@ async function carregarFoto(token) {
 
     } catch (erro) {
         document.getElementById('carteirinha-pfp').src = '../../img/404_image.jpg';
+
+        console.error("Erro ao carregar a foto:", erro);
+    }
+}
+
+async function carregarQRCode(token) {
+    try {
+        const resposta = await axios.get(`${api_url}/carteirinha/users/access`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        const urlImagem = resposta.data.url
+
+        document.getElementById('access-qr').src = urlImagem;
+
+    } catch (erro) {
+        document.getElementById('access-qr').src = '../../img/404_image.jpg';
 
         console.error("Erro ao carregar a foto:", erro);
     }
@@ -49,6 +66,7 @@ async function carregarCarteirinha() {
 
             // Buscando a foto de perfil
             carregarFoto(token)
+            carregarQRCode(token)
 
         }).catch((erro) => {
             if (erro.status === 404) {

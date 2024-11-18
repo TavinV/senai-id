@@ -13,7 +13,7 @@
 
 :root {
     /* Cores baseadas no documento de identidade visual do Senai. */
-    --vermelho: #e30613;
+    --destaque: #e30613;
     --branco: #ffff;
     --preto: #000000;
     --cinza: #878787;
@@ -52,7 +52,7 @@ header {
 
 .header-red-container {
     position: relative;
-    background-color: var(--vermelho);
+    background-color: var(--destaque);
     z-index: 10;
     width: 100vw;
     display: flex;
@@ -162,7 +162,7 @@ main::before {
 .senai-id {
     position: relative;
     display: inline-block;
-    color: var(--vermelho);
+    color: var(--destaque);
     text-decoration: none;
 }
 
@@ -174,7 +174,7 @@ main::before {
     bottom: -5px;
     width: 100%;
     height: 2px;
-    background-color: var(--vermelho);
+    background-color: var(--destaque);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s ease;
@@ -186,7 +186,7 @@ main::before {
 }
 
 .update-link:hover {
-    color: var(--vermelho);
+    color: var(--destaque);
 }
 
 .inf-header {
@@ -207,7 +207,7 @@ main::before {
     position: relative;
     top: -8px;
     left: -100px;
-    background-color: var(--vermelho);
+    background-color: var(--destaque);
     height: 12px;
     width: 12px;
     border-radius: 100px;
@@ -215,7 +215,7 @@ main::before {
 
 .profile-img {
     border-radius: 100px;
-    border: 2px solid var(--vermelho);
+    border: 2px solid var(--destaque);
     height: 35px;
     width: 35px;
 }
@@ -273,7 +273,7 @@ main::before {
     }
 
     .mobile-menu a:hover {
-        background-color: var(--vermelho);
+        background-color: var(--destaque);
         color: var(--branco);
     }
 
@@ -323,7 +323,7 @@ main::before {
 }
 
 .registrar-aluno h2 {
-    color: var(--vermelho);
+    color: var(--destaque);
     font-size: 2.3rem;
     margin-bottom: 30px;
 }
@@ -338,7 +338,7 @@ main::before {
 .registrar-aluno span button {
     width: 30%;
     aspect-ratio: 1 /1;
-    border: 2px solid var(--vermelho);
+    border: 2px solid var(--destaque);
     background-color: transparent;
     transition: all .3s ease;
     position: relative;
@@ -346,7 +346,7 @@ main::before {
 
 .registrar-aluno span button i {
     font-size: clamp(2rem, 2vw + 1rem, 4rem);
-    color: var(--vermelho);
+    color: var(--destaque);
 }
 
 .registrar-aluno span button input {
@@ -456,48 +456,47 @@ main::before {
     border-radius: 9px;
     font-size: clamp(1.5em, 2.5vw + 1em, 2em);
     border: 1px solid black;
-    background-color: var(--vermelho);
+    background-color: var(--destaque);
     color: var(--branco);
     scale: 0.85;
 
 }
 
-
 .popup {
-    max-width: 100vw;
-    width: 100%;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80vw;
     /* height: 31em; */
-    aspect-ratio: 1/1;
+    /* aspect-ratio: 1/1; */
     background-color: var(--branco);
     border-radius: 15px;
     position: absolute;
-    top: 0;
-    left: 35%;
+    left: 50%;
     transform: translate(-50%, -50%) scale(0.1);
     text-align: center;
     padding: 0 30px, 30px;
     color: var(--preto);
-    border: 3px solid black;
     visibility: hidden;
     transition: transform 0.4s, top 0.4s;
-    scale: 0.7;
-    z-index: 8;
-    padding: 0 0 5rem 0;
+    z-index: 10;
 }
 
 .open-popup {
     visibility: visible;
     top: -25em;
     transform: translate(-50%, -50%) scale(1);
-    
+
 }
 
 .popup img {
+    box-sizing: content-box;
+    padding: 30px;
     max-width: 100vw;
-    width: 90%;
     align-items: center;
     text-align: center;
-    width: 25em;
+    width: 60%;
 }
 
 .popup i {
@@ -505,18 +504,29 @@ main::before {
     font-size: 2.5em;
 }
 
-.close-access {
-    padding: 35px 35px;
-    height: 50px;
+.popup hr {
     width: 100%;
+    background-color: var(--cinza);
+}
+
+.popup div {
+    padding: inherit;
+    height: 50px;
+    width: 90%;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    font-weight: bold;
+    justify-content: space-between;
+}
+
+.popup div span {
+    color: var(--destaque);
 }
 
 .close-access i {
-    border: 2px solid rgb(148, 148, 148);
-    border-radius: 100%;
+    background-color: transparent;
+    color: var(--cinza);
+    font-size: 3em;
 }
 
 .escurecer-tela.active {
