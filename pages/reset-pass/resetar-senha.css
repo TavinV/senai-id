@@ -13,7 +13,7 @@
 
 :root {
     /* Cores baseadas no documento de identidade visual do Senai. */
-    --destaque: #164194;
+    --destaque: #e30613;
     --branco: #ffff;
     --preto: #000000;
     --cinza: #878787;
@@ -57,7 +57,7 @@ header {
     width: 100vw;
     display: flex;
     height: 35px;
-    padding: 0 20px;
+    padding: 0 3%;
     justify-content: space-between;
     align-items: center;
 }
@@ -111,7 +111,7 @@ header {
     position: relative;
     background-color: var(--branco);
     box-shadow: var(--sombra-padrao);
-    padding: 8px 0;
+    padding: .5%;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -286,6 +286,78 @@ main::before {
 
 }
 
+/* Página de login (update.html) */
+
+.register-preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 95vw;
+    scale: 0.8;
+    gap: 100px;
+}
+
+
+.registrar-aluno {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 450px;
+    margin: 40 auto;
+    border-radius: 10px;
+    height: 700px;
+    border: 1px solid var(--preto);
+    background-color: var(--branco);
+    padding: 25px 10px;
+}
+
+.registrar-aluno form {
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.registrar-aluno h2 {
+    color: var(--destaque);
+    font-size: 2.3rem;
+    margin-bottom: 30px;
+}
+
+.registrar-aluno span {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 10px;
+}
+
+.registrar-aluno span button {
+    width: 30%;
+    aspect-ratio: 1 /1;
+    border: 2px solid var(--destaque);
+    background-color: transparent;
+    transition: all .3s ease;
+    position: relative;
+}
+
+.registrar-aluno span button i {
+    font-size: clamp(2rem, 2vw + 1rem, 4rem);
+    color: var(--destaque);
+}
+
+.registrar-aluno span button input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
 .carteirinha {
     display: flex;
     flex-direction: column;
@@ -295,15 +367,10 @@ main::before {
     width: 100%;
     max-width: 450px;
     border-radius: 10px;
-    border: 2px solid #7d85ff;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border: 1px solid var(--preto);
     background-color: var(--branco);
     padding: 25px 10px;
     scale: 0.85;
-}
-
-.carteirinha .top-inf h4 {
-    font-size: clamp(1em, 1vw + .6em, 2em);
 }
 
 .carteirinha .top-inf {
@@ -316,25 +383,6 @@ main::before {
     width: 95%;
 }
 
-.carteirinha .top-inf span {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: var(--destaque);
-}
-
-.carteirinha .top-inf span h3 {
-    font-weight: 700;
-    text-align: center;
-    font-size: 1.8em;
-}
-
-.carteirinha .top-inf span h4 {
-    text-align: center;
-    font-size: 1.5em;
-}
-
 .carteirinha .top-inf .senai-logo {
     height: 30px;
 }
@@ -344,7 +392,13 @@ main::before {
     aspect-ratio: 1 / 1;
     border-radius: 100px;
     box-shadow: var(--sombra-padrao);
-    border: 2px solid var(--destaque);
+    border: 1px solid black;
+}
+
+.carteirinha .top-inf h3 {
+    font-size: clamp(1.2em, 2vw + 1em, 2.5em);
+    /* Tamanho responsivo */
+    text-align: center;
 }
 
 .bottom-inf {
@@ -375,7 +429,7 @@ main::before {
 }
 
 .bottom-inf .info-collumn h4 {
-    font-size: clamp(1em, 2vw + 0.5em, 1.2em);
+    font-size: clamp(1.2em, 2vw + 0.8em, 1.6em);
     /* Tamanho responsivo */
 }
 
@@ -386,25 +440,11 @@ main::before {
     text-align: center;
 }
 
-.carteirinha .bottom-inf .info-collumn:nth-child(2) .info-group:nth-child(2) {
-    display: flex;
-    align-items: flex-end;
-    flex-direction: column;
-    width: 100%;
-    gap: 3rem;
-}
-
-.selo {
-    width: 60%;
-}
-
 .acess {
     display: flex;
     justify-content: center;
     position: relative;
-    /* width: 30em; */
-    width: 100%;
-    max-width: 450px;
+    width: 30em;
     top: -20px;
     width: 100%;
     max-width: 450px;
@@ -412,13 +452,14 @@ main::before {
 
 .acess>button {
     width: 100%;
+    height: 4.5rem;
     border-radius: 9px;
     font-size: clamp(1.5em, 2.5vw + 1em, 2em);
-    border: none;
-    padding: 20px;
+    border: 1px solid black;
     background-color: var(--destaque);
     color: var(--branco);
     scale: 0.85;
+
 }
 
 .popup {

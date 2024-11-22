@@ -7,6 +7,14 @@ const curso = document.getElementById('curso');
 const matricula = document.getElementById('matricula');
 const carteirinha_pfp = document.getElementById('carteirinha-pfp');
 
+const redirecionamentos = {
+    aluno: '../access/carteirinha.html',
+    funcionario: '../employees-access/carteirinha.html',
+    secretaria: '../register/register.html',
+    erro_servidor: '../error/servererror.html',
+    resetar_senha: '../reset-pass/resetar-senha.html'
+}
+
 function encerrarSessao() {
     localStorage.removeItem('senai-id-token')
     window.location.href = '../../index.html'
@@ -14,7 +22,7 @@ function encerrarSessao() {
 
 async function carregarFoto(token) {
     try {
-        const resposta = await axios.get(`${api_url}/carteirinha/users/fotoperfil/`, {
+        const resposta = await axios.get(`${api_url}/api/carteirinha/me/fotoperfil/`, {
             responseType: 'blob',  // Define que a resposta será um blob (arquivo binário),
             headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -32,7 +40,7 @@ async function carregarFoto(token) {
 
 async function carregarQRCode(token) {
     try {
-        const resposta = await axios.get(`${api_url}/carteirinha/users/access`, {
+        const resposta = await axios.get(`${api_url}/api/carteirinha/me/access`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
 
@@ -53,10 +61,10 @@ async function carregarCarteirinha() {
         window.location.href = '../../index.html'
     }
 
-    axios.get(`${api_url}/carteirinha/users/`, { headers: { 'Authorization': `Bearer ${token}` } })
+    axios.get(`${api_url}/api/carteirinha/me`, { headers: { 'Authorization': `Bearer ${token}` } })
         .then(function (resposta) {
             console.log(resposta)
-            const { id, curso, data_nascimento, matricula, nome, rg } = resposta.data.user
+            const { id, curso, data_nascimento, matricula, nome, rg, default_pass } = resposta.data.user
             document.getElementById("nome").innerHTML = nome;
 
             document.getElementById("rg").innerHTML = rg;
@@ -68,43 +76,42 @@ async function carregarCarteirinha() {
             carregarFoto(token)
             carregarQRCode(token)
 
+            if (default_pass == true) {
+                // window.location.href = redirecionamentos.resetar_senha
+            }
+
         }).catch((erro) => {
+            console.log(erro)
             if (erro.status === 404) {
-                window.location.href = '../error/notfound.html'
+                // window.location.href = '../error/notfound.html'
             }
             if (erro.status === 400) {
-                window.location.href = '../error/notfound.html'
+                // window.location.href = '../error/notfound.html'
             }
             if (erro.status === 403) {
-                window.location.href = '../error/forbidden.html';
+                // window.location.href = '../error/forbidden.html';
             }
         })
 
 }
 
 function reroute() {
-    const paginasDosCargos = {
-        aluno: '../access/carteirinha.html',
-        funcionario: '../employees-access/carteirinha.html',
-        secretaria: '../register/register.html',
-        erro_servidor: '../error/servererror.html'
-    }
-
     const token = localStorage.getItem('senai-id-token')
-    axios.get(`${api_url}/rerouter`, { headers: { 'Authorization': `Bearer ${token}` } })
+    axios.get(`${api_url}/api/rerouter`, { headers: { 'Authorization': `Bearer ${token}` } })
         .then(function (resposta) {
             const cargo = resposta.data.cargo
-            const url = paginasDosCargos[cargo]
+            const url = redirecionamentos[cargo]
 
             if (cargo != "aluno") {
                 window.location.href = url
             }
+
         }).catch((erro) => {
             // Usuário não está conectado, mantemos ele na página de login.
             if (erro.status != 500) {
                 return
             } else {
-                window.location.href = paginasDosCargos.erro_servidor
+                window.location.href = redirecionamentos.erro_servidor
             }
         })
 }

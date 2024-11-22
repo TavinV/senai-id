@@ -12,7 +12,7 @@ async function registerUser(formData) {
     console.log("register user")
 
     try {
-        const resposta = await axios.post('http://localhost:3000/admSenaiID/registrar', formData, {
+        const resposta = await axios.post('http://localhost:3000/api/secretaria/registrar/aluno', formData, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data' // Necessário para enviar arquivos

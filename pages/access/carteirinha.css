@@ -22,7 +22,7 @@
 
     /* Tamanho dos Botões de ícones no header */
 
-    --header-icon-size: 36px;
+    --header-icon-size: 30px;
 }
 
 button {
@@ -57,7 +57,7 @@ header {
     width: 100vw;
     display: flex;
     height: 35px;
-    padding: 0 3%;
+    padding: 0 20px;
     justify-content: space-between;
     align-items: center;
 }
@@ -111,7 +111,7 @@ header {
     position: relative;
     background-color: var(--branco);
     box-shadow: var(--sombra-padrao);
-    padding: .5%;
+    padding: 8px 0;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -367,7 +367,8 @@ main::before {
     width: 100%;
     max-width: 450px;
     border-radius: 10px;
-    border: 1px solid var(--preto);
+    border: 2px solid #838383;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     background-color: var(--branco);
     padding: 25px 10px;
     scale: 0.85;
@@ -392,13 +393,13 @@ main::before {
     aspect-ratio: 1 / 1;
     border-radius: 100px;
     box-shadow: var(--sombra-padrao);
-    border: 1px solid black;
+    border: 2px solid var(--destaque);
 }
 
 .carteirinha .top-inf h3 {
-    font-size: clamp(1.2em, 2vw + 1em, 2.5em);
+    font-size: clamp(1.2em, 1.4vw + 1em, 2.5em);
     /* Tamanho responsivo */
-    text-align: center;
+    text-align: right;
 }
 
 .bottom-inf {
@@ -452,14 +453,13 @@ main::before {
 
 .acess>button {
     width: 100%;
-    height: 4.5rem;
     border-radius: 9px;
     font-size: clamp(1.5em, 2.5vw + 1em, 2em);
-    border: 1px solid black;
+    border: none;
+    padding: 20px;
     background-color: var(--destaque);
     color: var(--branco);
     scale: 0.85;
-
 }
 
 .popup {

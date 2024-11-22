@@ -6,27 +6,27 @@ function encerrarSessao() {
 }
 
 
-const paginasDosCargos = {
+const redirecionamentos = {
     aluno: 'pages/access/carteirinha.html',
     funcionario: 'pages/employees-access/carteirinha.html',
     secretaria: 'pages/register/register.html',
-    erro_servidor: 'pages/error/servererror.html'
+    erro_servidor: 'pages/error/servererror.html',
 }
 
 function reroute() {
 
     const token = localStorage.getItem('senai-id-token')
-    axios.get(`${api_url}/rerouter`, { headers: { 'Authorization': `Bearer ${token}` } })
+    axios.get(`${api_url}/api/rerouter`, { headers: { 'Authorization': `Bearer ${token}` } })
         .then(function (resposta) {
             const cargo = resposta.data.cargo
-            const url = paginasDosCargos[cargo]
+            const url = redirecionamentos[cargo]
             window.location.href = url
         }).catch((erro) => {
             // Usuário não está conectado, mantemos ele na página de login.
             if (erro.status != 500) {
                 return
             } else {
-                window.location.href = paginasDosCargos.erro_servidor
+                window.location.href = redirecionamentos.erro_servidor
             }
         })
 }
@@ -37,10 +37,10 @@ form.addEventListener('submit', (e) => {
     const login = document.getElementById('login').value.trim();
     const senha = document.getElementById('senha').value.trim();
 
-    axios.post(`${api_url}/login`, { login: login, senha: senha })
+    axios.post(`${api_url}/api/login`, { login: login, senha: senha })
         .then(function (resposta) {
             const cargo = resposta.data.cargo
-            const urlRedirect = paginasDosCargos[cargo];
+            const urlRedirect = redirecionamentos[cargo];
 
             if (resposta.status == 200 && urlRedirect) {
                 localStorage.setItem('senai-id-token', resposta.data.token);

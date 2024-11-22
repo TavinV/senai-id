@@ -15,7 +15,7 @@ function encerrarSessao() {
 
 async function carregarFoto(token) {
     try {
-        const resposta = await axios.get(`${api_url}/carteirinha/users/fotoperfil`, {
+        const resposta = await axios.get(`${api_url}/api/carteirinha/me/fotoperfil`, {
             responseType: 'blob',  // Define que a resposta será um blob (arquivo binário),
             headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -33,7 +33,7 @@ async function carregarFoto(token) {
 
 async function carregarQRCode(token) {
     try {
-        const resposta = await axios.get(`${api_url}/carteirinha/users/access`, {
+        const resposta = await axios.get(`${api_url}/carteirinha/me/access`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
 
@@ -58,7 +58,7 @@ function reroute() {
     }
 
     const token = localStorage.getItem('senai-id-token')
-    axios.get(`${api_url}/rerouter`, { headers: { 'Authorization': `Bearer ${token}` } })
+    axios.get(`${api_url}/api/rerouter`, { headers: { 'Authorization': `Bearer ${token}` } })
         .then(function (resposta) {
             const cargo = resposta.data.cargo
             const url = paginasDosCargos[cargo]
@@ -78,7 +78,7 @@ function reroute() {
 
 function carregarInfo() {
     const token = localStorage.getItem('senai-id-token')
-    axios.get(`${api_url}/carteirinha/users`, { headers: { 'Authorization': `Bearer ${token}` } })
+    axios.get(`${api_url}/api/carteirinha/me`, { headers: { 'Authorization': `Bearer ${token}` } })
         .then(function (resposta) {
             const { id, nome, cpf, descricao, nif, pis } = resposta.data.user
 

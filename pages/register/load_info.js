@@ -12,7 +12,7 @@ async function carregarPainelAdm() {
         window.location.href = '../../index.html'
     }
 
-    axios.get(`http://localhost:3000/admsenaiid`, { headers: { 'Authorization': `Bearer ${token}` } })
+    axios.get(`http://localhost:3000/api/secretaria/user/me`, { headers: { 'Authorization': `Bearer ${token}` } })
         .then(function (resposta) {
             console.log(resposta)
             const { id, nome } = resposta.data.user
