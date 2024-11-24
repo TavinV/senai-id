@@ -39,10 +39,12 @@ form.addEventListener('submit', (e) => {
 
     axios.post(`${api_url}/api/login`, { login: login, senha: senha })
         .then(function (resposta) {
+            console.log(resposta)
             const cargo = resposta.data.cargo
             const urlRedirect = redirecionamentos[cargo];
-
+            console.log(urlRedirect)
             if (resposta.status == 200 && urlRedirect) {
+                console.log("Redirect")
                 localStorage.setItem('senai-id-token', resposta.data.token);
                 window.location.href = urlRedirect
             }
@@ -51,5 +53,5 @@ form.addEventListener('submit', (e) => {
             console.log(erro)
             document.getElementById('mensagem-erro').innerHTML = "Usuário e(ou) senha incorretos!"
         })
-
+    // console.log(response)
 });

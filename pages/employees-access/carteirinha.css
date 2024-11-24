@@ -107,6 +107,20 @@ header {
     text-align: center;
 }
 
+.hamburger-menu {
+    display: flex;
+    color: var(--branco);
+    display: block;
+    background-color: transparent;
+    border: none;
+    align-items: center;
+    width: var(--header-icon-size);
+    height: var(--header-icon-size);
+    font-size: var(--header-icon-size);
+    text-align: center;
+
+}
+
 .header-white-container {
     position: relative;
     background-color: var(--branco);
@@ -128,6 +142,43 @@ header {
 
 .senai-logo {
     height: var(--header-icon-size);
+}
+
+nav {
+    color: var(--branco);
+    text-decoration: none;
+    position: absolute;
+    top: 35px;
+    width: 15rem;
+    padding: 20px 10px;
+    justify-content: space-around;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10000;
+    box-shadow: rgba(0, 0, 0, 0.24) 4px 4px 4px;
+    background-color: var(--destaque);
+    transition: all .3s ease-in;
+    transform: translateX(-100%);
+}
+
+nav.active {
+    transform: translateX(0%);
+}
+
+nav a {
+    color: inherit;
+    font-size: 1.4em;
+    text-align: left;
+    width: 100%;
+}
+
+nav a button {
+    color: inherit;
+    font-size: 1em;
+    border: none;
+    background: none;
+    padding: 0;
 }
 
 main {
@@ -156,134 +207,6 @@ main::before {
     filter: blur(5px);
     opacity: 0.2;
     z-index: -1;
-}
-
-/* Animação do texto "Senai ID */
-.senai-id {
-    position: relative;
-    display: inline-block;
-    color: var(--destaque);
-    text-decoration: none;
-}
-
-.senai-id::after,
-.update-link::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -5px;
-    width: 100%;
-    height: 2px;
-    background-color: var(--destaque);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-}
-
-.senai-id:hover::after,
-.update-link:hover::after {
-    transform: scaleX(1);
-}
-
-.update-link:hover {
-    color: var(--destaque);
-}
-
-.inf-header {
-    display: flex;
-    position: relative;
-    left: 100px;
-    gap: 100px;
-}
-
-.update-link {
-    color: var(--cinza);
-    text-decoration: none;
-    position: relative;
-}
-
-
-.notifications-header {
-    position: relative;
-    top: -8px;
-    left: -100px;
-    background-color: var(--destaque);
-    height: 12px;
-    width: 12px;
-    border-radius: 100px;
-}
-
-.profile-img {
-    border-radius: 100px;
-    border: 2px solid var(--destaque);
-    height: 35px;
-    width: 35px;
-}
-
-.profile-div {
-    display: flex;
-    align-items: center;
-    gap: 50px;
-}
-
-.mobile-menu {
-    display: none;
-}
-
-/* Estilos responsivos */
-@media (max-width: 768px) {
-
-    nav {
-        height: 0px;
-    }
-
-    /* Ocultar links padrão no header e mostrar o botão do menu hamburger */
-    .inf-header,
-    .profile-div {
-        display: none;
-        /* Oculta os links de navegação padrão */
-    }
-
-    .hamburger-menu {
-        display: flex;
-    }
-
-    /* Estilo do menu suspenso para dispositivos móveis */
-    .mobile-menu {
-        transform: translateY(-900px);
-        transition: transform 1s ease;
-        position: sticky;
-        display: flex;
-        flex-direction: column;
-        color: var(--branco);
-        top: 80px;
-        left: 0;
-        width: 100vw;
-        box-shadow: var(--sombra-padrao);
-        z-index: 4;
-        background-color: var(--branco);
-
-    }
-
-    .mobile-menu a {
-        padding: 15px;
-        border-bottom: 1px solid var(--cinza);
-        text-align: center;
-        color: var(--preto);
-    }
-
-    .mobile-menu a:hover {
-        background-color: var(--destaque);
-        color: var(--branco);
-    }
-
-    /* Mostrar o menu quando ativo */
-    .mobile-menu.active {
-        transform: translateY(0px);
-        background-color: var(--branco);
-    }
-
-
 }
 
 .carteirinha {

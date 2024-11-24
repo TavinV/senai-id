@@ -69,7 +69,7 @@ function reroute() {
         }).catch((erro) => {
             // Usuário não está conectado, mantemos ele na página de login.
             if (erro.status != 500) {
-                return
+                window.location.href = '../../index.html'
             } else {
                 window.location.href = paginasDosCargos.erro_servidor
             }

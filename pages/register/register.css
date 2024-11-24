@@ -225,90 +225,6 @@ main::before {
     display: none;
 }
 
-/* Estilos responsivos */
-@media (max-width: 768px) {
-    #encerrar-sessao {
-        display: none;
-    }
-
-    nav {
-        height: 0px;
-    }
-
-    /* Ocultar links padrão no header e mostrar o botão do menu hamburger */
-    .inf-header,
-    .profile-div {
-        display: none;
-        /* Oculta os links de navegação padrão */
-    }
-
-    .hamburger-menu {
-        display: flex;
-    }
-
-    /* Estilo do menu suspenso para dispositivos móveis */
-    .mobile-menu {
-        transform: translateY(-900px);
-        transition: transform 1s ease;
-        position: sticky;
-        display: flex;
-        flex-direction: column;
-        color: var(--branco);
-        top: 80px;
-        left: 0;
-        width: 100vw;
-        box-shadow: var(--sombra-padrao);
-        z-index: 4;
-        background-color: var(--branco);
-
-    }
-
-    .mobile-menu a {
-        padding: 15px;
-        border-bottom: 1px solid var(--cinza);
-        text-align: center;
-        color: var(--preto);
-        display: flex;
-        width: 100%;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .mobile-menu a:last-child {
-        height: 50px;
-    }
-
-    .mobile-menu a button {
-        background: transparent;
-        text-align: center;
-        border: none;
-        outline: none;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 1em;
-        width: 100%;
-        height: 50px;
-        justify-content: center;
-        color: var(--preto);
-    }
-
-    .mobile-menu a button:hover {
-        scale: 1;
-    }
-
-    .mobile-menu a:hover {
-        background-color: var(--destaque);
-        color: var(--branco);
-    }
-
-    /* Mostrar o menu quando ativo */
-    .mobile-menu.active {
-        transform: translateY(0px);
-        background-color: var(--branco);
-    }
-
-}
 
 /* Página de login (update.html) */
 
@@ -504,4 +420,222 @@ main::before {
     z-index: 1;
     left: 10px;
     top: 10px;
+}
+
+/* Loading */
+
+.popup {
+    display: none;
+}
+
+.popup.active {
+    position: fixed;
+    /* Fixa o elemento na tela, não em relação ao documento */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(146, 146, 146, 0.384);
+    backdrop-filter: blur(2px);
+}
+
+.popup hr {
+    width: 100%;
+    background-color: var(--cinza);
+}
+
+.popup .close {
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+    justify-content: flex-end;
+}
+
+.popup button {
+    color: var(--branco);
+    border: none;
+    background-color: var(--destaque);
+    padding: 12px;
+    font-size: 1.2em;
+    border-radius: 8px;
+}
+
+.popup>div {
+    display: none;
+}
+
+.popup .loading.active {
+    display: flex;
+}
+
+.loader {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: block;
+    margin: 15px auto;
+    position: relative;
+    background: #FFF;
+    box-shadow: -24px 0 #FFF, 24px 0 #FFF;
+    box-sizing: border-box;
+    animation: shadowPulse 2s linear infinite;
+}
+
+@keyframes shadowPulse {
+    33% {
+        background: #FFF;
+        box-shadow: -24px 0 var(--destaque), 24px 0 #FFF;
+    }
+
+    66% {
+        background: var(--destaque);
+        box-shadow: -24px 0 #FFF, 24px 0 #FFF;
+    }
+
+    100% {
+        background: #FFF;
+        box-shadow: -24px 0 #FFF, 24px 0 var(--destaque);
+    }
+}
+
+.popup .success.active {
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80vw;
+    justify-content: space-around;
+    background-color: var(--branco);
+    border-radius: 5px;
+    position: absolute;
+    text-align: center;
+    padding: 30px;
+    color: var(--preto);
+    transition: transform 0.4s, top 0.4s;
+    z-index: 10;
+}
+
+.popup .success svg {
+    padding: 30px;
+    height: 50%;
+    width: 50%;
+}
+
+.popup .success svg path {
+    fill: #169B1E;
+}
+
+.popup .error.active {
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80vw;
+    justify-content: space-around;
+    background-color: var(--branco);
+    border-radius: 5px;
+    position: absolute;
+    text-align: center;
+    padding: 30px;
+    color: var(--preto);
+    transition: transform 0.4s, top 0.4s;
+    z-index: 10;
+}
+
+.popup .error svg {
+    padding: 30px;
+    height: 60%;
+    width: 60%;
+}
+
+.popup .error svg path {
+    fill: #e62a2a;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    #encerrar-sessao {
+        display: none;
+    }
+
+    nav {
+        height: 0px;
+    }
+
+    /* Ocultar links padrão no header e mostrar o botão do menu hamburger */
+    .inf-header,
+    .profile-div {
+        display: none;
+        /* Oculta os links de navegação padrão */
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+
+    /* Estilo do menu suspenso para dispositivos móveis */
+    .mobile-menu {
+        transform: translateY(-900px);
+        transition: transform 1s ease;
+        position: sticky;
+        display: flex;
+        flex-direction: column;
+        color: var(--branco);
+        top: 80px;
+        left: 0;
+        width: 100vw;
+        box-shadow: var(--sombra-padrao);
+        z-index: 4;
+        background-color: var(--branco);
+
+    }
+
+    .mobile-menu a {
+        padding: 15px;
+        border-bottom: 1px solid var(--cinza);
+        text-align: center;
+        color: var(--preto);
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobile-menu a:last-child {
+        height: 50px;
+    }
+
+    .mobile-menu a button {
+        background: transparent;
+        text-align: center;
+        border: none;
+        outline: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1em;
+        width: 100%;
+        height: 50px;
+        justify-content: center;
+        color: var(--preto);
+    }
+
+    .mobile-menu a button:hover {
+        scale: 1;
+    }
+
+    .mobile-menu a:hover {
+        background-color: var(--destaque);
+        color: var(--branco);
+    }
+
+    /* Mostrar o menu quando ativo */
+    .mobile-menu.active {
+        transform: translateY(0px);
+        background-color: var(--branco);
+    }
 }

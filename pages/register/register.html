@@ -45,14 +45,38 @@
                 <a class="hide-mobile" href="">Atualizar Cadastro</a>
                 <a class="hide-mobile" href="">Suporte</a>
                 <a class="hide-mobile"><button onclick="encerrarSessao()">Encerrar sessão</button></a>
-
+                
             </div>
         </nav>
     </header>
-
+    
     <main>
+        <div class="popup">
+            <div class="loading">
+                <!-- <h2>Registrando o usuário</h2> -->
+                <span class="loader"></span>
+            </div>
+            <div class="success">
+                <h2>Usuário registrado com sucesso!</h2>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+                <hr>
+                <div class="close">
+                    <button onclick="fecharPopup()">Fechar</button>
+                </div>
+            </div>
+            <div class="error">
+                <h2>Algo deu errado</h2>
+                <h3></h3>
+                <a href=""></a>
+                <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.0//EN'  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'><svg height="32" style="overflow:visible;enable-background:new 0 0 32 32" viewBox="0 0 32 32" width="32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><g id="Incorrect_Symbol_1_"><g id="Incorrect_Symbol"><circle cx="16" cy="16" id="BG" r="16" style="fill:#FF3939;"/><polygon id="Cross_x5F_Symbol" points="24,10.1 21.9,8 16,13.9 10.1,8 8,10.1         13.9,16 8,21.9 10.1,24 16,18.1 21.9,24 24,21.9 18.1,16 " style="fill:#E6E6E6;"/></g></g></g></svg>
+                <hr>
+                <div class="close">
+                    <button onclick="fecharPopup()">Fechar</button>
+                </div>
+            </div>
+        </div>
         <div class="register-preview-container">
-
+            
             <div class="registrar-aluno">
                 <h2>
                 Registrar aluno
@@ -130,6 +154,10 @@
         function toggleMenu() {
             var menu = document.getElementById("mobileMenu");
             menu.classList.toggle("active");
+        }
+        
+        function fecharPopup() {
+            document.querySelector('.popup').classList.toggle("active");
         }
     </script>   
     <script src="previsualizacao-carteirinha.js"></script> 

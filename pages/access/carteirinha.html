@@ -16,17 +16,23 @@
 <body>
     <header>
         <div class="header-red-container">
-            <a class="header-link" href="">Suporte</a>
-            <a id="encerrar-sessao"><button onclick="encerrarSessao()">Encerrar sessão</button></a>
+            <button class="hamburger-menu" onclick="toggleMenu()">
+                <i class='bx bx-menu'></i>
+            </button>
         </div>
         <div class="header-white-container">
             <button class="return-button"><i class='bx bx-left-arrow-alt'></i></button>
             <a href=""><img class="senai-logo" src="../../img/SENAI_logo.png"></a>
         </div>
+        <nav>
+            <a id="encerrar-sessao"><button onclick="encerrarSessao()">Encerrar sessão</button></a>
+            <a class="header-link" href="">Corrigir dados</a>
+            <a class="header-link" href="">Suporte</a>
+        </nav>
     </header>
     
     <main>
-        <div class="escurecer-tela"></div>
+        <div onclick="closePopup()" class="escurecer-tela"></div>
         <div class="carteirinha">
             <div class="top-inf">
                 <img class="senai-logo"src="../../img/SENAI_logo.png">
@@ -84,7 +90,7 @@
     <script>
         // Função para abrir/fechar o menu no mobile
         function toggleMenu() {
-            var menu = document.getElementById("mobileMenu");
+            var menu = document.querySelector("nav");
             menu.classList.toggle("active");
         }
 
