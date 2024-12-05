@@ -194,76 +194,6 @@ main::before {
 
 /* Página de login (update.html) */
 
-.register-preview-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    width: 95vw;
-    scale: 0.8;
-    gap: 100px;
-}
-
-
-.registrar-aluno {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    width: 100%;
-    max-width: 450px;
-    margin: 40 auto;
-    border-radius: 10px;
-    height: 700px;
-    border: 1px solid var(--preto);
-    background-color: var(--branco);
-    padding: 25px 10px;
-}
-
-.registrar-aluno form {
-    width: 95%;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
-.registrar-aluno h2 {
-    color: var(--destaque);
-    font-size: 2.3rem;
-    margin-bottom: 30px;
-}
-
-.registrar-aluno span {
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
-    padding: 20px 10px;
-}
-
-.registrar-aluno span button {
-    width: 30%;
-    aspect-ratio: 1 /1;
-    border: 2px solid var(--destaque);
-    background-color: transparent;
-    transition: all .3s ease;
-    position: relative;
-}
-
-.registrar-aluno span button i {
-    font-size: clamp(2rem, 2vw + 1rem, 4rem);
-    color: var(--destaque);
-}
-
-.registrar-aluno span button input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-}
-
 .carteirinha {
     display: flex;
     flex-direction: column;
@@ -271,12 +201,12 @@ main::before {
     justify-content: space-around;
     gap: 50px;
     width: 100%;
-    max-width: 450px;
+    max-width: 560px;
     border-radius: 10px;
     border: 2px solid #838383;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     background-color: var(--branco);
-    padding: 25px 10px;
+    padding: 30px 10px;
     scale: 0.85;
 }
 
@@ -295,7 +225,7 @@ main::before {
 }
 
 .carteirinha .top-inf .pfp {
-    height: 140px;
+    height: 200px;
     aspect-ratio: 1 / 1;
     border-radius: 100px;
     box-shadow: var(--sombra-padrao);
@@ -342,7 +272,7 @@ main::before {
 
 .carteirinha .curso {
     margin-top: 2rem;
-    font-size: clamp(1.5em, 2.5vw + 1em, 2em);
+    font-size: clamp(1.2em, 1vw + 1em, 1.6em);
     /* Tamanho responsivo */
     text-align: center;
 }
@@ -354,7 +284,7 @@ main::before {
     width: 30em;
     top: -20px;
     width: 100%;
-    max-width: 450px;
+    max-width: 560px;
 }
 
 .acess>button {
