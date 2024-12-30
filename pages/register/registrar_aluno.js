@@ -5,6 +5,8 @@ const dataNascimento = document.getElementById('data_nascimento');
 const curso = document.getElementById('curso');
 const matricula = document.getElementById('matricula');
 const carteirinha_pfp = document.getElementById('foto-aluno');
+const horario_entrada = document.getElementById("horario_entrada")
+const turma = document.getElementById("turma");
 
 let popup = document.querySelector('.popup');
 
@@ -12,7 +14,7 @@ function fecharPopup() {
     popup.classList.toggle("active");
 }
 
-function showPopup(Type, msg) {
+function showPopup(Type, content) {
     popup.classList.add("active")
 
     switch (Type) {
@@ -21,10 +23,12 @@ function showPopup(Type, msg) {
             break;
         case "success":
             document.querySelector(".popup .success").classList.toggle("active")
+            document.querySelector(".popup .success h2").innerText = content.msg
+            document.querySelector(".popup .success a").href = `../first-access/teste.html?id=${content.UID}`
             break;
         case "error":
             document.querySelector(".popup .error").classList.toggle("active")
-            document.querySelector(".popup .error h3").innerText = msg
+            document.querySelector(".popup .error h3").innerText = content.msg
         default:
             break;
     }
@@ -33,9 +37,7 @@ function showPopup(Type, msg) {
 
 async function registerUser(formData) {
     const token = localStorage.getItem('senai-id-token')
-    console.log("register user")
 
-    showPopup("loading")
     showPopup("loading")
 
     try {
@@ -45,19 +47,21 @@ async function registerUser(formData) {
                 'Content-Type': 'multipart/form-data' // Necessário para enviar arquivos
             }
         });
+        console.log(resposta)
+        if (resposta.status == 201) {
+            fecharPopup()
+            showPopup("success", { msg: resposta.data.msg, UID: resposta.data.UID_aluno })
+            cadastroForm.reset()
+        }
 
-        fecharPopup()
-        showPopup("success")
-        cadastroForm.reset()
-
-
-        console.log('Usuário registrado com sucesso:', resposta.data);
     } catch (error) {
+
+        console.log(error.response.data)
         if (error.response && error.response.status === 403) {
             window.location.href = '../error/forbidden.html';
         } else {
             fecharPopup()
-            showPopup("error", error)
+            showPopup("error", { msg: error.response.data.error })
             console.error('Erro ao registrar usuário:', error);
         }
     }
@@ -88,16 +92,23 @@ cadastroForm.addEventListener('submit', (e) => {
     e.preventDefault()
     let login = formatarNomeERg(nome.value.trim(), rg.value.trim())
     const formData = new FormData(); // Cria um novo FormData
-    formData.append('cargo', 'aluno');
+
     formData.append('nome', nome.value.trim());
     formData.append('rg', rg.value);
     formData.append('data_nascimento', dataNascimento.value);
     formData.append('curso', curso.value.trim());
     formData.append('matricula', matricula.value);
-    formData.append('foto_perfil', carteirinha_pfp.files[0]); // Adiciona o arquivo ao FormData
+
+    formData.append('foto_perfil', foto); // Adiciona o arquivo ao FormData
     formData.append('login', login);
+    formData.append('horario_entrada', horario_entrada.value);
+    formData.append('turma', turma.value)
     formData.append('senha', `senai117@${rg.value.substr(0, 2)}`);
 
     // Envia o FormData na requisição POST
+    for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`); // Para depuração
+    }
+
     registerUser(formData);
 }) 

@@ -408,6 +408,20 @@ main::before {
     opacity: 1;
 }
 
+#horario_entrada {
+    opacity: 0;
+}
+
+#horario_entrada:focus,
+#horario_entrada:valid {
+    opacity: 1;
+}
+
+#horario_entrada::-webkit-outer-spin-button,
+#horario_entrada::-webkit-inner-spin-button {
+    display: none;
+}
+
 
 .icon-input i {
     font-size: 1.5rem;
@@ -523,6 +537,17 @@ main::before {
     padding: 30px;
     height: 50%;
     width: 50%;
+}
+
+.popup .success span {
+    display: block;
+    width: 95%;
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+
+.popup .success a {
+    color: var(--destaque);
 }
 
 .popup .success svg path {

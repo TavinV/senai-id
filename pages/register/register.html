@@ -58,6 +58,12 @@
             </div>
             <div class="success">
                 <h2>Usuário registrado com sucesso!</h2>
+                <span>
+                    <strong>
+                        <p>ID do aluno</p>
+                    </strong>
+                    <a target="_blank" href="../first-access/teste.html">thcj1g6rvgm5aa6nmp</a>
+                </span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
                 <hr>
                 <div class="close">
@@ -101,6 +107,14 @@
                 <div class="icon-input">
                     <input id="matricula"pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==8) return false;" autocomplete="off"required type="number">
                     <div class="floating-label">Matricula</div>
+                </div>
+                <div class="icon-input">
+                    <input id="turma" minlength="5" maxlength="5" autocomplete="off" required type="text" style="text-transform: uppercase;">
+                    <div class="floating-label">Turma</div>
+                </div>
+                <div class="icon-input">
+                    <input id="horario_entrada" value="07:30" autocomplete="off"required type="time">
+                    <div class="floating-label">Horário de entrada</div>
                 </div>
                 <span>
                     <button>
