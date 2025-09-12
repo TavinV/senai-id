@@ -1,0 +1,20 @@
+{
+    "horarios": {
+        "tolerancia": {
+            "min": -45,
+            "max": 14
+        },
+        "atraso": {
+            "min": 15,
+            "max": 120
+        },
+        "intervalo": {
+            "inicio": "11:15",
+            "fim": "13:45"
+        },
+        "bloqueio": {
+            "min": -45,
+            "max": 120
+        }
+    }
+}

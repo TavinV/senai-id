@@ -1,0 +1,1469 @@
+{
+	"info": {
+		"_postman_id": "374e6c04-195c-463f-acc1-de669bef7faf",
+		"name": "Senai Id (Refatorado)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39016017"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Listar Usuários",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar informações de usuário",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/7w38zulvm4fmeapb7v9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"7w38zulvm4fmeapb7v9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar foto de perfil",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/r2p0mliu4vmeaq6wga/profile-picture",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"r2p0mliu4vmeaq6wga",
+								"profile-picture"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar informações para primeiro acesso",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "asdasdasd",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/hdv651wqsqom5bgn435/first-access",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"hdv651wqsqom5bgn435",
+								"first-access"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gerar QR Code para catraca",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{alunoJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/me/access",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"me",
+								"access"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar atrasos de um usuário",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{alunoJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/me/late-entries/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"me",
+								"late-entries",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar um atraso",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{alunoJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/me/late-entries/gUgay83d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"me",
+								"late-entries",
+								"gUgay83d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar liberação por ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{alunoJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/me/early-exits/KCnwxSAd",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"me",
+								"early-exits",
+								"KCnwxSAd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar iberações",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{alunoJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/me/early-exits/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"me",
+								"early-exits",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar pedido de update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{alunoJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/me/update-requests/12733223",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"me",
+								"update-requests",
+								"12733223"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar pedidos de update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{alunoJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/me/update-requests/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"me",
+								"update-requests",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar liberações",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{secretariaJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/secretaria/early-exits/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"secretaria",
+								"early-exits",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar pedidos de update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{secretariaJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/secretaria/update-requests/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"secretaria",
+								"update-requests",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Solicitar código de verificação de email",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"otavioviniciusads@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/hdv651wqsqom5bgn435/verify-email/request-token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"hdv651wqsqom5bgn435",
+								"verify-email",
+								"request-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verificar e-mail",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": 660351\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/qphhbgpzuwme96xrja/verify-email/validate-token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"qphhbgpzuwme96xrja",
+								"verify-email",
+								"validate-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Solicitar alteração de dados",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{alunoJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tel\": \"11 95023-1230\",\r\n    \"message\": \"Boa tarde, meu nome está sem o acento no \\\"Otávio\\\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/me/request-update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"me",
+								"request-update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Esqueci a senha",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/forgot-password?email=otavioviniciusads@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"forgot-password"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "otavioviniciusads@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pedir um atraso",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{alunoJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/me/late-entries/request",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"me",
+								"late-entries",
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Solicitar liberação",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{alunoJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"motivo\": \"Treino da corpo e cia kkkk\",\r\n    \"horario_saida\": \"16:30\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/me/early-exits/request",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"me",
+								"early-exits",
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Configurar a primeira senha",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cpf\": \"478.023.418-25\",\r\n    \"senha\": \"Ota@181207\",\r\n    \"confirmarSenha\": \"Ota@181207\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/7w38zulvm4fmeapb7v9/setup-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"7w38zulvm4fmeapb7v9",
+								"setup-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resetar Senha",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"senha\": \"Ota@181207\",\r\n    \"confirmarSenha\": \"Ota@181207\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/reset-password?token=a88c3aef108e6d0cac9b5de914ad1a99b793b3b2068c680a0d99b0295524",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"reset-password"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a88c3aef108e6d0cac9b5de914ad1a99b793b3b2068c680a0d99b0295524"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Secretaria",
+			"item": [
+				{
+					"name": "Deletar Usuário",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{secretariaJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Silas Bastianelli Pinto\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/secretaria/r7uzh6wdh48meaq1z17",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"secretaria",
+								"r7uzh6wdh48meaq1z17"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Atraso",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{secretariaJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/secretaria/late-entries/ejixk5qa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"secretaria",
+								"late-entries",
+								"ejixk5qa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar pedido de liberação",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{secretariaJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"responsavel\": \"lucas\",\r\n    \"observacao\": \"os pais do aluno não permitiram\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/secretaria/early-exits/kZxUYUo6/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"secretaria",
+								"early-exits",
+								"kZxUYUo6",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar atrasos de um aluno",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{secretariaJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/secretaria/late-entries/7w38zulvm4fmeapb7v9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"secretaria",
+								"late-entries",
+								"7w38zulvm4fmeapb7v9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Atrasos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{secretariaJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/secretaria/late-entries/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"secretaria",
+								"late-entries",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validar registro de atraso",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{secretariaJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"motivo\": \"Trânsito à caminho do senai\",\r\n    \"responsavel\": \"Lucas\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/secretaria/late-entries/gUgay83d/validate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"secretaria",
+								"late-entries",
+								"gUgay83d",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registrar Aluno",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{secretariaJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nome",
+									"value": "Otávio Vinícius Flauzino de Souza",
+									"type": "text"
+								},
+								{
+									"key": "cpf",
+									"value": "478.023.418-25",
+									"type": "text"
+								},
+								{
+									"key": "senha",
+									"value": "senai117@25",
+									"type": "text"
+								},
+								{
+									"key": "turma",
+									"value": "12P2B",
+									"type": "text"
+								},
+								{
+									"key": "matricula",
+									"value": "13143142",
+									"type": "text"
+								},
+								{
+									"key": "data_nascimento",
+									"value": "2007-04-25",
+									"type": "text"
+								},
+								{
+									"key": "curso",
+									"value": "Técnico em Desenvolvimento de Sistemas",
+									"type": "text"
+								},
+								{
+									"key": "foto_perfil",
+									"type": "file",
+									"src": "/C:/Users/otavi/OneDrive/Imagens/EU.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/secretaria/register/student",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"secretaria",
+								"register",
+								"student"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registrar Funcionário",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{secretariaJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nome",
+									"value": "Bruno Messias Aguiar",
+									"type": "text"
+								},
+								{
+									"key": "cpf",
+									"value": "425.051.248-54",
+									"type": "text"
+								},
+								{
+									"key": "senha",
+									"value": "Bruno123",
+									"type": "text"
+								},
+								{
+									"key": "pis",
+									"value": "13472345692",
+									"type": "text"
+								},
+								{
+									"key": "nif",
+									"value": "3267723",
+									"type": "text"
+								},
+								{
+									"key": "data_nascimento",
+									"value": "24/10/1991",
+									"type": "text"
+								},
+								{
+									"key": "descricao",
+									"value": "Professor",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "brunomessias@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "foto_perfil",
+									"type": "file",
+									"src": "/C:/Users/otavi/OneDrive/Imagens/bruno.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/secretaria/register/employee",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"secretaria",
+								"register",
+								"employee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Aprovar pedido de alteração",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{secretariaJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"matricula\": \"24194131\",\r\n    \"rg\": \"581706109\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/secretaria/update-requests/85686266/approve",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"secretaria",
+								"update-requests",
+								"85686266",
+								"approve"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rejeitar pedido de alteração",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{secretariaJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"motivo\": \"O rg está correto\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/secretaria/update-requests/50821585/deny",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"secretaria",
+								"update-requests",
+								"50821585",
+								"deny"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar usuários",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{secretariaJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Otávio Vinícius Flauzino de Souza\",\r\n    \"matricula\": \"24134131\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/secretaria/users/hdv651wqsqom5bgn435",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"secretaria",
+								"users",
+								"hdv651wqsqom5bgn435"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Aprovar Liberação",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{secretariaJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"responsavel\": \"Lucas\",\r\n    \"observacao\": \"Pode ir lá!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/secretaria/early-exits/kZxUYUo6/allow",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"secretaria",
+								"early-exits",
+								"kZxUYUo6",
+								"allow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Negar pedido de liberação",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{secretariaJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"responsavel\": \"lucas\",\r\n    \"observacao\": \"os pais do aluno não permitiram\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/secretaria/early-exits/blZ1boOu/deny",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"secretaria",
+								"early-exits",
+								"blZ1boOu",
+								"deny"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login Secretaria",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"secretaria117\",\r\n    \"senha\": \"senai117@adm\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Otávio",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"478.023.418-25\",\r\n    \"senha\": \"Ota@181207\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Support",
+			"item": [
+				{
+					"name": "Enviar Mensagem",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Otávio Vinícius Flauzino de Souza\",\r\n    \"telefone\": \"11 95023-1230\",\r\n    \"mensagem\": \"Olá mundo!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/support/send-message",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"support",
+								"send-message"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "alunoJWT",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijd3Mzh6dWx2bTRmbWVhcGI3djkiLCJjYXJnbyI6ImFsdW5vIiwiaWF0IjoxNzU1MjE4NTY2LCJleHAiOjE3NTU4MjMzNjZ9.3Fw_IrRSBePGkfXCZnEo9Du65EvXK6Q-uYlax8cCI2Q",
+			"type": "string"
+		},
+		{
+			"key": "secretariaJWT",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAiLCJjYXJnbyI6InNlY3JldGFyaWEiLCJpYXQiOjE3NTUyMTg5MzgsImV4cCI6MTc1NTgyMzczOH0.nzq5vG58cF6wGH-VjsMLrMS0pZOcI_VRGktmCw7BlS0",
+			"type": "string"
+		}
+	]
+}
