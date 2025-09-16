@@ -307,7 +307,7 @@ const atualizarUsuario = async (req, res) => {
         return ApiResponse.ERROR(res, "Erro interno do servidor.")
     }
 
-    return ApiResponse.OK(res, null, "Pedido de alteração de dados aprovado!")
+    return ApiResponse.OK(res, updated, "Usuario atualizado.")
 }
 
 // POST api/v1/secretaria/late-entries/:id/validate
