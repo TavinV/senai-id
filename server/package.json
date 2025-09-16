@@ -17,10 +17,13 @@
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.16",
     "path": "^0.12.7",
-    "winston": "^3.17.0"
+    "winston": "^3.17.0",
+    "multer-storage-cloudinary": "^4.0.0",
+    "cloudinary": "^1.41.3"
   },
   "scripts": {
     "dev": "node --watch --env-file=.env api/v1/server.js",
     "start": "node --watch --env-file=.env api/v1/server.js"
   }
 }
+
