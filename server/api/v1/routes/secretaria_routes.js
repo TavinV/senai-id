@@ -21,10 +21,11 @@ router.delete('/:id', validateSessionToken(true), deletarUsuario)
 router.delete('/late-entries/:id', validateSessionToken(true), deletarAtraso)
 router.delete('/early-exits/:id', validateSessionToken(true), deletarSaidaAntecipada)
 
-router.put('/update-requests/:id/approve', validateSessionToken(true), aprovarPedido)
+router.put('/update-requests/:id/approve', validateSessionToken(true), upload.single("foto_perfil"), aprovarPedido)
 router.put('/update-requests/:id/deny', validateSessionToken(true), rejeitarPedido)
 router.put('/users/:id', validateSessionToken(true), atualizarUsuario)
 router.put('/early-exits/:id/allow', validateSessionToken(true), validarSaidaAntecipada)
 router.put('/early-exits/:id/deny', validateSessionToken(true), negarSaidaAntecipada)
+
 
 export default router
