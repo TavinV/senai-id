@@ -174,11 +174,6 @@ const aprovarPedido = async (req, res) => {
         return ApiResponse.BADREQUEST(res, "O id do pedido é obrigatório.")
     }
 
-    // Se houver arquivo enviado (foto de perfil), adiciona ao objeto updates
-    if (req.file) {
-        updates.foto_perfil = req.file.path
-    }
-
     const [updateRequest, findUpdateRequestError] = await findUpdateRequestById(id)
 
     if (!updateRequest && findUpdateRequestError != 404) {
@@ -275,7 +270,12 @@ const atualizarUsuario = async (req, res) => {
     const id = req.params.id
     const updates = req.body // {nome: "nome", rg: "rg"}
 
-    if (Object.keys(updates).length <= 0) {
+    // Se houver arquivo enviado (foto de perfil), adiciona ao objeto updates
+    if (req.file) {
+        updates.foto_perfil = req.file.path
+    }
+
+    if (Object.keys(updates).length <= 0 ) {
         return ApiResponse.BADREQUEST(res, "Os campos de atualização são obrigatórios.")
     }
 
