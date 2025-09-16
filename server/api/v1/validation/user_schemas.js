@@ -29,4 +29,5 @@ export const updateUserSchema = Joi.object({
     matricula: Joi.string(),
     data_nascimento: Joi.string(),
     curso: Joi.string(),
+    foto_perfil: Joi.string(),
 })
