@@ -35,7 +35,7 @@ const registrarAluno = async (req, res) => {
     usuario.senha_foi_alterada = false;
     usuario.email = usuario.email || '';
     usuario.cargo = "aluno";
-    usuario.foto_perfil = `/fotos_perfil/${req.file.filename}`; // Caminho relativo para acessar a imagem
+    usuario.foto_perfil = req.file.path; // Caminho relativo para acessar a imagem
 
     usuario = cripografarSenhaUsuario(usuario);
 
@@ -87,7 +87,7 @@ const registrarFuncionario = async (req, res) => {
     usuario.id = Math.random().toString(36).substring(2) + Date.now().toString(36);
     usuario.senha_foi_alterada = false;
     usuario.email = usuario.email || '';
-    usuario.foto_perfil = `/fotos_perfil/${req.file.filename}`; // Caminho obrigatório
+    usuario.foto_perfil = req.file.path; // Caminho obrigatório
 
     usuario = cripografarSenhaUsuario(usuario);
 
@@ -174,6 +174,11 @@ const aprovarPedido = async (req, res) => {
         return ApiResponse.BADREQUEST(res, "O id do pedido é obrigatório.")
     }
 
+    // Se houver arquivo enviado (foto de perfil), adiciona ao objeto updates
+    if (req.file) {
+        updates.foto_perfil = req.file.path
+    }
+
     const [updateRequest, findUpdateRequestError] = await findUpdateRequestById(id)
 
     if (!updateRequest && findUpdateRequestError != 404) {
@@ -184,23 +189,18 @@ const aprovarPedido = async (req, res) => {
     }
 
     // Verificar as mudanças permitidas
-
     const { error } = updateUserSchema.validate(updates, { abortEarly: false })
 
     if (error) {
-        // Retorna os erros de validação em formato mais amigável
         const errorMessages = error.details.map(err => err.message)
         return ApiResponse.BADREQUEST(res, errorMessages)
     }
 
-
     const [user, findUserError] = await findUserById(updateRequest.user_id)
 
     if (!user && findUserError != 404) {
-        // Erro interno do servidor, algum problema com o banco de dados.
         return ApiResponse.ERROR(res, `Erro interno do servidor.`)
     } else if (findUserError == 404) {
-        // Usuário não encontrado.
         return ApiResponse.NOTFOUND(res, "Usuário não foi encontrado.")
     }
 
@@ -586,5 +586,6 @@ const pedidosDeAtualizacao = async (req, res) => {
 
     return ApiResponse.OK(res, { updateRequests }, "Pedidos de atualização encontrados com sucesso.")
 }
+
 
 export { registrarAluno, registrarFuncionario, atualizarUsuario, deletarUsuario, aprovarPedido, rejeitarPedido, validarAtraso, atrasosDeUmAluno, deletarAtraso, validarSaidaAntecipada, negarSaidaAntecipada, deletarSaidaAntecipada, saidasAntecipadasDeTodosAlunos, atrasosDeTodosAlunos, pedidosDeAtualizacao };
