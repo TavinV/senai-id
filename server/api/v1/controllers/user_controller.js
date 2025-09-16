@@ -71,12 +71,7 @@ const getFotoPerfil = async (req, res) => {
 
     // Após buscar o usuário, vamos encontrar a sua foto de perfil
 
-    const [filePath, error] = await findUserPFP(user)
-    if (!filePath) {
-        return ApiResponse.NOTFOUND(res, "Foto de perfil não encontrada.")
-    } else {
-        return res.sendFile(filePath)
-    }
+    return ApiResponse.OK(res, user.foto_perfil)
 }
 
 
@@ -663,4 +658,5 @@ export {
     pedirSaidaAntecipada,
     buscarSaidasAntecipadas,
     buscarSaidaAntecipada
+
 }
