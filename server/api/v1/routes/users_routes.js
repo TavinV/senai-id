@@ -5,6 +5,9 @@ import { getUser, getUsers, getFotoPerfil, primeiroAcesso, acesso, pedirToken, v
 const router = express.Router()
 
 router.get('/:id', getUser)
+router.get('/me', validateSessionToken(false), (req,res) =>{
+  return res.status(200).json({req.user})
+})
 router.get('/', getUsers)
 router.get('/:id/profile-picture', getFotoPerfil)
 router.get('/:id/first-access', primeiroAcesso)
@@ -25,5 +28,6 @@ router.post('/forgot-password', forgotPassword)
 
 router.put('/reset-password', resetPassword)
 router.put('/:id/setup-password', setupPassword)
+
 
 export default router
