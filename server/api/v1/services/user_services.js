@@ -49,8 +49,8 @@ const findUserByEmail = async (email) => {
 const validateUserLogin = async (identificador, senha) => {
     try {
         // Determina o campo de busca baseado no formato do identificador
-        const query = identificador.startsWith('secretaria')
-            ? { login_secretaria: identificador }
+        const query = identificador.startsWith('111.222')
+            ? { login: identificador }
             : { cpf: identificador };
 
         const usuario = await User.findOne(query);
