@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "374e6c04-195c-463f-acc1-de669bef7faf",
-		"name": "Senai Id (Refatorado)",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "39016017"
+		"_postman_id": "c8805936-d432-47e6-b0be-5a7665a3afac",
+		"name": "Senai Id",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -18,15 +17,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/users/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"users",
 								""
 							]
@@ -43,15 +38,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/users/7w38zulvm4fmeapb7v9",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/7w38zulvm4fmeapb7v9",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"users",
 								"7w38zulvm4fmeapb7v9"
 							]
@@ -68,15 +59,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/users/r2p0mliu4vmeaq6wga/profile-picture",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/r2p0mliu4vmeaq6wga/profile-picture",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"users",
 								"r2p0mliu4vmeaq6wga",
 								"profile-picture"
@@ -101,15 +88,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/users/hdv651wqsqom5bgn435/first-access",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/hdv651wqsqom5bgn435/first-access",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"users",
 								"hdv651wqsqom5bgn435",
 								"first-access"
@@ -134,15 +117,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/users/me/access",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/me/access",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"users",
 								"me",
 								"access"
@@ -167,15 +146,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/users/me/late-entries/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/me/late-entries/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"users",
 								"me",
 								"late-entries",
@@ -193,7 +168,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{alunoJWT}}",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijd3Mzh6dWx2bTRmbWVhcGI3djkiLCJjYXJnbyI6ImFsdW5vIiwiaWF0IjoxNzU4NjM0ODE5LCJleHAiOjE3NTkyMzk2MTl9.0w9Fk1J4Zc7EC4r2leKj5O1R5F2bmVbfTtpbdYRf9EI",
 									"type": "string"
 								}
 							]
@@ -201,19 +176,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/users/me/late-entries/gUgay83d",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/me/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"users",
 								"me",
-								"late-entries",
-								"gUgay83d"
+								""
 							]
 						}
 					},
@@ -235,15 +205,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/users/me/early-exits/KCnwxSAd",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/me/early-exits/KCnwxSAd",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"users",
 								"me",
 								"early-exits",
@@ -269,15 +235,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/users/me/early-exits/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/me/early-exits/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"users",
 								"me",
 								"early-exits",
@@ -303,15 +265,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/users/me/update-requests/12733223",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/me/update-requests/12733223",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"users",
 								"me",
 								"update-requests",
@@ -337,15 +295,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/users/me/update-requests/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/me/update-requests/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"users",
 								"me",
 								"update-requests",
@@ -371,15 +325,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/secretaria/early-exits/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/secretaria/early-exits/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"secretaria",
 								"early-exits",
 								""
@@ -404,15 +354,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/secretaria/update-requests/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/secretaria/update-requests/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"secretaria",
 								"update-requests",
 								""
@@ -439,17 +385,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/users/hdv651wqsqom5bgn435/verify-email/request-token",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/7w38zulvm4fmeapb7v9/verify-email/request-token",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"users",
-								"hdv651wqsqom5bgn435",
+								"7w38zulvm4fmeapb7v9",
 								"verify-email",
 								"request-token"
 							]
@@ -467,7 +409,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"token\": 660351\r\n}",
+							"raw": "{\r\n    \"token\": 963804\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -475,17 +417,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/users/qphhbgpzuwme96xrja/verify-email/validate-token",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/7w38zulvm4fmeapb7v9/verify-email/validate-token",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"users",
-								"qphhbgpzuwme96xrja",
+								"7w38zulvm4fmeapb7v9",
 								"verify-email",
 								"validate-token"
 							]
@@ -518,15 +456,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/users/me/request-update",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/me/request-update",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"users",
 								"me",
 								"request-update"
@@ -544,15 +478,11 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/users/forgot-password?email=otavioviniciusads@gmail.com",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/forgot-password?email=otavioviniciusads@gmail.com",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"users",
 								"forgot-password"
 							],
@@ -582,15 +512,11 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/users/me/late-entries/request",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/me/late-entries/request",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"users",
 								"me",
 								"late-entries",
@@ -625,15 +551,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/users/me/early-exits/request",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/me/early-exits/request",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"users",
 								"me",
 								"early-exits",
@@ -661,15 +583,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/users/7w38zulvm4fmeapb7v9/setup-password",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/7w38zulvm4fmeapb7v9/setup-password",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"users",
 								"7w38zulvm4fmeapb7v9",
 								"setup-password"
@@ -696,15 +614,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/users/reset-password?token=a88c3aef108e6d0cac9b5de914ad1a99b793b3b2068c680a0d99b0295524",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/reset-password?token=a88c3aef108e6d0cac9b5de914ad1a99b793b3b2068c680a0d99b0295524",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"users",
 								"reset-password"
 							],
@@ -748,15 +662,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/secretaria/r7uzh6wdh48meaq1z17",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/secretaria/r7uzh6wdh48meaq1z17",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"secretaria",
 								"r7uzh6wdh48meaq1z17"
 							]
@@ -780,15 +690,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/secretaria/late-entries/ejixk5qa",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/secretaria/late-entries/ejixk5qa",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"secretaria",
 								"late-entries",
 								"ejixk5qa"
@@ -817,15 +723,11 @@
 							"raw": "{\r\n    \"responsavel\": \"lucas\",\r\n    \"observacao\": \"os pais do aluno não permitiram\"\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/secretaria/early-exits/kZxUYUo6/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/secretaria/early-exits/kZxUYUo6/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"secretaria",
 								"early-exits",
 								"kZxUYUo6",
@@ -851,15 +753,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/secretaria/late-entries/7w38zulvm4fmeapb7v9",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/secretaria/late-entries/7w38zulvm4fmeapb7v9",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"secretaria",
 								"late-entries",
 								"7w38zulvm4fmeapb7v9"
@@ -884,15 +782,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/secretaria/late-entries/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/secretaria/late-entries/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"secretaria",
 								"late-entries",
 								""
@@ -926,15 +820,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/secretaria/late-entries/gUgay83d/validate",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/secretaria/late-entries/gUgay83d/validate",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"secretaria",
 								"late-entries",
 								"gUgay83d",
@@ -1005,15 +895,11 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/secretaria/register/student",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/secretaria/register/student",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"secretaria",
 								"register",
 								"student"
@@ -1088,15 +974,11 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/secretaria/register/employee",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/secretaria/register/employee",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"secretaria",
 								"register",
 								"employee"
@@ -1130,15 +1012,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/secretaria/update-requests/85686266/approve",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/secretaria/update-requests/85686266/approve",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"secretaria",
 								"update-requests",
 								"85686266",
@@ -1173,15 +1051,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/secretaria/update-requests/50821585/deny",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/secretaria/update-requests/50821585/deny",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"secretaria",
 								"update-requests",
 								"50821585",
@@ -1216,15 +1090,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/secretaria/users/hdv651wqsqom5bgn435",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/secretaria/users/hdv651wqsqom5bgn435",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"secretaria",
 								"users",
 								"hdv651wqsqom5bgn435"
@@ -1258,15 +1128,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/secretaria/early-exits/kZxUYUo6/allow",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/secretaria/early-exits/kZxUYUo6/allow",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"secretaria",
 								"early-exits",
 								"kZxUYUo6",
@@ -1301,15 +1167,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/secretaria/early-exits/blZ1boOu/deny",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/secretaria/early-exits/blZ1boOu/deny",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"secretaria",
 								"early-exits",
 								"blZ1boOu",
@@ -1334,7 +1196,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"login\": \"secretaria117\",\r\n    \"senha\": \"senai117@adm\"\r\n}",
+							"raw": "{\r\n    \"login\": \"secretaria117\",\r\n    \"senha\": \"senai117@3\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1342,15 +1204,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/login",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/login",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"login"
 							]
 						}
@@ -1375,15 +1233,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/login",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/login",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"login"
 							]
 						}
@@ -1413,15 +1267,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/support/send-message",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/support/send-message",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
-								"api",
-								"v1",
 								"support",
 								"send-message"
 							]
@@ -1464,6 +1314,10 @@
 			"key": "secretariaJWT",
 			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAiLCJjYXJnbyI6InNlY3JldGFyaWEiLCJpYXQiOjE3NTUyMTg5MzgsImV4cCI6MTc1NTgyMzczOH0.nzq5vG58cF6wGH-VjsMLrMS0pZOcI_VRGktmCw7BlS0",
 			"type": "string"
+		},
+		{
+			"key": "baseUrl",
+			"value": "https://senai-id-1.onrender.com/api/v1"
 		}
 	]
 }
