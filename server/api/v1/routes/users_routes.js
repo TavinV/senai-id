@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.get('/:id', getUser)
 router.get('/me', validateSessionToken(false), (req,res) =>{
-  return res.status(200).json({req.decoded})
+  return res.status(200).json({user: req.decoded})
 })
 router.get('/', getUsers)
 router.get('/:id/profile-picture', getFotoPerfil)
@@ -31,4 +31,5 @@ router.put('/:id/setup-password', setupPassword)
 
 
 export default router
+
 
