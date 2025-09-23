@@ -4,7 +4,6 @@ import { getUser, getUsers, getLoggedUser, getFotoPerfil, primeiroAcesso, acesso
 
 const router = express.Router()
 
-
 router.get('/me', validateSessionToken(false), getLoggedUser)
 router.get('/:id', getUser)
 router.get('/', getUsers)
