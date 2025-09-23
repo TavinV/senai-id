@@ -1,13 +1,12 @@
 import express from 'express'
 import validateSessionToken from '../middlewares/JWT_Auth.js'
-import { getUser, getUsers, getFotoPerfil, primeiroAcesso, acesso, pedirToken, validarToken, pedirUpdate, forgotPassword, resetPassword, setupPassword, pedirSaidaAntecipada, buscarSaidaAntecipada, buscarSaidasAntecipadas, buscarAtraso, buscarAtrasos, pedirAtraso, buscarUpdates, buscarUpdate } from '../controllers/user_controller.js'
+import { getUser, getUsers, getLoggedUser, getFotoPerfil, primeiroAcesso, acesso, pedirToken, validarToken, pedirUpdate, forgotPassword, resetPassword, setupPassword, pedirSaidaAntecipada, buscarSaidaAntecipada, buscarSaidasAntecipadas, buscarAtraso, buscarAtrasos, pedirAtraso, buscarUpdates, buscarUpdate } from '../controllers/user_controller.js'
 
 const router = express.Router()
 
+
+router.get('/me', validateSessionToken(false), getLoggedUser)
 router.get('/:id', getUser)
-router.get('/me', validateSessionToken(false), (req,res) =>{
-  return res.status(200).json({user: req.decoded})
-})
 router.get('/', getUsers)
 router.get('/:id/profile-picture', getFotoPerfil)
 router.get('/:id/first-access', primeiroAcesso)

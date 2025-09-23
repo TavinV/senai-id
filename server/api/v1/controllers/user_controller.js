@@ -40,6 +40,26 @@ const getUser = async (req, res) => {
     return ApiResponse.OK(res, user)
 }
 
+// GET api/v1/users/me
+const getLoggedUser = async (req, res) => {
+
+    const decodedUserId = req.decoded.id
+
+    const [user, error] = await findUserById(decodedUserId)
+
+    if (!user && error != 404) {
+        // Erro interno do servidor, algum problema com o banco de dados.
+
+        return ApiResponse.ERROR(res, `Erro interno do servidor. ${error}`)
+    } else if (error == 404) {
+        // Usuário não encontrado.
+
+        return ApiResponse.NOTFOUND(res, "Usuário não foi encontrado.")
+    }
+
+    return ApiResponse.OK(res, user)
+}
+
 // GET api/v1/users/
 const getUsers = async (req, res) => {
     const [users, error] = await findAllUsers()
@@ -640,6 +660,7 @@ const buscarSaidaAntecipada = async (req, res) => {
 
 export {
     getUser,
+    getLoggedUser,
     getUsers,
     getFotoPerfil,
     primeiroAcesso,
