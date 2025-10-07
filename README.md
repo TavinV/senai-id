@@ -1,4 +1,4 @@
-# Senai ID - API
+# Senai ID
 
 ### 📌 Sistema de Controle de Acesso Digital para o SENAI
 
