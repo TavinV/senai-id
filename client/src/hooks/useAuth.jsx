@@ -57,7 +57,8 @@ export const useAuth = () => {
         try {
             const response = await api.get('/users/me');
             const { user } = response.data;
-
+            console.log("initialized auth")
+            console.log(user)
             if (user) {
                 setUser(user);
                 localStorage.setItem('userData', JSON.stringify(user))

@@ -10,15 +10,16 @@ import { Headset } from 'lucide-react';
 import { Users } from 'lucide-react';
 import { Mail } from 'lucide-react';
 
-
+import { useAuthContext } from "../../context/authContext";
 
 const Header = () => {
+    const { logout} = useAuthContext();
 
     return (
       <>
         <nav className="top-0 w-full flex justify-start items-center py-2 px-5 text-white bg-red-500">
 
-          <NavLink className="flex gap-2 text-sm items-center font-semibold "><ArrowLeftToLine /> Encerrar sessão</NavLink>
+          <a className="flex gap-2 text-sm items-center font-semibold cursor-pointer" onClick={() => {logout()}}><ArrowLeftToLine /> Encerrar sessão</a>
 
         </nav>
         <header className="w-full flex items-center justify-around text-black py-2 px-8 md:px-0 bg-white drop-shadow-md">

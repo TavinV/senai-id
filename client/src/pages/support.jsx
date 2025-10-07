@@ -23,7 +23,7 @@ function Support() {
         <>
             <Header />
             <MainContent>
-                <FormContainer title="Support" buttonText="Enviar">
+                <FormContainer title="Suporte" buttonText="Enviar">
                     <div className="flex flex-col gap-4">
                        <span>
                             <h2>Telefone para contato</h2>

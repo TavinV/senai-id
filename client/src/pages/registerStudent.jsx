@@ -9,7 +9,7 @@ import FormRow from "../components/layout/formRow.jsx";
 import { IconInput } from "../components/inputs/iconInput.jsx";
 import { IconSelect } from "../components/inputs/iconSelect.jsx";
 import { FileInput } from "../components/inputs/fileInput.jsx";
-import Carteirinha from "../components/layout/carteirinha.jsx";
+import Carteirinha from "../components/ui/carteirinha.jsx";
 import Footer from "../components/layout/footer.jsx";
 
 // Icons
@@ -121,7 +121,7 @@ function RegisterStudent() {
                                 placeholder="Digite a matrícula" 
                                 maxLength="8" 
                                 type="text"
-                                inputmode="numeric" 
+                                inputMode="numeric" 
                                 label="Matrícula" 
                                 value={formData.matricula}
                                 onChange={(e) => handleInputChange('matricula', e.target.value)}

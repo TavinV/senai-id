@@ -11,18 +11,23 @@ import RegisterEmployee from './pages/registerEmployee.jsx';
 
 import './index.css';
 
+import { AuthProvider } from './context/authContext.jsx';
+import PrivateRoute from './components/auth/PrivateRoute.jsx';
 
 const router = createBrowserRouter([
-  {path: '/', element: <RegisterStudent />},
+  {
+    path: '/', element: <PrivateRoute element={<RegisterStudent/>}/>},
   {path: '/login', element: <Login />},
   {path: '/suporte', element: <Support />},
-  {path: '/atrasos', element: <DelayControl />},
-  {path: '/registrar-aluno', element: <RegisterStudent />},
-  {path: '/registrar-funcionario', element: <RegisterEmployee />},
+  {path: '/atrasos', element: <PrivateRoute element={<DelayControl/>}/>},
+  {path: '/registrar-aluno', element: <PrivateRoute element={<RegisterStudent/>}/>},
+  {path: '/registrar-funcionario', element: <PrivateRoute element={<RegisterEmployee/>}/>},
 ]);
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );

@@ -1,7 +1,6 @@
 export const FormContainer = ({ title, buttonText, onSubmit, children, theme = "default" }) => {
 
   const mainColor = theme === "employee" ? "blue-800" : "red-600";
-
   return (
     <form
       onSubmit={(e) => {
@@ -11,11 +10,6 @@ export const FormContainer = ({ title, buttonText, onSubmit, children, theme = "
       className="border border-gray-300 rounded-xl shadow-lg min-w-md overflow-hidden bg-white"
     >
       {/* Cabeçalho vermelho */}
-
-      <div className="bg-red-600 text-white text-2xl text-center py-3 font-semibol">
-        
-      </div>
-
 
       <div className={`bg-${mainColor} text-white text-2xl text-center py-3 font-semibold`}>
 

@@ -9,13 +9,14 @@ import FormRow from "../components/layout/formRow.jsx";
 import { IconInput } from "../components/inputs/iconInput.jsx";
 import { IconSelect } from "../components/inputs/iconSelect.jsx";
 import { FileInput } from "../components/inputs/fileInput.jsx";
-import Carteirinha from "../components/layout/carteirinha.jsx";
+import Carteirinha from "../components/ui/carteirinha.jsx";
 
 // Icons
 import { User, SquareUser, BriefcaseBusiness, Calendar, Wrench, IdCardLanyard } from 'lucide-react';
 
 // util
 import maskCPF from "../util/maskCpf.js";
+import { ToastContainer, toast } from 'react-toastify';
 
 function RegisterEmployee() {
     const [formData, setFormData] = useState({
@@ -75,7 +76,19 @@ function RegisterEmployee() {
             <LoggedHeader />
 
             <MainContent>
-                <FormContainer title="Cadastro de aluno" theme="employee" buttonText="Cadastrar" width="3xl" onSubmit={() => { alert("Cadastro realizado com sucesso!") }}>
+                <ToastContainer></ToastContainer>
+                <FormContainer title="Cadastro de Funcionário" theme="employee" buttonText="Cadastrar" width="3xl" onSubmit={() => { 
+                    toast.success("Cadastrado com sucesso", {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    }) 
+                    }}>
                     <FormRow>
                         <div className="w-[48%] flex flex-col gap-2">
                             <h2>Nome completo</h2>

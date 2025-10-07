@@ -1,27 +1,26 @@
 import { useState } from 'react';
 
-
 import { NavLink, useNavigate } from 'react-router-dom';
 import Header from "../components/layout/header.jsx";
 import Footer from "../components/layout/footer.jsx";
 import MainContent from '../components/layout/mainContent.jsx';
-
-// icons
+import AlertMessage from '../components/ui/alertMessage.jsx';
 import { IconInput } from '../components/inputs/iconInput.jsx';
 import { PasswordInput } from '../components/inputs/passwordInput.jsx';
-import { GraduationCap } from 'lucide-react';
 import { FormContainer } from '../components/containers/formContainer.jsx';
 
-// util
-//import maskCpf from '../util/maskCpf.js';
+// icons
+import { GraduationCap } from 'lucide-react';
 
-// hook
-import { useAuth } from '../hooks/useAuth.jsx';
+// util
 import maskCPF from '../util/maskCpf.js';
+
+// auth context
+import { useAuthContext } from '../context/authContext.jsx';
 
 function Login () {
     const [password, setPassword] = useState("");
-    const { login, loading, error } = useAuth();
+    const { login, loading, error, clearError, isAuthenticated } = useAuthContext();
     const [cpf, setCpf] = useState("");
     const navigate = useNavigate();
 
@@ -38,6 +37,9 @@ function Login () {
         }
     };
     
+    if (isAuthenticated()) {
+        navigate('/registrar-aluno')
+    }
     return (
         <>
             <Header />
@@ -55,7 +57,7 @@ function Login () {
                         
                         {/* Exibindo a mensagem de erro */}
                         {error && (
-                            <p className='text-red-500 text-sm mt-2'>{error}</p>
+                            <AlertMessage type='error' message={error} onClose={clearError}/>
                         )}
 
                         <div className="flex items-start justify-start flex-col gap-3">
