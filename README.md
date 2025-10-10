@@ -23,11 +23,14 @@ Senai ID é um sistema de controle de acesso desenvolvida para substituir as car
 ## 📂 Estrutura do Projeto
 
 ```
-api/
-│── v1/        # Código principal da API (controllers, services, middlewares, models, routes, etc.)
-│── db/        # Armazenamento de fotos de perfil
-│── logs/      # Logs do sistema (exceptions, info, rejection)
-│── .env.example  # Exemplo de configuração do ambiente
+client/
+│── src/       # Código do frontend (Componentes, Hooks, services)
+server/
+│──api/
+│──── v1/        # Código principal da API (controllers, services, middlewares, models, routes, etc.)
+│──── db/        # Armazenamento de fotos de perfil
+│──── logs/      # Logs do sistema (exceptions, info, rejection)
+│──── .env.example  # Exemplo de configuração do ambiente
 ```
 
 ---
