@@ -1,7 +1,7 @@
 import moment from "moment";
 
 // Services
-import { findUserById, findUserPFP, generateQRCODE, updateUser, findUserByEmail, findAllUsers } from "../services/user_services.js";
+import { findUserById, findUser, generateQRCODE, updateUser, findUserByEmail, findAllUsers } from "../services/user_services.js";
 import { createToken, verifyToken, deleteToken } from "../services/email_token_services.js";
 import { createUpdateRequest, findUpdateRequestById, findUpdateRequestsByUserId } from "../services/update_request_services.js";
 import { createPasswordResetToken, deletePasswordResetToken, verifyPasswordResetToken } from "../services/password_reset_services.js";
@@ -97,10 +97,10 @@ const getFotoPerfil = async (req, res) => {
 
 // GET api/v1/users/:id/primeiro-acesso
 const primeiroAcesso = async (req, res) => {
-    const id = req.params.id
+    const {cpf} = req.body
 
-    const [user, findUserError] = await findUserById(id)
-
+    const [user, findUserError] = await findUser({cpf: cpf})
+   
     if (!user && findUserError != 404) {
         // Erro interno do servidor, algum problema com o banco de dados.
         return ApiResponse.ERROR(res, `Erro interno do servidor.`)
@@ -109,12 +109,7 @@ const primeiroAcesso = async (req, res) => {
         return ApiResponse.NOTFOUND(res, "Usuário não foi encontrado.")
     }
 
-    return ApiResponse.OK(res, {
-        nome: user.nome,
-        login: user.login,
-        senha: user.senha_padrao,
-        cpf: user.cpf
-    })
+    return ApiResponse.OK(res, {cpf: user.cpf, senha: user.senha_padrao})
 }
 
 
@@ -411,7 +406,7 @@ const buscarUpdate = async (req, res) => {
 
 // POST api/v1/users/forgot-password?email=
 const forgotPassword = async (req, res) => {
-    const email = req.query.email || ""
+    const {email} = req.body 
 
     if (email == "") {
         return ApiResponse.BADREQUEST(res, "Usuário não tem um email verificado.")
@@ -449,6 +444,8 @@ const forgotPassword = async (req, res) => {
 // POST api/v1/users/reset-password?token=
 const resetPassword = async (req, res) => {
     const token = req.query.token
+    console.log(token)
+    console.log(req.query)
     const { senha, confirmarSenha } = req.body
 
     const [tokenData, findTokenError] = await verifyPasswordResetToken(token)

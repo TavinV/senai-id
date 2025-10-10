@@ -7,11 +7,13 @@ export const alunoSchema = Joi.object({
     turma: Joi.string().required(),
     matricula: Joi.string().required(),
     data_nascimento: Joi.string().required(),
-    curso: Joi.string().required()
+    curso: Joi.string().required(),
+    foto_perfil: Joi.any(),
 })
 
 export const funcionarioSchema = Joi.object({
     nome: Joi.string().required(),
+    foto_perfil: Joi.any(),
     cpf: Joi.string().length(14).required(), // CPF com 14 dígitos
     senha: Joi.string().required(),
     pis: Joi.string().length(11).required(), // PIS com 11 dígitos

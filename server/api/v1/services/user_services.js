@@ -171,4 +171,14 @@ const deleteUser = async (user_id) => {
     }
 }
 
-export { findUserById, validateUserLogin, findUserPFP, generateQRCODE, updateUser, createUser, deleteUser, findUserByEmail, findAllUsers }
+const findUser = async (query) => {
+    try {
+        const result = await User.findOne(query)
+        return [result, null]
+    } catch (error) {
+        console.error(error)
+        return [null, 404]
+    }
+}
+
+export { findUserById, findUser, validateUserLogin, findUserPFP, generateQRCODE, updateUser, createUser, deleteUser, findUserByEmail, findAllUsers }
