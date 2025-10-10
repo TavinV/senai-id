@@ -65,14 +65,16 @@ LOG_LEVEL=info
 
 2. Instale as dependências:
    ```bash
-   npm install
+   cd server; npm install
+   cd client; npm install
    ```
 
 3. Configure o arquivo `.env` conforme o modelo `.env.example`.
 
 4. Inicie o servidor:
    ```bash
-   npm run start
+   cd server; npm run dev
+   cd client; npm run dev
    ```
    O servidor será executado na **porta 3000**.
 
@@ -80,7 +82,7 @@ LOG_LEVEL=info
 
 ## 🔑 Autenticação e Permissões
 
-O login é realizado via **nome de usuário e senha**, retornando um **token JWT** com as permissões do usuário autenticado.
+O login é realizado via **CPF e senha**, retornando um **token JWT** com as permissões do usuário autenticado.
 Essas são as permissões dos diferentes níveis de usuários:
 
 - **Usuários padrão (Alunos e Funcionários)**: acesso ao QR Code para entrada, troca de senha, solicitação de alteração cadastral.
