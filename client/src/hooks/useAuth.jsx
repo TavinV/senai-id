@@ -13,7 +13,7 @@ export const useAuth = () => {
         setError(null);
 
         try {
-            const response = await api.post('/login', { login, senha });
+            const response = await api.post('/auth', { login, senha });
             const user = response.data.data;
 
             if (user) {

@@ -10,6 +10,7 @@ import { IconInput } from "../components/inputs/iconInput.jsx";
 import { IconSelect } from "../components/inputs/iconSelect.jsx";
 import { FileInput } from "../components/inputs/fileInput.jsx";
 import Carteirinha from "../components/ui/carteirinha.jsx";
+import Footer from "../components/layout/footer.jsx";
 
 // Icons
 import { User, SquareUser, BriefcaseBusiness, Calendar, Wrench, IdCardLanyard } from 'lucide-react';
@@ -188,6 +189,8 @@ function RegisterEmployee() {
                     role={formData.cargo || "Cargo do Funcionário"}
                 />
             </MainContent>
+
+            <Footer />
         </>
     );
 }
