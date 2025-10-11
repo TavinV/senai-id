@@ -106,7 +106,7 @@ Dúvidas ou suporte? Entre em contato:
 
 ## 📌 Documentação da API
 
-A documentação completa das rotas está disponível em breve.
+[Acesse aqui a documentação completa](./server/docs/README_API_Senai_ID.md)
 
 <hr>
 
