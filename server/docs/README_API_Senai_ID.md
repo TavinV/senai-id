@@ -104,7 +104,7 @@ Todas as rotas retornam o seguinte padrão de resposta:
 | matricula          | string  | ✅           | Matrícula                       |
 | data_nascimento    | date    | ✅           | Data de nascimento              |
 | curso              | string  | ✅           | Curso                           |
-| foto_perfil        | file    | ❌           | Foto de perfil (upload)         |
+| foto_perfil        | file    | ✅           | Foto de perfil (upload)         |
 
 #### 📤 Respostas
 | Código | Descrição                            |
