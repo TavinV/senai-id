@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Atrasos do Aluno - SENAI Nami Jafet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            border-top: 5px solid #e30613;
+        }
+
+        .header {
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e30613;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            width: 120px;
+            margin-right: 20px;
+        }
+
+        .logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .school-info {
+            text-align: right;
+        }
+
+        .school-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #e30613;
+            margin-bottom: 5px;
+        }
+
+        .school-location {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .document-title {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .document-title h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .document-title .subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .student-info {
+            padding: 25px 30px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .student-name {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #e30613;
+            font-weight: 600;
+        }
+
+        .student-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .detail-item {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .detail-value {
+            font-weight: 500;
+        }
+
+        .document-description {
+            padding: 20px 30px;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #eee;
+            color: #555;
+            font-size: 14px;
+            text-align: justify;
+        }
+
+        .delays-section {
+            padding: 25px 30px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #e30613;
+            font-weight: 600;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e30613;
+        }
+
+        .delays-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .delays-table th {
+            background-color: #e30613;
+            color: white;
+            text-align: left;
+            padding: 12px 15px;
+            font-weight: 600;
+        }
+
+        .delays-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .delays-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .status-validado {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .status-pendente {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .summary {
+            padding: 20px 30px;
+            background-color: #f0f8ff;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .summary-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .summary-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #e30613;
+        }
+
+        .summary-label {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .footer {
+            padding: 20px 30px;
+            text-align: center;
+            color: #777;
+            font-size: 12px;
+            border-top: 1px solid #eee;
+            background-color: #f9f9f9;
+        }
+
+        .signature-area {
+            margin-top: 40px;
+            padding: 0 30px 30px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .signature-line {
+            width: 250px;
+            border-top: 1px solid #333;
+            text-align: center;
+            padding-top: 5px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 80px;
+            color: rgba(227, 6, 19, 0.05);
+            font-weight: 700;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            .watermark {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo-container {
+                justify-content: center;
+                margin-bottom: 15px;
+            }
+
+            .school-info {
+                text-align: center;
+            }
+
+            .student-details {
+                grid-template-columns: 1fr;
+            }
+
+            .summary {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .delays-table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .signature-area {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="watermark">SENAI</div>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="https://logodownload.org/wp-content/uploads/2019/08/senai-logo-2.png" alt="Logo SENAI">
+                </div>
+            </div>
+            <div class="school-info">
+                <div class="school-name">SENAI NAMI JAFET</div>
+                <div class="school-location">Mogi das Cruzes - SP</div>
+            </div>
+        </div>
+
+        <div class="document-title">
+            <h1>Relatório de Atrasos do Aluno</h1>
+            <div class="subtitle">Controle de Frequência e Ponto</div>
+        </div>
+
+        <div class="student-info">
+            <h1 class="student-name" id="student-name">Carregando...</h1>
+            <div class="student-details">
+                <div class="detail-item">
+                    <span class="detail-label">CPF:</span> <span class="detail-value"
+                        id="student-cpf">Carregando...</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Matrícula:</span> <span class="detail-value"
+                        id="student-matricula">Carregando...</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Curso:</span> <span class="detail-value"
+                        id="student-curso">Carregando...</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Turma:</span> <span class="detail-value"
+                        id="student-turma">Carregando...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="document-description">
+            Este documento oficial registra os atrasos do aluno no SENAI "Nami Jafet" - Mogi das Cruzes, contendo
+            informações detalhadas sobre data, motivo, status e responsável pela validação de cada ocorrência. Os
+            registros são utilizados para controle de frequência e acompanhamento do rendimento escolar.
+        </div>
+
+        <div class="delays-section">
+            <h2 class="section-title">Registro de Atrasos</h2>
+            <table class="delays-table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Motivo</th>
+                        <th>Status</th>
+                        <th>Responsável</th>
+                    </tr>
+                </thead>
+                <tbody id="delays-table-body">
+                    <!-- Os dados serão preenchidos via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="summary">
+            <div class="summary-item">
+                <div class="summary-value" id="total-atrasos">0</div>
+                <div class="summary-label">Total de Atrasos</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value" id="atrasos-validados">0</div>
+                <div class="summary-label">Atrasos Validados</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value" id="atrasos-pendentes">0</div>
+                <div class="summary-label">Atrasos Pendentes</div>
+            </div>
+        </div>
+
+        <div class="signature-area">
+            <div class="signature-line">Coordenação Pedagógica</div>
+            <div class="signature-line">Direção</div>
+        </div>
+
+        <div class="footer">
+            Documento gerado em <span id="current-date">Carregando...</span> | SENAI "Nami Jafet" - Mogi das Cruzes/SP
+        </div>
+    </div>
+
+    <script>
+        // Dados simulados da API
+        const studentData = {
+            "success": true,
+            "message": "Sucesso",
+            "data": {
+                "_id": "689d372a15cedae83639926f",
+                "id": "7w38zulvm4fmeapb7v9",
+                "nome": "Otávio Vinícius Flauzino de Souza",
+                "senha": "EPiok9UgUymAv3lf0NW/8Grr6Q8S4OYpEPRJVAJ4qGs=",
+                "cargo": "aluno",
+                "salt": "grexx6ix1bi",
+                "email": "otavioviniciusads@gmail.com",
+                "data_nascimento": "18/12/2007",
+                "foto_perfil": "https://res.cloudinary.com/dt45ji80l/image/upload/v1758045331/senai-id/159206555-1758045331078.jpg",
+                "curso": "Técnico em Desenvolvimento de Sistemas",
+                "turma": "I2P4B",
+                "matricula": "24194131",
+                "senha_padrao": "senai117@25",
+                "senha_foi_alterada": true,
+                "cpf": "478.023.418-25",
+                "createdAt": "2025-08-14T01:08:58.401Z",
+                "updatedAt": "2025-10-10T01:42:03.348Z",
+                "__v": 0
+            },
+            "timestamp": "2025-10-21T17:08:45.183Z"
+        };
+
+        const delaysData = {
+            "success": true,
+            "message": "Atrasos do aluno Otávio Vinícius Flauzino de Souza.",
+            "data": {
+                "atrasos": [
+                    {
+                        "_id": "689e88aae7ba007fe17a53e5",
+                        "id": "gUgay83d",
+                        "user_id": "7w38zulvm4fmeapb7v9",
+                        "status": "Validado",
+                        "motivo": "Trânsito à caminho do senai",
+                        "responsavel": "Lucas",
+                        "observacao": "",
+                        "createdAt": "2025-08-15T01:08:59.011Z",
+                        "updatedAt": "2025-08-15T01:09:57.739Z",
+                        "__v": 0
+                    },
+                    {
+                        "_id": "68ca1035b05ecf58c31b2187",
+                        "id": "NoDcOSb2",
+                        "user_id": "7w38zulvm4fmeapb7v9",
+                        "status": "Validado",
+                        "motivo": "Trânsito à caminho do senai",
+                        "responsavel": "Lucas",
+                        "observacao": "",
+                        "createdAt": "2025-09-17T01:34:45.893Z",
+                        "updatedAt": "2025-09-17T01:35:40.432Z",
+                        "__v": 0
+                    },
+                    {
+                        "_id": "68d2a05183ebf1f6130e5baf",
+                        "id": "kN6svZXn",
+                        "user_id": "7w38zulvm4fmeapb7v9",
+                        "status": "Pendente",
+                        "motivo": "-",
+                        "responsavel": "-",
+                        "observacao": "-",
+                        "createdAt": "2025-09-23T13:27:45.504Z",
+                        "updatedAt": "2025-09-23T13:27:45.504Z",
+                        "__v": 0
+                    }
+                ]
+            },
+            "timestamp": "2025-10-21T16:58:18.765Z"
+        };
+
+        // Função para formatar a data
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('pt-BR');
+        }
+
+        // Função para carregar os dados do aluno
+        function loadStudentData() {
+            document.getElementById('student-name').textContent = studentData.data.nome;
+            document.getElementById('student-cpf').textContent = studentData.data.cpf;
+            document.getElementById('student-matricula').textContent = studentData.data.matricula;
+            document.getElementById('student-curso').textContent = studentData.data.curso;
+            document.getElementById('student-turma').textContent = studentData.data.turma;
+        }
+
+        // Função para carregar os dados de atrasos
+        function loadDelaysData() {
+            const tableBody = document.getElementById('delays-table-body');
+            const delays = delaysData.data.atrasos;
+
+            // Limpar a tabela
+            tableBody.innerHTML = '';
+
+            // Contadores para o resumo
+            let totalAtrasos = delays.length;
+            let atrasosValidados = 0;
+            let atrasosPendentes = 0;
+
+            // Preencher a tabela com os dados
+            delays.forEach(delay => {
+                const row = document.createElement('tr');
+
+                // Formatar a data
+                const dataFormatada = formatDate(delay.createdAt);
+
+                // Determinar a classe de status
+                const statusClass = delay.status === 'Validado' ? 'status-validado' : 'status-pendente';
+
+                row.innerHTML = `
+                    <td>${dataFormatada}</td>
+                    <td>${delay.motivo}</td>
+                    <td><span class="${statusClass}">${delay.status}</span></td>
+                    <td>${delay.responsavel}</td>
+                `;
+
+                tableBody.appendChild(row);
+
+                // Atualizar contadores
+                if (delay.status === 'Validado') {
+                    atrasosValidados++;
+                } else if (delay.status === 'Pendente') {
+                    atrasosPendentes++;
+                }
+            });
+
+            // Atualizar o resumo
+            document.getElementById('total-atrasos').textContent = totalAtrasos;
+            document.getElementById('atrasos-validados').textContent = atrasosValidados;
+            document.getElementById('atrasos-pendentes').textContent = atrasosPendentes;
+        }
+
+        // Função para definir a data atual
+        function setCurrentDate() {
+            const now = new Date();
+            document.getElementById('current-date').textContent = now.toLocaleDateString('pt-BR');
+        }
+
+        // Inicializar a página
+        document.addEventListener('DOMContentLoaded', function () {
+            loadStudentData();
+            loadDelaysData();
+            setCurrentDate();
+        });
+    </script>
+</body>
+
+</html>
