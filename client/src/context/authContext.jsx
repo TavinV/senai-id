@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
     const login = async (login, senha) => {
         setError(null);
         try {
-            const response = await api.post("/login", { login, senha });
+            const response = await api.post("/auth", { login, senha });
             const data = response.data.data;
             const receivedToken = data.token;
             
