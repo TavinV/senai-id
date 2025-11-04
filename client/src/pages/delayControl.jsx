@@ -6,6 +6,9 @@ import LoggedHeader from "../components/layout/loggedHeader.jsx"
 import MainContent from '../components/layout/mainContent.jsx'
 import Footer from "../components/layout/footer.jsx"
 
+//icons
+import { AlarmClock } from "lucide-react";
+
 function DelayControl() {
 
     return(
@@ -13,14 +16,11 @@ function DelayControl() {
             <LoggedHeader />
 
             <MainContent>
-                <FormManagement>
-                    <div className="flex justify-around text-black font-bold border-b-2 pb-3">
-                        <p>Usuário</p>
-                        <p>ID</p>
-                        <p>Status</p>
-                        <p>Documento</p>
-                        <p>Ações</p>
-                    </div>
+                <FormManagement 
+                    icon={AlarmClock}
+                    title="Gerenciamento de Atrasos"
+                    bgColor="bg-red-500"
+                >
                 </FormManagement>
             </MainContent>
 
