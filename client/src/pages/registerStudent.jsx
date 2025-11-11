@@ -83,13 +83,12 @@ function RegisterStudent() {
     }, []);
 
     return (
-        <>
+        <div className="flex flex-col min-h-screen overflow-x-hidden">
             <LoggedHeader />
 
-            <MainContent>
-                <FormContainer title="Cadastro de aluno" buttonText="Cadastrar" width="3xl" onSubmit={() => { alert("Cadastro realizado com sucesso!") }}>
-                    <FormRow>
-                        <div className="w-[48%] flex flex-col gap-2">
+	<MainContent className="flex flex-col md:flex-row gap-8 flex-grow">                <FormContainer title="Cadastro de aluno" buttonText="Cadastrar" width="full md:w-3xl" onSubmit={() => { alert("Cadastro realizado com sucesso!") }} className="flex-grow px-4 md:px-0">
+                    <FormRow className="flex-col md:flex-row">
+                        <div className="w-full md:w-[48%] flex flex-col gap-2">
                             <h2>Nome completo</h2>
                             <IconInput 
                                 icon={<User />} 
@@ -100,7 +99,7 @@ function RegisterStudent() {
                                 onChange={(e) => handleInputChange('name', e.target.value)}
                             />
                         </div>
-                        <div className="w-[48%] flex flex-col gap-2">
+                        <div className="w-full md:w-[48%] flex flex-col gap-2">
                             <h2>CPF</h2>
                             <IconInput 
                                 icon={<SquareUser />} 
@@ -113,8 +112,8 @@ function RegisterStudent() {
                             />
                         </div>
                     </FormRow>
-                    <FormRow>
-                        <div className="w-[48%] flex flex-col gap-2">
+                    <FormRow className="flex-col md:flex-row">
+                        <div className="w-full md:w-[48%] flex flex-col gap-2">
                             <h2>Matrícula</h2>
                             <IconInput 
                                 icon={<GraduationCap />} 
@@ -127,7 +126,7 @@ function RegisterStudent() {
                                 onChange={(e) => handleInputChange('matricula', e.target.value)}
                             />
                         </div>
-                        <div className="w-[48%] flex flex-col gap-2">
+                        <div className="w-full md:w-[48%] flex flex-col gap-2">
                             <h2>Data de nascimento</h2>
                             <IconInput 
                                 icon={<Calendar />} 
@@ -139,7 +138,7 @@ function RegisterStudent() {
                             />
                         </div>
                     </FormRow>
-                    <FormRow>
+                    <FormRow className="flex-col md:flex-row">
                         <div className="w-full flex flex-col gap-2">
                             <IconSelect 
                                 icon={<Wrench />} 
@@ -153,7 +152,7 @@ function RegisterStudent() {
                             />
                         </div>
                     </FormRow>
-                    <FormRow>
+                    <FormRow className="flex-col md:flex-row">
                         <div className="w-full flex flex-col gap-2">
                             <label className="text-gray-700 font-medium">Foto do aluno</label>
                             <div className="flex items-center gap-4">
@@ -174,19 +173,21 @@ function RegisterStudent() {
                     </FormRow>
                 </FormContainer>
                 
-                {/* Carteirinha com dados em tempo real */}
-                <Carteirinha 
-                    photoPreview={photoPreview}
-                    name={formData.name || "Nome do Estudante"} 
-                    dateOfBirth={formData.dateOfBirth || "00/00/0000"} 
-                    course={formData.course || ""} 
-                    matricula={formData.matricula || "00000000"} 
-                    cpf={formData.cpf || "000.000.000-00"} 
-                />
-            </MainContent>
+	                {/* Carteirinha com dados em tempo real */}
+	                <div className="hidden md:block">
+	                    <Carteirinha 
+	                        photoPreview={photoPreview}
+	                        name={formData.name || "Nome do Estudante"} 
+	                        dateOfBirth={formData.dateOfBirth || "00/00/0000"} 
+	                        course={formData.course || ""} 
+	                        matricula={formData.matricula || "00000000"} 
+	                        cpf={formData.cpf || "000.000.000-00"} 
+	                    />
+	                </div>
+		            </MainContent>
 
             <Footer></Footer>
-        </>
+        </div>
     );
 }
 
