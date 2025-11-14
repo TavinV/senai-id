@@ -6,6 +6,7 @@ Senai ID é um sistema de controle de acesso desenvolvida para substituir as car
 
 ## 🚀 Tecnologias Utilizadas
 
+- **React.js** - Framework para desenvolvimento do Front-end
 - **Node.js** (v22.3.0 recomendado)
 - **Express** - Framework para construção da API REST
 - **MongoDB** (versão mais recente recomendada)
@@ -101,6 +102,7 @@ Os logs são armazenados na pasta `api/logs/`, com nível padrão **INFO** (conf
 
 Dúvidas ou suporte? Entre em contato:
 📧 **otavioviniciusads@gmail.com**
+📧 **lucasgomesferreira2008@gmail.com**
 
 
 
