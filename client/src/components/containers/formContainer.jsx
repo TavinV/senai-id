@@ -22,7 +22,7 @@ export const FormContainer = ({ title, buttonText, loadingText, onSubmit, childr
         e.preventDefault(); // evita recarregar a página
         onSubmit?.();
       }}
-      className="border border-gray-300 rounded-xl shadow-lg md:w-125 overflow-hidden bg-white"
+      className="border border-gray-300 rounded-xl shadow-lg md:w-125 overflow-hidden  bg-white"
     >
       {/* Cabeçalho */}
       <div className={headerClasses}>
