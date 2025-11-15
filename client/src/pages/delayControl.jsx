@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import FormManagement from "../components/containers/formManagement.jsx";
 import LoggedHeader from "../components/layout/loggedHeader.jsx"
 import MainContent from '../components/layout/mainContent.jsx'
-import UserList from "../components/layout/userList.jsx";
+import UseUsers from "../hooks/useUsers.jsx";
 import Footer from "../components/layout/footer.jsx"
 
 
@@ -23,7 +23,7 @@ function DelayControl() {
                     title="Gerenciamento de Atrasos"
                     bgColor="bg-red-500"
                 >
-                    <UserList />
+                    <UseUsers />
                 </FormManagement>
             </MainContent>
 

@@ -41,7 +41,7 @@ const FormManagement = ({
  
              {/*Conteúdo do Formulário*/}
              <div className="p-8 w-full">
-                 <div className="flex justify-between text-gray-800 font-bold">
+                 <div className="flex justify-around text-gray-800 font-bold">
                      <p>{col1}</p>
                      <p>{col2}</p>
                      <p>{col3}</p>
