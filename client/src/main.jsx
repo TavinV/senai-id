@@ -8,17 +8,19 @@ import Support from './pages/support.jsx';
 import RegisterStudent from './pages/registerStudent.jsx'
 import DelayControl from './pages/delayControl.jsx'; 
 import RegisterEmployee from './pages/registerEmployee.jsx';
+import FirstAccessSelectRole from './pages/firstAccessSelectRole.jsx'
 
 import './index.css';
 
 import { AuthProvider } from './context/authContext.jsx';
 import PrivateRoute from './components/auth/PrivateRoute.jsx';
 
+
 const router = createBrowserRouter([
-  {
-    path: '/', element: <PrivateRoute element={<RegisterStudent/>}/>},
+  {path: '/', element: <PrivateRoute element={<RegisterStudent/>}/>},
   {path: '/login', element: <Login />},
   {path: '/suporte', element: <Support />},
+  {path: '/primeiro-acesso', element: <FirstAccessSelectRole />},
   {path: '/atrasos', element: <PrivateRoute element={<DelayControl/>}/>},
   {path: '/registrar-aluno', element: <PrivateRoute element={<RegisterStudent/>}/>},
   {path: '/registrar-funcionario', element: <PrivateRoute element={<RegisterEmployee/>}/>},
