@@ -9,7 +9,12 @@ import {
   LayoutGrid,
 } from "lucide-react";
 
-export default function SideMenuSecretaryAcess({ isOpen, onClose, user, onLogout }) {
+export default function SideMenuSecretaryAcess({
+  isOpen,
+  onClose,
+  user,
+  onLogout,
+}) {
   const menuRef = useRef(null);
 
   // Fecha o menu ao clicar fora ou pressionar ESC
@@ -67,25 +72,47 @@ export default function SideMenuSecretaryAcess({ isOpen, onClose, user, onLogout
               <h2 className="font-semibold text-gray-800 text-base">
                 {user?.name || "Secretaria"}
               </h2>
-              <p className="text-sm text-gray-500">{user?.role || "Administrador"}</p>
+              <p className="text-sm text-gray-500">
+                {user?.role || "Administrador"}
+              </p>
             </div>
           </div>
 
           {/* Opções administrativas */}
           <nav className="flex flex-col gap-1 p-4 text-gray-700">
-            <NavItem to="/dashboard" icon={<LayoutGrid size={20} />} onClick={onClose}>
+            <NavItem
+              to="/dashboard"
+              icon={<LayoutGrid size={20} />}
+              onClick={onClose}
+            >
               Dashboard
             </NavItem>
-            <NavItem to="/liberacoes" icon={<ArrowRightLeft size={20} />} onClick={onClose}>
+            <NavItem
+              to="/liberacoes"
+              icon={<ArrowRightLeft size={20} />}
+              onClick={onClose}
+            >
               Liberações
             </NavItem>
-            <NavItem to="/usuarios" icon={<Users size={20} />} onClick={onClose}>
+            <NavItem
+              to="/usuarios"
+              icon={<Users size={20} />}
+              onClick={onClose}
+            >
               Usuários
             </NavItem>
-            <NavItem to="/mensagens" icon={<Mail size={20} />} onClick={onClose}>
+            <NavItem
+              to="/mensagens"
+              icon={<Mail size={20} />}
+              onClick={onClose}
+            >
               Mensagens
             </NavItem>
-            <NavItem to="/suporte" icon={<Headset size={20} />} onClick={onClose}>
+            <NavItem
+              to="/suporte"
+              icon={<Headset size={20} />}
+              onClick={onClose}
+            >
               Suporte
             </NavItem>
           </nav>

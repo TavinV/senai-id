@@ -56,7 +56,7 @@ const Header = () => {
           className="md:hidden text-black p-2 rounded hover:bg-gray-100 transition"
           onClick={toggleMenu}
         >
-          <Menu size={28} color="#d32f2f" />
+          <Menu size={28} color="black" />
         </button>
 
         {/* Menu desktop */}

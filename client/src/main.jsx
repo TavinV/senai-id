@@ -8,7 +8,7 @@ import Support from './pages/support.jsx';
 import RegisterStudent from './pages/registerStudent.jsx'
 import DelayControl from './pages/delayControl.jsx'; 
 import RegisterEmployee from './pages/registerEmployee.jsx';
-import FirstAccessSelectRole from './pages/firstAccessSelectRole.jsx'
+import FirstAccessSelectRole from '../src/pages/firstAccessSelectRole.jsx'
 
 import './index.css';
 

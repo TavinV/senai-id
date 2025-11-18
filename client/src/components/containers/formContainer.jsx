@@ -30,19 +30,23 @@ export const FormContainer = ({ title, buttonText, loadingText, onSubmit, childr
       </div>
 
       {/* Conteúdo do formulário */}
-      <div className="p-8 flex flex-col gap-10">
+      <div className="p-7 flex flex-col gap-5">
         {children}
       </div>
 
       {/* Botão de envio */}
-      <div className="font-bold text-center p-8 rounded-md w-full flex justify-center">
-        <button
-          type="submit"
-          className={buttonClasses}
-        >
-          {loading ? loadingText : buttonText}
-        </button>
-      </div>
+      {
+        buttonText && (
+          <div className="font-bold text-center p-8 rounded-md w-full flex justify-center">
+          <button
+            type="submit"
+            className={buttonClasses}
+            >
+            {loading ? loadingText : buttonText}
+          </button>
+        </div>
+        )
+      }
     </form>
   );
 };

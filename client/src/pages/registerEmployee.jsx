@@ -83,7 +83,7 @@ function RegisterEmployee() {
     <div className="flex flex-col min-h-screen overflow-x-hidden">
       <LoggedHeader />
 
-      <MainContent className="flex p-10 flex-col md:flex-row gap-8 ">
+      <MainContent className="flex p-5 flex-col md:flex-row gap-8 ">
         <FormContainer
           title="Cadastro de Funcionário"
           theme="employee"
@@ -101,9 +101,10 @@ function RegisterEmployee() {
               theme: "light",
             });
           }}
+          className="px-4 md:px-0"
         >
           <FormRow className="flex-col md:flex-row">
-            <div className="w-[48%] flex flex-col gap-2">
+            <div className="w-full md:w-[48%] flex flex-col gap-2">
               <h2>Nome completo</h2>
               <IconInput
                 icon={<User />}
@@ -114,7 +115,7 @@ function RegisterEmployee() {
                 onChange={(e) => handleInputChange("name", e.target.value)}
               />
             </div>
-            <div className="w-[48%] flex flex-col gap-2">
+            <div className="w-full md:w-[48%] flex flex-col gap-2">
               <h2>CPF</h2>
               <IconInput
                 icon={<SquareUser />}
@@ -128,7 +129,7 @@ function RegisterEmployee() {
             </div>
           </FormRow>
           <FormRow>
-            <div className="w-[48%] flex flex-col gap-2">
+            <div className="w-full md:w-[48%] flex flex-col gap-2">
               <h2>NIF</h2>
               <IconInput
                 icon={<BriefcaseBusiness />}
@@ -141,7 +142,7 @@ function RegisterEmployee() {
                 onChange={(e) => handleInputChange("nif", e.target.value)}
               />
             </div>
-            <div className="w-[48%] flex flex-col gap-2">
+            <div className="w-full md:w-[48%] flex flex-col gap-2">
               <h2>PIS</h2>
               <IconInput
                 icon={<IdCardLanyard />}
@@ -156,7 +157,7 @@ function RegisterEmployee() {
             </div>
           </FormRow>
           <FormRow>
-            <div className="w-full flex flex-col gap-2">
+            <div className="w-full md:w-[48%] flex flex-col gap-2">
               <IconSelect
                 icon={<Wrench />}
                 options={cargos}
@@ -168,18 +169,18 @@ function RegisterEmployee() {
               />
             </div>
           </FormRow>
-          <FormRow>
-            <div className="w-full flex flex-col gap-2">
+          <FormRow className="flex-col md:flex-row">
+            <div className="w-full flex flex-col gap-5">
               <label className="text-gray-700 font-medium">
                 Foto do Funcionário
               </label>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center flex-col sm:flex-row gap-4">
                 <img
                   src={photoPreview || "/placeholder-foto.png"}
                   alt=""
                   className="w-32 h-32 rounded-full object-cover bg-gray-800"
                 />
-                <div className="flex flex-col justify-between gap-6 ">
+                <div className="flex flex-col text-center justify-between gap-6 ">
                   <FileInput onChange={handleImageChange}></FileInput>
                   <span>
                     <h3>
@@ -197,15 +198,15 @@ function RegisterEmployee() {
 
         {/* Carteirinha com dados em tempo real */}
         <div className="hidden md:block">
-        <Carteirinha
-          photoPreview={photoPreview}
-          name={formData.name || "Nome do Funcionário"}
-          cpf={formData.cpf || "000.000.000-00"}
-          nif={formData.nif || "00000000"}
-          pis={formData.pis || "000.00000.00-0"}
-          type="funcionario"
-          role={formData.cargo || "Cargo do Funcionário"}
-        />
+          <Carteirinha
+            photoPreview={photoPreview}
+            name={formData.name || "Nome do Funcionário"}
+            cpf={formData.cpf || "000.000.000-00"}
+            nif={formData.nif || "00000000"}
+            pis={formData.pis || "000.00000.00-0"}
+            type="funcionario"
+            role={formData.cargo || "Cargo do Funcionário"}
+          />
         </div>
       </MainContent>
 
