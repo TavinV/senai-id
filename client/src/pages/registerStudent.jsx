@@ -92,13 +92,23 @@ function RegisterStudent() {
     <div className="flex flex-col min-h-screen overflow-x-hidden">
       <LoggedHeader />
 
-      <MainContent className="flex p-10 flex-col md:flex-row gap-8 ">
+      <MainContent className="flex p-5 flex-col md:flex-row gap-8 ">
         {" "}
         <FormContainer
           title="Cadastro de aluno"
           buttonText="Cadastrar"
+          width="3xl"
           onSubmit={() => {
-            alert("Cadastro realizado com sucesso!");
+            toast.success("Cadastrado com sucesso", {
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
           }}
           className="px-4 md:px-0"
         >
@@ -169,15 +179,16 @@ function RegisterStudent() {
             </div>
           </FormRow>
           <FormRow className="flex-col md:flex-row">
-            <div className="w-full flex flex-col gap-2">
-              <label className="text-gray-700 font-medium">Foto do aluno</label>
-              <div className="flex items-center gap-4">
+            <div className="w-full flex flex-col gap-5">
+              <label className="text-gray-700 font-medium">
+                Foto do aluno</label>
+              <div className="flex items-center flex-col sm:flex-row gap-4">
                 <img
                   src={photoPreview || "/placeholder-foto.png"}
                   alt=""
                   className="w-32 h-32 rounded-full object-cover bg-gray-800"
                 />
-                <div className="flex flex-col justify-between gap-6 ">
+                <div className="flex flex-col text-center justify-between gap-6 ">
                   <FileInput onChange={handleImageChange}></FileInput>
                   <span>
                     <h3>
