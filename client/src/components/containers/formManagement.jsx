@@ -49,8 +49,10 @@ const FormManagement = ({
                      <p>{col5}</p>
                  </div>
              </div>
-             {children}
-         </div>
+             <div className="flex-1 overflow-y-auto" style={{ maxHeight: "600px" }}>
+                {children}
+            </div>
+        </div>
      );
  }
 

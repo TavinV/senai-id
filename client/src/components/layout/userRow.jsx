@@ -1,6 +1,9 @@
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 
+//Component
+import Button from "../ui/button.jsx";
+
 const UserRow = ({ user }) => {
   const idValue = user.cargo === "funcionario" ? user.nif : user.matricula;
   const idLabel = user.cargo === "funcionario" ? "NIF" : "Matricula";
@@ -12,7 +15,7 @@ const UserRow = ({ user }) => {
       : "border-2 border-gray-200";
 
   return (
-    <div className="shadow bg-white grid grid-cols-5 items-center gap-20 border-t border-gray-300 p-6">
+    <div className="shadow bg-white grid grid-cols-5 items-center gap-20 border-t rounded-b-2xl border-gray-300 p-6">
       {/* Usuário */}
       <div className="ml-10  flex items-center gap-4">
         <img
@@ -52,15 +55,15 @@ const UserRow = ({ user }) => {
 
       {/* Ações */}
       <div className="mr-10  flex gap-3 justify-end">
-        <button className="flex py-2 px-5 font-semibold gap-2 text-[1.05em] transition-all duration-300 rounded-xl items-center bg-gray-200 hover:bg-gray-300 hover:scale-105 focus:active:scale-95">
-          <MdEdit className="text-2xl" />
-          Editar
-        </button>
-
-        <button className="flex py-2 text-white px-5 font-semibold gap-2 text-[1.05em] transition-all duration-300 rounded-xl items-center bg-red-500 hover:bg-red-600 hover:scale-105 focus:active:scale-95">
-          <MdDelete className="text-2xl text-white" />
-          Excluir
-        </button>
+        <Button
+          icon={<MdEdit className="mr-2 text-lg" />}
+          children={"Editar"}
+          design="flex py-2 text-black px-5 font-semibold gap-2 text-[1.05em] transition-all duration-300 rounded-xl items-center bg-gray-200 hover:bg-gray-300 hover:scale-105 focus:active:scale-95"
+        />
+        <Button
+          icon={<MdDelete className="mr-2 text-lg" />}
+          children={"Excluir"}
+        />
       </div>
     </div>
   );
