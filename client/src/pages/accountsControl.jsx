@@ -1,36 +1,52 @@
 import { NavLink } from "react-router-dom";
-
 //Components
 import FormManagement from "../components/containers/formManagement.jsx";
-import LoggedHeader from "../components/layout/loggedHeader.jsx"
-import MainContent from '../components/layout/mainContent.jsx'
+import LoggedHeader from "../components/layout/loggedHeader.jsx";
+import MainContent from "../components/layout/mainContent.jsx";
+import Footer from "../components/layout/footer.jsx";
 import UseUsers from "../hooks/useUsers.jsx";
-import Footer from "../components/layout/footer.jsx"
-
+import UserRow from "../components/layout/userRow.jsx"
 
 //icons
-import { AlarmClock } from "lucide-react";
+import { HiUsers } from "react-icons/hi";
+import { MdEdit, MdDelete } from "react-icons/md"
 
-function DelayControl() {
+function AccountsControl() {
+    const { loading, users, error } = UseUsers();
 
-    return(
-        <>
-            <LoggedHeader />
+    if (loading) return <p>Carregando...</p>;
+    if (error) return <p>Erro ao carregar usuários.</p>;
 
-            <MainContent>
-                <FormManagement 
-                    icon={AlarmClock}
-                    title="Gerenciamento de Atrasos"
-                    bgColor="bg-red-500"
-                >
-                    <UseUsers />
-                </FormManagement>
-            </MainContent>
-
-
-            <Footer />
-        </>
-    )
+  return (
+    <>
+      <LoggedHeader />
+      <MainContent>
+        <FormManagement
+          icon={HiUsers}
+          title="Gerenciamento de contas"
+          bgColor="bg-red-500"
+        >
+          <div>
+            {users.map((user) => (
+              <UserRow
+                key={user._id}
+                type="accounts"
+                user={user}
+                labels={{
+                  action1: "Editar",
+                  action2: "Excluir",
+                  icon1: <MdEdit />,
+                  icon2: <MdDelete />,
+                }}
+                onAction1={() => console.log("Editar", user)}
+                onAction2={() => console.log("Excluir", user)}
+              />
+            ))}
+          </div>
+        </FormManagement>
+      </MainContent>
+      <Footer />
+    </>
+  );
 }
-
-export default DelayControl;
+export default AccountsControl;

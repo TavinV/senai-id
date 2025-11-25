@@ -5,7 +5,7 @@ import { createRoot } from 'react-dom/client';
 //Pages 
 import Login from './pages/login.jsx';
 import Support from './pages/support.jsx';
-import DelayControl from './pages/accountsControl.jsx';
+import DelayControl from './pages/delayControl.jsx';
 import RegisterStudent from './pages/registerStudent.jsx'
 import AccountsControl from './pages/accountsControl.jsx'; 
 import RegisterEmployee from './pages/registerEmployee.jsx';

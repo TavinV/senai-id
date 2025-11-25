@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
-import api from "../services/api"
+import axios from "axios";
 
-const useUsers = () => {
+const useLeaves = () => {
   const [loading, setLoading] = useState(true);
-  const [users, setUsers] = useState([]); 
+  const [leaves, setLeaves] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await api.get("/users");
-        setUsers(res.data.data || []); // ← OUTRA GARANTIA QUE VOLTA ARRAY
+        const res = await axios.get(
+          "https://senai-id-1.onrender.com/api/leaves"
+        );
+        setLeaves(res.data.data || []);
       // eslint-disable-next-line no-unused-vars
       } catch (err) {
-        setError("Erro ao carregar usuários");
+        setError("Erro ao carregar saídas antecipadas");
       } finally {
         setLoading(false);
       }
@@ -22,7 +24,7 @@ const useUsers = () => {
     load();
   }, []);
 
-  return { loading, error, users };
+  return { loading, error, leaves };
 };
 
-export default useUsers;
+export default useLeaves;
