@@ -71,7 +71,6 @@ const UserRow = ({
   // Botões de ação variam conforme o tipo
   return (
     <div className="shadow bg-white grid grid-cols-5 items-center gap-20 border-t rounded-b-2xl border-gray-300 p-6">
-      
       {/* Usuário */}
       <div className="ml-10 flex items-center gap-4">
         <img
@@ -105,13 +104,14 @@ const UserRow = ({
         <Button
           icon={labels.icon1}
           children={labels.action1}
-          design="flex py-2 text-black px- font-semibold gap-2 text-[1.03em] bg-gray-200 rounded-xl hover:bg-gray-300 hover:scale-105 transition-all"
+          design="flex justify-center items-center py-3 px-2 text-black px- font-semibold gap-2 text-[1.03em] bg-gray-100 rounded-md hover:bg-gray-200 hover:scale-105 transition-all"
           onClick={onAction1}
         />
 
         <Button
           icon={labels.icon2}
           children={labels.action2}
+          design="flex justify-center text-white items-center py-3 px-3 text-black px- font-semibold gap-2 text-[1.03em] bg-red-400 rounded-md hover:bg-red-500 hover:scale-105 transition-all"
           onClick={onAction2}
         />
       </div>

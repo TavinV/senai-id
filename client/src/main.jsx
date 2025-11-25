@@ -6,6 +6,7 @@ import { createRoot } from 'react-dom/client';
 import Login from './pages/login.jsx';
 import Support from './pages/support.jsx';
 import DelayControl from './pages/delayControl.jsx';
+import LeavesControl from './pages/leavesControl.jsx';
 import RegisterStudent from './pages/registerStudent.jsx'
 import AccountsControl from './pages/accountsControl.jsx'; 
 import RegisterEmployee from './pages/registerEmployee.jsx';
@@ -18,14 +19,21 @@ import PrivateRoute from './components/auth/PrivateRoute.jsx';
 
 
 const router = createBrowserRouter([
-  {path: '/', element: <PrivateRoute element={<RegisterStudent/>}/>},
-  {path: '/login', element: <Login />},
-  {path: '/suporte', element: <Support />},
-  {path: '/primeiro-acesso', element: <FirstAccessSelectRole />},
-  {path: '/atrasos', element: <PrivateRoute element={<DelayControl/>}/>},
-  {path: '/contas', element: <PrivateRoute element={<AccountsControl/>}/>},
-  {path: '/registrar-aluno', element: <PrivateRoute element={<RegisterStudent/>}/>},
-  {path: '/registrar-funcionario', element: <PrivateRoute element={<RegisterEmployee/>}/>},
+  { path: "/", element: <PrivateRoute element={<RegisterStudent />} /> },
+  { path: "/login", element: <Login /> },
+  { path: "/suporte", element: <Support /> },
+  { path: "/primeiro-acesso", element: <FirstAccessSelectRole /> },
+  { path: "/atrasos", element: <PrivateRoute element={<DelayControl />} /> },
+  { path: "/saidas", element: <PrivateRoute element={<LeavesControl />} /> },
+  { path: "/contas", element: <PrivateRoute element={<AccountsControl />} /> },
+  {
+    path: "/registrar-aluno",
+    element: <PrivateRoute element={<RegisterStudent />} />,
+  },
+  {
+    path: "/registrar-funcionario",
+    element: <PrivateRoute element={<RegisterEmployee />} />,
+  },
 ]);
 
 createRoot(document.getElementById('root')).render(

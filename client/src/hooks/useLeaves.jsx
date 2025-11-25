@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../services/api";
 
 const useLeaves = () => {
   const [loading, setLoading] = useState(true);
@@ -9,11 +9,19 @@ const useLeaves = () => {
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await axios.get(
-          "https://senai-id-1.onrender.com/api/leaves"
-        );
-        setLeaves(res.data.data || []);
-      // eslint-disable-next-line no-unused-vars
+        const res = await api.get("/early-exits");
+        
+        const data = res.data?.data;
+
+        // ← Garantir que SEMPRE vira array
+        if (Array.isArray(data)) {
+          setLeaves(data);
+        } else if (data && typeof data === "object") {
+          setLeaves([data]); // ← caso a API retorne um único objeto
+        } else {
+          setLeaves([]);
+        }
+        // eslint-disable-next-line no-unused-vars
       } catch (err) {
         setError("Erro ao carregar saídas antecipadas");
       } finally {
