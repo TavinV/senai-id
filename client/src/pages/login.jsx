@@ -71,6 +71,7 @@ function Login () {
                         </span>
                         </div>
                     </div>
+                    <a href="../pages/firstAccessSelectRole.jsx">Primeiro acesso? Clique aqui</a>
                 </FormContainer>
             </MainContent>
             <Footer />

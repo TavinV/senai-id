@@ -18,7 +18,6 @@ const UserList = () => {
 
         const data = response.data.data;
         setUsers(Array.isArray(data) ? data : []);
-        // eslint-disable-next-line no-unused-vars
       } catch (error) {
         setError("Erro ao carregar usuários.", error);
       } finally {
@@ -34,13 +33,11 @@ const UserList = () => {
   if (users.length === 0) return <p>Nenhum usuário encontrado</p>;
 
   return (
-    <>
       <div className="user-list">
         {users.map((user) => (
           <UserRow key={user._id} user={user} />
         ))}
       </div>
-    </>
   );
 };
 

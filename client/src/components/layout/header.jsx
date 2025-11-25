@@ -8,7 +8,7 @@ const Header = () => {
             <p className="font-semibold text-0.7xl">Suporte</p>
           </NavLink>
         </nav>
-        <header className="w-full flex justify-c text-black py-2 px-10 md:px-10 bg-white drop-shadow-md">
+        <header className="w-full flex justify-center text-black py-2 px-10 md:px-10 bg-white drop-shadow-md">
           <NavLink to="/">
             <img className="h-10" src={logo} alt="/" />
           </NavLink>
