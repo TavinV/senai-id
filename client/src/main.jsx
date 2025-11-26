@@ -16,6 +16,7 @@ import './index.css';
 
 import { AuthProvider } from './context/authContext.jsx';
 import PrivateRoute from './components/auth/PrivateRoute.jsx';
+import PrivateRole from './components/auth/PrivateRole.jsx';
 
 
 const router = createBrowserRouter([
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
   { path: "/primeiro-acesso", element: <FirstAccessSelectRole /> },
   { path: "/atrasos", element: <PrivateRoute element={<DelayControl />} /> },
   { path: "/saidas", element: <PrivateRoute element={<LeavesControl />} /> },
-  { path: "/contas", element: <PrivateRoute element={<AccountsControl />} /> },
+  { path: "/contas", element: <PrivateRoute><PrivateRole allowedRoles={["secretaria"]}><AccountsControl /></PrivateRole></PrivateRoute> },
   {
     path: "/registrar-aluno",
     element: <PrivateRoute element={<RegisterStudent />} />,
