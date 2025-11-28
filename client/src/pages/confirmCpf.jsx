@@ -134,33 +134,33 @@ function ConfirmCpf() {
             ></div>
 
             <div className="relative bg-white rounded-lg shadow-xl w-full max-w-md mx-4 p-6 z-10">
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 mb-4">
                 <div className="p-3 rounded-full bg-green-50 text-green-600">
                   <UserCheck size={28} />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold">Usuário verificado</h3>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-gray-600 ">
                     Encontramos uma conta associada a esse CPF.
                   </p>
                 </div>
               </div>
 
-              <div className="mt-4 border rounded-md p-6 flex flex-row justify-between items-center bg-gray-50">
+              <div className="mt-1 border rounded-md p-7 flex flex-row justify-between items-center bg-gray-50">
                 <div className="flex flex-col">
                   <div className="text-sm text-gray-500 mt-3">Nome</div>
-                  <div className="font-medium mt-1">{modalUser.nome}</div>
+                  <div className="font-medium mt-2">{modalUser.nome}</div>
 
                   <div className="text-sm text-gray-500 mt-3">Cargo</div>
-                  <div className="font-medium mt-1">{modalUser.cargo}</div>
+                  <div className="font-medium mt-2">{role}</div>
                 </div>
 
                 <div className="flex flex-col text-right">
-                  <div className="text-sm text-gray-500">Login</div>
-                  <div className="font-medium mt-1">{modalUser.login}</div>
+                  <div className="text-sm text-gray-500 mt-3">Login</div>
+                  <div className="font-medium mt-2">{modalUser.login}</div>
 
                   <div className="text-sm text-gray-500 mt-3">Senha</div>
-                  <div className="font-medium mt-1"></div>
+                  <div className="font-medium mt-2"></div>
                   {modalUser.senha_padrao}
                 </div>
               </div>

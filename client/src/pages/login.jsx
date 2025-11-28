@@ -37,9 +37,9 @@ function Login() {
       case "secretaria":
         return navigate("/registrar-aluno", { replace: true });
       case "aluno":
-        return navigate("/carteirinha", { replace: true });
+        return navigate("/carteirinha-acesso", { replace: true });
       case "funcionario":
-        return navigate("/carteirinha", { replace: true });
+        return navigate("/carteirinha-acesso", { replace: true });
       default:
         return navigate("/login", { replace: true });
     }
