@@ -1,43 +1,71 @@
-import React from 'react';
-import { createBrowserRouter, RouterProvider} from 'react-router-dom';
-import { createRoot } from 'react-dom/client';
+import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createRoot } from "react-dom/client";
 
-//Pages 
-import Login from './pages/login.jsx';
-import Support from './pages/support.jsx';
-import DelayControl from './pages/delayControl.jsx';
-import LeavesControl from './pages/leavesControl.jsx';
-import RegisterStudent from './pages/registerStudent.jsx'
-import AccountsControl from './pages/accountsControl.jsx'; 
-import RegisterEmployee from './pages/registerEmployee.jsx';
-import FirstAccessSelectRole from '../src/pages/firstAccessSelectRole.jsx'
+//Pages
+import Login from "./pages/login.jsx";
+import Support from "./pages/support.jsx";
+import DelayControl from "./pages/delayControl.jsx";
+import LeavesControl from "./pages/leavesControl.jsx";
+import RegisterStudent from "./pages/registerStudent.jsx";
+import AccountsControl from "./pages/accountsControl.jsx";
+import RegisterEmployee from "./pages/registerEmployee.jsx";
+import FirstAccessSelectRole from "../src/pages/firstAccessSelectRole.jsx";
 
-import './index.css';
+import "./index.css";
 
-import { AuthProvider } from './context/authContext.jsx';
-import PrivateRoute from './components/auth/PrivateRoute.jsx';
-import PrivateRole from './components/auth/PrivateRole.jsx';
-
+import { AuthProvider } from "./context/authContext.jsx";
+import PrivateRoute from "./components/auth/PrivateRoute.jsx";
 
 const router = createBrowserRouter([
-  { path: "/", element: <PrivateRoute element={<RegisterStudent />} /> },
+  { path: "/", element: <Login /> },
   { path: "/login", element: <Login /> },
   { path: "/suporte", element: <Support /> },
   { path: "/primeiro-acesso", element: <FirstAccessSelectRole /> },
-  { path: "/atrasos", element: <PrivateRoute element={<DelayControl />} /> },
-  { path: "/saidas", element: <PrivateRoute element={<LeavesControl />} /> },
-  { path: "/contas", element: <PrivateRoute><PrivateRole allowedRoles={["secretaria"]}><AccountsControl /></PrivateRole></PrivateRoute> },
+
+  {
+    path: "/atrasos",
+    element: (
+      <PrivateRoute allowedRoles={["secretaria"]}>
+        <DelayControl />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/saidas",
+    element: (
+      <PrivateRoute allowedRoles={["secretaria"]}>
+        <LeavesControl />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/contas",
+    element: (
+      <PrivateRoute allowedRoles={["secretaria"]}>
+        <AccountsControl />
+      </PrivateRoute>
+    ),
+  },
   {
     path: "/registrar-aluno",
-    element: <PrivateRoute element={<RegisterStudent />} />,
+    element: (
+      <PrivateRoute allowedRoles={["secretaria"]}>
+        <RegisterStudent />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/registrar-funcionario",
-    element: <PrivateRoute element={<RegisterEmployee />} />,
+    element: (
+      <PrivateRoute allowedRoles={["secretaria"]}>
+        <RegisterEmployee />
+      </PrivateRoute>
+    ),
   },
 ]);
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
       <RouterProvider router={router} />

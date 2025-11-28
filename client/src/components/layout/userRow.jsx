@@ -15,7 +15,7 @@ const UserRow = ({
 
   // Borda da imagem conforme cargo
   const imageBorder =
-    user.cargo === "aluno"
+    user.cargo === "aluno  "
       ? "border-2 border-red-600"
       : user.cargo === "funcionario"
       ? "border-2 border-blue-800"
