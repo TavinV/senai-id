@@ -11,6 +11,9 @@ import RegisterStudent from "./pages/registerStudent.jsx";
 import AccountsControl from "./pages/accountsControl.jsx";
 import RegisterEmployee from "./pages/registerEmployee.jsx";
 import FirstAccessSelectRole from "../src/pages/firstAccessSelectRole.jsx";
+import ConfirmCpf from "./pages/confirmCpf.jsx";
+
+// CSS
 
 import "./index.css";
 
@@ -22,6 +25,7 @@ const router = createBrowserRouter([
   { path: "/login", element: <Login /> },
   { path: "/suporte", element: <Support /> },
   { path: "/primeiro-acesso", element: <FirstAccessSelectRole /> },
+  { path: "/confirmar-cpf", element: <ConfirmCpf /> },
 
   {
     path: "/atrasos",

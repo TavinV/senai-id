@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import Header from "../components/layout/header.jsx";
 import Footer from "../components/layout/footer.jsx";
 import MainContent from "../components/layout/mainContent.jsx";
@@ -19,8 +19,11 @@ import maskCPF from "../util/maskCpf.js";
 import { useAuthContext } from "../context/authContext.jsx";
 
 function Login() {
-  const [password, setPassword] = useState("");
-  const [cpf, setCpf] = useState("");
+  const location = useLocation();
+  const initialCpf = location.state?.cpf || "";
+  const initialPassword = location.state?.password || location.state?.senha || location.state?.senha_padrao || "";
+  const [password, setPassword] = useState(initialPassword);
+  const [cpf, setCpf] = useState(initialCpf);
 
   const { login, loading, error, clearError } = useAuthContext();
   const navigate = useNavigate();
@@ -106,10 +109,12 @@ function Login() {
                 />
               </span>
             </div>
-
-            <a href="../pages/firstAccessSelectRole.jsx">
-              Primeiro acesso? Clique aqui
-            </a>
+            <NavLink
+              to="/Primeiro-acesso"
+              className="text-sm text-gray-600 hover:underline"
+            >
+              Primeiro acesso? Clique aqui.
+            </NavLink>
           </div>
         </FormContainer>
       </MainContent>

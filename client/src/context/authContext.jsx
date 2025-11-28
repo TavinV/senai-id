@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
         return savedUser ? JSON.parse(savedUser) : null;
     });
 
+
     const [token, setToken] = useState(() => {
         return localStorage.getItem("jwtToken") || null;
     });
@@ -30,7 +31,7 @@ export const AuthProvider = ({ children }) => {
                 localStorage.setItem("userData", JSON.stringify(data));
                 api.defaults.headers.common["Authorization"] = `Bearer ${receivedToken}`;
 
-                setUser(data);
+                setUser(data.user);
                 setToken(receivedToken);
                 return { success: true, user: data.user };
             } else {
