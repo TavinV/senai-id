@@ -110,7 +110,7 @@ const primeiroAcesso = async (req, res) => {
         return ApiResponse.NOTFOUND(res, "Usuário não foi encontrado.")
     }
 
-    return ApiResponse.OK(res, {cpf: user.cpf, senha: user.senha_padrao})
+    return ApiResponse.OK(res, {cpf: user.cpf, senha: user.senha_padrao, nome: user.nome, cargo: user.cargo})
 }
 
 
@@ -679,4 +679,5 @@ export {
     buscarSaidaAntecipada
 
 }
+
 
