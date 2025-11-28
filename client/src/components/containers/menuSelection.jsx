@@ -1,31 +1,25 @@
 import { NavLink } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Children, cloneElement } from "react";
 
-//Icones
-import { ChevronRight } from "lucide-react";
-import { UserPlus } from "lucide-react";
-
-export default function Header() {
+export default function MenuSelection({
+  children,
+  title,
+  subTitle,
+  icon: Icon,       // <-- ÍCONE VINDO POR PROPS
+  ClassName = "flex justify-between items-center px-3 py-2 font-semibold text-black hover:text-red-600 hover:bg-gray-100 transition"
+}) {
   const [openedMenu, setOpenedMenu] = useState(false);
   const wrapperRef = useRef(null);
 
   useEffect(() => {
-    // Fecha ao clicar fora (pointerdown evita race com click do botão)
     const handlePointerDown = (e) => {
-      // Se não houver wrapperRef ou target é null, não faz nada
       if (!wrapperRef.current) return;
-
-      // Se o clique NÃO aconteceu dentro do wrapper, fecha
       if (!wrapperRef.current.contains(e.target)) {
         setOpenedMenu(false);
       }
     };
 
-    // Fecha ao pressionar qualquer tecla
-    const handleKeyDown = (e) => {
-      // Se quiser só ESC: if (e.key === 'Escape') { ... }
-      setOpenedMenu(false);
-    };
+    const handleKeyDown = () => setOpenedMenu(false);
 
     document.addEventListener("pointerdown", handlePointerDown);
     document.addEventListener("keydown", handleKeyDown);
@@ -38,6 +32,7 @@ export default function Header() {
 
   return (
     <div ref={wrapperRef} className="relative inline-flex">
+      
       {/* Botão que abre o menu */}
       <button
         onClick={() => setOpenedMenu((s) => !s)}
@@ -45,15 +40,16 @@ export default function Header() {
         aria-expanded={openedMenu}
         aria-haspopup="menu"
       >
-        <UserPlus size={18} />
-        <span>Cadastro</span>
+        {/* Ícone passado via props — AQUI ESTÁ A MUDANÇA */}
+        {Icon && <Icon size={18} />}
+
+        <span>{title}</span>
       </button>
 
-      {/* Dropdown */}
       {openedMenu && (
         <div
           role="menu"
-          className="absolute top-full left-0 mt-2 w-56 bg-white border border-gray-300 rounded-md shadow-lg animate-fadeIn z-50"
+          className="absolute top-full flex flex-col left-0 mt-2 w-56 bg-white border border-gray-300 rounded-md shadow-lg animate-fadeIn z-50"
         >
           <style>{`
             @keyframes fadeIn {
@@ -64,26 +60,31 @@ export default function Header() {
           `}</style>
 
           <div className="font-bold bg-red-500 text-white text-center py-2 rounded-t-md">
-            Quem será registrado?
+            {subTitle}
           </div>
 
-          <NavLink
-            to="/registrar-aluno"
-            onClick={() => setOpenedMenu(false)}
-            className="flex justify-between items-center px-3 py-2 font-semibold text-red-600 hover:bg-gray-100 transition"
-            role="menuitem"
-          >
-            Aluno <ChevronRight size={18} />
-          </NavLink>
+          <div className="flex flex-col">
+            {Children.map(children, (child, idx) => {
+              const ChildIcon = child.props.icon || Icon;
 
-          <NavLink
-            to="/registrar-funcionario"
-            onClick={() => setOpenedMenu(false)}
-            className="flex justify-between items-center px-3 py-2 font-semibold text-blue-500 hover:bg-gray-100 transition"
-            role="menuitem"
-          >
-            Funcionário <ChevronRight size={18} />
-          </NavLink>
+              return cloneElement(child, {
+                className: ClassName,
+                key: idx,
+                role: "menuitem",
+                icon: ChildIcon,
+                onClick: (e) => {
+                  if (child.props.onClick) child.props.onClick(e);
+                  setOpenedMenu(false);
+                },
+                children: (
+                  <>
+                    {ChildIcon && <ChildIcon className="mr-2" size={18} />}
+                    {child.props.children}
+                  </>
+                ),
+              });
+            })}
+          </div>
         </div>
       )}
     </div>
