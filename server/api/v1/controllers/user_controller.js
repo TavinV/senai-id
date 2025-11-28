@@ -97,9 +97,9 @@ const getFotoPerfil = async (req, res) => {
 
 // GET api/v1/users/:id/primeiro-acesso
 const primeiroAcesso = async (req, res) => {
-    const cpf = req.params.cpf
+    const cpf = req.params.cpf;
     const cpfFormatado = req.params.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-
+    
     const [user, findUserError] = await findUser({cpf: cpfFormatado})
    
     if (!user && findUserError != 404) {
@@ -110,7 +110,7 @@ const primeiroAcesso = async (req, res) => {
         return ApiResponse.NOTFOUND(res, "Usuário não foi encontrado.")
     }
 
-    return ApiResponse.OK(res, {cpf: user.cpf, senha: user.senha_padrao})
+    return ApiResponse.OK(res, {cpf: user.cpf, senha: user.senha_padrao, nome: user.nome, cargo: user.cargo})
 }
 
 
@@ -679,4 +679,5 @@ export {
     buscarSaidaAntecipada
 
 }
+
 
