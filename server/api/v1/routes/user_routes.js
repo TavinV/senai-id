@@ -37,7 +37,7 @@ router.get('/first-access', primeiroAcesso)
 router.get('/me/access', validateSessionToken(false), acesso)
 
 // --- CRUD de usuários ---
-router.get('/', getUsers)
+router.get('/', validateSessionToken(true), getUsers)
 router.get('/me', validateSessionToken(false), getLoggedUser)
 router.get('/:id', getUser)
 router.get('/:id/profile-picture', getFotoPerfil)
