@@ -4,6 +4,8 @@ import { useState } from "react";
 import Footer from "../components/layout/footer.jsx";
 import MainContent from "../components/layout/mainContent.jsx";
 import Header from "../components/layout/header.jsx";
+import LoggedHeader from "../components/layout/loggedHeader.jsx";
+import UserHeader from "../components/layout/userHeader.jsx";
 
 import { IconInput } from "../components/inputs/iconInput.jsx";
 import { FormContainer } from "../components/containers/formContainer.jsx";
@@ -11,17 +13,33 @@ import { FormContainer } from "../components/containers/formContainer.jsx";
 import { Phone } from "lucide-react";
 
 import maskPhone from "../util/maskPhone.js";
+import { useAuthContext } from "../context/authContext.jsx";
 
 function Support() {
   const [phone, setPhone] = useState("");
+  const { user } = useAuthContext();
 
   const handlePhoneChange = (e) => {
     setPhone(maskPhone(e.target.value));
   };
 
+  // Renderiza o header correto baseado na autenticação e cargo
+  const renderHeader = () => {
+    if (!user) {
+      return <Header />;
+    }
+    
+    const userCargo = user.cargo?.toLowerCase();
+    if (userCargo === "secretaria") {
+      return <LoggedHeader />;
+    }
+    
+    return <UserHeader />;
+  };
+
   return (
     <>
-      <Header />
+      {renderHeader()}
       <MainContent>
         <FormContainer title="Suporte" buttonText="Enviar">
           <div className="flex flex-col gap-4 h-80">

@@ -206,6 +206,7 @@ function RegisterEmployee() {
             pis={formData.pis || "000.00000.00-0"}
             type="funcionario"
             role={formData.cargo || "Cargo do Funcionário"}
+            showQrButton={false}
           />
         </div>
       </MainContent>

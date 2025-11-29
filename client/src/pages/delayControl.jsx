@@ -6,6 +6,7 @@ import MainContent from "../components/layout/mainContent.jsx";
 import Footer from "../components/layout/footer.jsx";
 import UseDelay from "../hooks/useDelay.jsx";
 import UserRow from "../components/layout/userRow.jsx";
+import LoadingScreen from "../components/ui/loadingScreen.jsx";
 
 //icons
 import { FaClipboardList } from "react-icons/fa";
@@ -15,7 +16,7 @@ import { AlarmClock } from "lucide-react";
 function DelayControl() {
   const { loading, lateUsers, error } = UseDelay([]);
 
-  if (loading) return <p>Carregando...</p>;
+  if (loading) return <LoadingScreen />;
   if (error) return <p>Erro ao carregar usuários.</p>;
 
   //Verifica se ele está tentanto buscar uma array

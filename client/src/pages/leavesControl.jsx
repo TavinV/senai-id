@@ -6,6 +6,7 @@ import MainContent from "../components/layout/mainContent.jsx";
 import Footer from "../components/layout/footer.jsx";
 import UseLeaves from "../hooks/useLeaves.jsx";
 import UserRow from "../components/layout/userRow.jsx";
+import LoadingScreen from "../components/ui/loadingScreen.jsx";
 
 //icons
 import { BiLogOut } from "react-icons/bi";
@@ -15,7 +16,7 @@ import { IoCloseSharp } from "react-icons/io5";
 function LeavesControl() {
     const { loading, error, leaves } = UseLeaves([]);
 
-    if (loading) return <p>Carregando...</p>;
+    if (loading) return <LoadingScreen />;
     if (error) return <p>{error}</p>;
 
     if (!leaves || !Array.isArray(leaves)) {

@@ -16,6 +16,9 @@ const UserHeader = () => {
     setMenuOpen(!menuOpen);
   };
 
+  // Logo vai para página da carteirinha (usuário)
+  const getLogoDest = () => "/carteirinha-acesso";
+
   const userInfo = {
     name: user?.nome || "Usuário",
     role: user?.cargo || "Cargo",
@@ -31,7 +34,7 @@ const UserHeader = () => {
       <header className="w-full flex flex-row-reverse items-center justify-between text-black py-2 px-10 sm:px-6 md:px-15 bg-white drop-shadow-md font-[Montserrat]">
         {/* Logo */}
         <NavLink
-          to="/"
+          to={getLogoDest()}
           className="shrink-0 w-full flex justify-center md:justify-center items-center"
         >
           <img className="h-15 sm:h-15" src={logo} alt="SENAI" />

@@ -4,12 +4,15 @@ import { useAuthContext } from "../context/authContext";
 import UserHeader from "../components/layout/userHeader.jsx";
 import MainContent from "../components/layout/mainContent";
 import Footer from "../components/layout/footer";
+import LoadingScreen from "../components/ui/loadingScreen.jsx";
 
 const CardAccess = () => {
-  const { user } = useAuthContext();
+  const { user, loading } = useAuthContext();
+
+  if (loading) return <LoadingScreen />;
 
   if (!user) {
-    return <div>Carregando...</div>;
+    return <LoadingScreen />;
   }
 
   // Identifica se é aluno ou funcionário
