@@ -17,7 +17,7 @@ const limiter = rateLimit({
 });
 
 // Middlewares
-app.use(limiter);
+// app.use(limiter);
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(bodyParser.json())

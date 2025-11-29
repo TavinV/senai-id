@@ -13,6 +13,6 @@ const loginLimiter = rateLimit({
 });
 
 // POST /api/auth
-router.post('/', loginLimiter, loginUser)
+router.post('/', loginUser)
 
 export default router
