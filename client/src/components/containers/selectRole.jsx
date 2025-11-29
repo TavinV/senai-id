@@ -12,11 +12,8 @@ function SelectRole() {
     setSelectedRole(role);
 
     setTimeout(() => {
-      if (role === "aluno") {
-        navigate("/registrar-aluno");
-      } else if (role === "funcionario") {
-        navigate("/registrar-funcionario");
-      }
+      // redireciona para a página de confirmação de CPF, informando o cargo
+      navigate("/confirmar-cpf", { state: { role } });
     }, 500);
   };
 

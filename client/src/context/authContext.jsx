@@ -1,4 +1,3 @@
-// src/context/AuthContext.jsx
 import React, { createContext, useContext, useEffect, useState } from "react";
 import api from "../services/api"; // seu axios configurado
 
@@ -9,6 +8,7 @@ export const AuthProvider = ({ children }) => {
         const savedUser = localStorage.getItem("userData");
         return savedUser ? JSON.parse(savedUser) : null;
     });
+
 
     const [token, setToken] = useState(() => {
         return localStorage.getItem("jwtToken") || null;
@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
                 localStorage.setItem("userData", JSON.stringify(data));
                 api.defaults.headers.common["Authorization"] = `Bearer ${receivedToken}`;
 
-                setUser(data);
+                setUser(data.user);
                 setToken(receivedToken);
                 return { success: true, user: data.user };
             } else {

@@ -9,10 +9,15 @@ import SideMenu from "./sideMenuSecretaryAcess.jsx";
 import {
   ArrowLeftToLine,
   ArrowRightLeft,
+  UserPlus,
+  LogOut,
   Headset,
   Users,
   Mail,
   Menu,
+  AlarmClock,
+  ChevronRight,
+  User
 } from "lucide-react";
 
 import { useAuthContext } from "../../context/authContext.jsx";
@@ -66,11 +71,48 @@ const Header = () => {
           "
         >
           <NavItem>
-            <MenuSelection />
+            <MenuSelection
+              title="Cadastro"
+              subTitle="Quem será cadastrado?"
+              icon={UserPlus}
+            > 
+              <NavLink
+                children="Aluno"
+                to="/registrar-aluno"
+                icon={ChevronRight}
+              />
+              <NavLink
+                children="Funcionário"
+                to="/registrar-funcionario"
+                icon={ChevronRight}
+                className="flex justify-between items-center px-3 py-2 font-semibold text-black hover:text-blue-600 hover:bg-gray-100 transition"
+                
+              />
+            </MenuSelection>
+              
+
           </NavItem>
-          <NavItem to="/liberacoes" icon={ArrowRightLeft}>
-            Liberações
-          </NavItem>
+          <MenuSelection
+            title="Gerenciamento"
+            subTitle={"Qual seção irá  acessar?"}
+            icon={Users}
+          >
+            <NavLink
+                children="Contas"
+                to="/contas"
+                icon={Users}
+              />
+              <NavLink
+                children="Atrasos"
+                to="/atrasos"
+                icon={AlarmClock}
+              />
+              <NavLink
+                children="Saídas"
+                to="/saidas"
+                icon={LogOut}
+              />
+          </MenuSelection>
           <NavItem to="/usuarios" icon={Users}>
             Usuários
           </NavItem>
@@ -80,7 +122,7 @@ const Header = () => {
           <NavItem to="/mensagens" icon={Mail}>
             Mensagens
           </NavItem>
-        </div>
+          </div>
       </header>
 
       {/* Side Menu Mobile */}
