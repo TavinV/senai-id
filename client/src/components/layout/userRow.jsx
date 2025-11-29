@@ -70,48 +70,53 @@ const UserRow = ({
 
   // Botões de ação variam conforme o tipo
   return (
-    <div className="shadow bg-white grid grid-cols-5 items-center gap-20 border-t rounded-b-2xl border-gray-300 p-6">
+    <div className="shadow bg-white grid grid-cols-1 md:grid-cols-5 items-start md:items-center gap-3 md:gap-4 border-t border-gray-300 rounded-b-lg md:rounded-b-2xl p-4 md:p-6">
       {/* Usuário */}
-      <div className="ml-10 flex items-center gap-4">
+      <div className="md:ml-4 flex items-center gap-3 md:gap-4">
         <img
           src={user.foto_perfil}
           alt={`${user.nome} foto`}
-          className={`w-14 h-14 rounded-full object-cover ${imageBorder}`}
+          className={`w-12 h-12 md:w-14 md:h-14 rounded-full object-cover shrink-0 ${imageBorder}`}
         />
-        <div>
-          <p className="font-semibold text-gray-900">{user.nome}</p>
-          <p className="text-sm text-gray-500">{user.email || "—"}</p>
+        <div className="min-w-0 flex-1">
+          <p className="font-semibold text-gray-900 text-sm md:text-base truncate">{user.nome}</p>
+          <p className="text-xs md:text-sm text-gray-500 truncate">{user.email || "—"}</p>
         </div>
       </div>
 
       {/* Identificação */}
-      <div className="ml-30">
-        <p className="font-semibold text-gray-900">{idValue || "—"}</p>
-        <p className="text-sm text-gray-500">{idLabel}</p>
+      <div className="md:ml-6 flex items-start md:items-center justify-between md:block">
+        <span className="md:hidden text-xs text-gray-500 font-medium">{idLabel}</span>
+        <p className="font-semibold text-gray-900 text-sm md:text-base">{idValue || "—"}</p>
+        <p className="hidden md:block text-sm text-gray-500">{idLabel}</p>
       </div>
 
       {/* Status */}
-      <div className="flex justify-center">{getStatusBadge()}</div>
+      <div className="flex items-start md:items-center justify-between md:justify-center">
+        <span className="md:hidden text-xs text-gray-500 font-medium">Status</span>
+        {getStatusBadge()}
+      </div>
 
       {/* Documento */}
-      <div className="ml-15">
-        <p className="font-semibold text-gray-900">{user.cpf || "—"}</p>
-        <p className="text-sm text-gray-500">Documento</p>
+      <div className="flex items-start md:items-center justify-between md:block">
+        <span className="md:hidden text-xs text-gray-500 font-medium">Documento</span>
+        <p className="font-semibold text-gray-900 text-sm md:text-base">{user.cpf || "—"}</p>
+        <p className="hidden md:block text-sm text-gray-500">Documento</p>
       </div>
 
       {/* Botões */}
-      <div className="mr-10 flex gap-3 justify-end">
+      <div className="flex gap-2 md:gap-3 justify-end md:justify-end">
         <Button
           icon={labels.icon1}
           children={labels.action1}
-          design="flex justify-center items-center py-3 px-2 text-black px- font-semibold gap-2 text-[1.03em] bg-gray-100 rounded-md hover:bg-gray-200 hover:scale-105 transition-all"
+          design="flex justify-center items-center py-2 md:py-3 px-2 md:px-2 text-black text-xs md:text-sm font-semibold gap-1 md:gap-2 bg-gray-100 rounded-md hover:bg-gray-200 hover:scale-105 transition-all whitespace-nowrap"
           onClick={onAction1}
         />
 
         <Button
           icon={labels.icon2}
           children={labels.action2}
-          design="flex justify-center text-white items-center py-3 px-3 text-black px- font-semibold gap-2 text-[1.03em] bg-red-400 rounded-md hover:bg-red-500 hover:scale-105 transition-all"
+          design="flex justify-center text-white items-center py-2 md:py-3 px-2 md:px-3 text-xs md:text-sm font-semibold gap-1 md:gap-2 bg-red-400 rounded-md hover:bg-red-500 hover:scale-105 transition-all whitespace-nowrap"
           onClick={onAction2}
         />
       </div>
