@@ -1,8 +1,9 @@
 import React from "react";
 import Carteirinha from "../components/ui/carteirinha";
 import { useAuthContext } from "../context/authContext";
-import LoggedHeader from "../components/layout/loggedHeader";
+import UserHeader from "../components/layout/userHeader.jsx";
 import MainContent from "../components/layout/mainContent";
+import Footer from "../components/layout/footer";
 
 const CardAccess = () => {
   const { user } = useAuthContext();
@@ -43,12 +44,13 @@ const CardAccess = () => {
 
   return (
     <>
-      <LoggedHeader />
+      <UserHeader />
       <MainContent>
       <div className="flex justify-center items-center px-2 py-8">
         <Carteirinha {...propsCarteirinha} />
       </div>
       </MainContent>
+      <Footer />
     </>
   );
 };

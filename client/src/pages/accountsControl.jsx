@@ -1,4 +1,6 @@
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 //Components
 import FormManagement from "../components/containers/formManagement.jsx";
 import LoggedHeader from "../components/layout/loggedHeader.jsx";
@@ -13,6 +15,7 @@ import { MdEdit, MdDelete } from "react-icons/md"
 
 function AccountsControl() {
     const { loading, users, error } = UseUsers();
+    const navigate = useNavigate();
 
     if (loading) return <p>Carregando...</p>;
     if (error) return <p>Erro ao carregar usuários.</p>;
@@ -38,7 +41,9 @@ function AccountsControl() {
                   icon1: <MdEdit />,
                   icon2: <MdDelete />,
                 }}
-                onAction1={() => console.log("Editar", user)}
+                onAction1={() => {console.log(`Editando usuário: ${user._id}`),
+                navigate(`/contas/editar/${user._id}`);
+              }}
                 onAction2={() => console.log("Excluir", user)}
               />
             ))}

@@ -3,14 +3,14 @@ import { NavLink } from "react-router-dom";
 const Header = () => {
     return (
       <>
-        <nav className="top-0 w-full flex justify-between items-center py-2 px-5 text-white bg-red-500">
+        <nav className="top-0 w-full flex justify-between items-center py-2 px-4 sm:px-5 text-white bg-red-500">
           <NavLink to="/suporte">
-            <p className="font-semibold text-0.7xl">Suporte</p>
+            <p className="font-semibold text-xs sm:text-sm">Suporte</p>
           </NavLink>
         </nav>
-        <header className="w-full flex justify-center text-black py-2 px-10 md:px-10 bg-white drop-shadow-md">
+        <header className="w-full flex justify-center text-black py-2 px-4 sm:px-6 md:px-10 bg-white drop-shadow-md">
           <NavLink to="/">
-            <img className="h-10" src={logo} alt="/" />
+            <img className="h-8 sm:h-10" src={logo} alt="/" />
           </NavLink>
         </header>
       </>

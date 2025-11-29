@@ -19,25 +19,25 @@ export const FormContainer = ({ title, buttonText, loadingText, onSubmit, childr
   return (
     <form
       onSubmit={(e) => {
-        e.preventDefault(); // evita recarregar a página
+        e.preventDefault();
         onSubmit?.();
       }}
-      className="border border-gray-300 rounded-xl shadow-lg md:w-125 overflow-hidden  bg-white"
+      className="w-full sm:w-96 md:w-125 border border-gray-300 rounded-lg sm:rounded-xl shadow-lg overflow-hidden bg-white"
     >
       {/* Cabeçalho */}
-      <div className={headerClasses}>
+      <div className={`${headerClasses} text-lg sm:text-xl md:text-2xl py-2 sm:py-3`}>
         {title}
       </div>
 
       {/* Conteúdo do formulário */}
-      <div className="p-7 flex flex-col gap-5">
+      <div className="p-4 sm:p-6 md:p-7 flex flex-col gap-3 sm:gap-4 md:gap-5">
         {children}
       </div>
 
       {/* Botão de envio */}
       {
         buttonText && (
-          <div className="font-bold text-center p-8 rounded-md w-full flex justify-center">
+          <div className="font-bold text-center p-4 sm:p-6 md:p-8 rounded-md w-full flex justify-center">
           <button
             type="submit"
             className={buttonClasses}
