@@ -13,6 +13,7 @@ import RegisterEmployee from "./pages/registerEmployee.jsx";
 import FirstAccessSelectRole from "../src/pages/firstAccessSelectRole.jsx";
 import ConfirmCpf from "./pages/confirmCpf.jsx";
 import CardAccess from "./pages/cardAccess.jsx";
+import EditUser from "./pages/editUser.jsx";
 
 // CSS
 
@@ -73,6 +74,14 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute allowedRoles={["aluno", "funcionario"]}>
         <CardAccess />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/contas/editar/:id",
+    element: (
+      <PrivateRoute allowedRoles={"secretaria"}>
+        <EditUser />
       </PrivateRoute>
     ),
   },
