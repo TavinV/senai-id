@@ -701,3 +701,55 @@
 {"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-10-10T02:20:00.319Z"}
 {"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-10-10T02:25:00.624Z"}
 {"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-10-10T02:25:00.687Z"}
+{"date":"Sat Nov 29 2025 17:38:59 GMT-0300 (Horário Padrão de Brasília)","error":{},"level":"error","message":"unhandledRejection: motivo is not defined\nReferenceError: motivo is not defined\n    at validarAtraso (file:///C:/Users/otavi/OneDrive/Desktop/projetos/senai-id/server/api/v1/controllers/secretaria_controller.js:353:133)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","os":{"loadavg":[0,0,0],"uptime":855020.734},"process":{"argv":["C:\\Program Files\\nodejs\\node.exe","C:\\Users\\otavi\\OneDrive\\Desktop\\projetos\\senai-id\\server\\api\\v1\\server.js"],"cwd":"C:\\Users\\otavi\\OneDrive\\Desktop\\projetos\\senai-id\\server","execPath":"C:\\Program Files\\nodejs\\node.exe","gid":null,"memoryUsage":{"arrayBuffers":18349522,"external":21065444,"heapTotal":70053888,"heapUsed":38051576,"rss":108822528},"pid":20820,"uid":null,"version":"v22.20.0"},"rejection":true,"stack":"ReferenceError: motivo is not defined\n    at validarAtraso (file:///C:/Users/otavi/OneDrive/Desktop/projetos/senai-id/server/api/v1/controllers/secretaria_controller.js:353:133)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2025-11-29T20:39:00.032Z","trace":[{"column":133,"file":"file:///C:/Users/otavi/OneDrive/Desktop/projetos/senai-id/server/api/v1/controllers/secretaria_controller.js","function":"validarAtraso","line":353,"method":null,"native":false},{"column":5,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":105,"method":"processTicksAndRejections","native":false}]}
+{"_message":"lateEntry validation failed","errors":{"observacao":{"kind":"required","message":"Path `observacao` is required.","name":"ValidatorError","path":"observacao","properties":{"message":"Path `observacao` is required.","path":"observacao","type":"required","value":""},"value":""}},"level":"error","message":"Error creating late entry for user 7w38zulvm4fmeapb7v9 lateEntry validation failed: observacao: Path `observacao` is required.","service":"late_entry_services","stack":"ValidationError: lateEntry validation failed: observacao: Path `observacao` is required.\n    at Document.invalidate (C:\\Users\\otavi\\OneDrive\\Desktop\\projetos\\senai-id\\server\\node_modules\\mongoose\\lib\\document.js:3331:32)\n    at C:\\Users\\otavi\\OneDrive\\Desktop\\projetos\\senai-id\\server\\node_modules\\mongoose\\lib\\document.js:3092:17\n    at C:\\Users\\otavi\\OneDrive\\Desktop\\projetos\\senai-id\\server\\node_modules\\mongoose\\lib\\schemaType.js:1407:9\n    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)","timestamp":"2025-11-29T20:39:46.924Z"}
+{"_message":"lateEntry validation failed","errors":{"observacao":{"kind":"required","message":"Path `observacao` is required.","name":"ValidatorError","path":"observacao","properties":{"message":"Path `observacao` is required.","path":"observacao","type":"required","value":""},"value":""}},"level":"error","message":"Error creating late entry for user 7w38zulvm4fmeapb7v9 lateEntry validation failed: observacao: Path `observacao` is required.","service":"late_entry_services","stack":"ValidationError: lateEntry validation failed: observacao: Path `observacao` is required.\n    at Document.invalidate (C:\\Users\\otavi\\OneDrive\\Desktop\\projetos\\senai-id\\server\\node_modules\\mongoose\\lib\\document.js:3331:32)\n    at C:\\Users\\otavi\\OneDrive\\Desktop\\projetos\\senai-id\\server\\node_modules\\mongoose\\lib\\document.js:3092:17\n    at C:\\Users\\otavi\\OneDrive\\Desktop\\projetos\\senai-id\\server\\node_modules\\mongoose\\lib\\schemaType.js:1407:9\n    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)","timestamp":"2025-11-29T20:39:53.496Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T20:40:00.063Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T20:40:00.134Z"}
+{"level":"info","message":"Late entry created for user 7w38zulvm4fmeapb7v9","service":"late_entry_services","timestamp":"2025-11-29T20:40:37.932Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T20:45:00.753Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T20:45:00.834Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T20:50:00.490Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T20:50:00.555Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T20:55:00.536Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T20:55:00.627Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T21:00:00.423Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T21:00:00.479Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T21:05:00.413Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T21:05:00.462Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T21:10:00.082Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T21:10:00.124Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T21:15:00.671Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T21:15:00.726Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T21:20:00.329Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T21:20:00.390Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T21:25:00.025Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T21:25:00.082Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T21:30:00.978Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T21:30:01.035Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T21:35:00.997Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T21:35:01.058Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T21:40:00.886Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T21:40:00.941Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T21:45:00.648Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T21:45:00.769Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T21:50:00.278Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T21:50:00.347Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T21:55:00.020Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T21:55:00.089Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T22:00:00.826Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T22:00:00.892Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T22:05:00.518Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T22:05:00.597Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T22:10:00.341Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T22:10:00.417Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T22:15:00.260Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T22:15:00.357Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T22:20:00.434Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T22:20:00.556Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T22:25:00.470Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T22:25:00.533Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T22:30:00.497Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T22:30:00.583Z"}
+{"level":"info","message":"Executando os jobs de manutenção do Banco de Dados","timestamp":"2025-11-29T22:35:00.399Z"}
+{"level":"info","message":"Jobs de manutenção do Banco de Dados executados com sucesso","timestamp":"2025-11-29T22:35:00.510Z"}

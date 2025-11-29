@@ -14,6 +14,7 @@ import FirstAccessSelectRole from "../src/pages/firstAccessSelectRole.jsx";
 import ConfirmCpf from "./pages/confirmCpf.jsx";
 import CardAccess from "./pages/cardAccess.jsx";
 import EditUser from "./pages/editUser.jsx";
+import TestUsers from "./pages/testUsers.jsx";
 
 // CSS
 
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
   { path: "/suporte", element: <Support /> },
   { path: "/primeiro-acesso", element: <FirstAccessSelectRole /> },
   { path: "/confirmar-cpf", element: <ConfirmCpf /> },
-
+  { path: "/teste-usuarios", element: <TestUsers /> },
   {
     path: "/dashboard",
     element: (

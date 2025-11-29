@@ -121,12 +121,7 @@ const registrarFuncionario = async (req, res) => {
 // DELETE api/v1/secretaria/:id
 const deletarUsuario = async (req, res) => {
     const id = req.params.id
-    const nome = req.body.nome
-
-    if (!nome) {
-        return ApiResponse.BADREQUEST(res, "O nome do usuário é obrigatório")
-    }
-
+    
     const [user, findUserError] = await findUserById(id)
 
     if (!user && findUserError != 404) {
@@ -138,9 +133,6 @@ const deletarUsuario = async (req, res) => {
         return ApiResponse.NOTFOUND(res, "Usuário não foi encontrado.")
     }
 
-    if (nome !== user.nome) {
-        return ApiResponse.BADREQUEST(res, "O nome do usuário não corresponde ao nome do usuário encontrado.")
-    }
     const [deletado, error] = await deleteUser(id)
 
     if (error) {
@@ -313,9 +305,9 @@ const atualizarUsuario = async (req, res) => {
 // POST api/v1/secretaria/late-entries/:id/validate
 const validarAtraso = async (req, res) => {
     const id = req.params.id
-    const { motivo, responsavel } = req.body
+    const {responsavel, observacao } = req.body
 
-    if (!motivo || !responsavel) {
+    if (!responsavel) {
         return ApiResponse.BADREQUEST(res, "O motivo e o responsável do redirecionamento são obrigatórios.")
     }
 
@@ -329,7 +321,7 @@ const validarAtraso = async (req, res) => {
         return ApiResponse.BADREQUEST(res, `O registro de atraso não pode ser validado, seu status é de ${foundLateEntry.status}`)
     }
 
-    const [result, validateLateEntryError] = await validateLateEntry(id, responsavel, motivo)
+    const [result, validateLateEntryError] = await validateLateEntry(id, responsavel, foundLateEntry.motivo, observacao)
 
     if (!result && validateLateEntryError == 404) {
         return ApiResponse.NOTFOUND(res, "Atraso não encontrado.")

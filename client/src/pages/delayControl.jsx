@@ -1,10 +1,11 @@
+import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 //Components
 import FormManagement from "../components/containers/formManagement.jsx";
 import LoggedHeader from "../components/layout/loggedHeader.jsx";
 import MainContent from "../components/layout/mainContent.jsx";
 import Footer from "../components/layout/footer.jsx";
-import UseDelay from "../hooks/useDelay.jsx";
+import useLateEntries from "../hooks/useLateEntries.jsx";
 import UserRow from "../components/layout/userRow.jsx";
 
 //icons
@@ -13,13 +14,22 @@ import { IoCloseSharp } from "react-icons/io5";
 import { AlarmClock } from "lucide-react";
 
 function DelayControl() {
-  const { loading, lateUsers, error } = UseDelay([]);
+  const {
+    loading,
+    error,
+    lateEntries,
+    getLateEntries
+  } = useLateEntries();
+
+  useEffect(() => {
+    getLateEntries(); // Carrega atrasos do Admin
+  }, []); // Executa só uma vez ao iniciar tela
 
   if (loading) return <p>Carregando...</p>;
-  if (error) return <p>Erro ao carregar usuários.</p>;
+  if (error) return <p>Erro ao carregar atrasos.</p>;
 
-  //Verifica se ele está tentanto buscar uma array
-  if (!lateUsers || !Array.isArray(lateUsers)) {
+  if (!lateEntries || !Array.isArray(lateEntries)) {
+    console.error("Resposta inesperada do servidor:", lateEntries);
     return <p>Erro: resposta inesperada do servidor.</p>;
   }
 
@@ -32,19 +42,19 @@ function DelayControl() {
           title="Gerenciamento de Atrasos"
           bgColor="bg-red-500"
         >
-          {lateUsers.map((user) => (
+          {lateEntries.map((entry) => (
             <UserRow
-              key={user._id}
+              key={entry.codigo_atraso} // Ajustado conforme backend
               type="delays"
-              user={user}
+              user={entry}
               labels={{
                 action1: "Acessar atraso",
                 action2: "Fechar",
                 icon1: <FaClipboardList />,
                 icon2: <IoCloseSharp />,
               }}
-              onAction1={() => console.log("Acessar atraso", user)}
-              onAction2={() => console.log("Fechar card", user)}
+              onAction1={() => console.log("Acessar atraso", entry)}
+              onAction2={() => console.log("Fechar card", entry)}
             />
           ))}
         </FormManagement>
@@ -53,4 +63,5 @@ function DelayControl() {
     </>
   );
 }
+
 export default DelayControl;
