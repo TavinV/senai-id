@@ -29,6 +29,38 @@ const router = createBrowserRouter([
   { path: "/confirmar-cpf", element: <ConfirmCpf /> },
 
   {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute allowedRoles={["secretaria"]}>
+        <AccountsControl />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/liberacoes",
+    element: (
+      <PrivateRoute allowedRoles={["secretaria"]}>
+        <DelayControl />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/usuarios",
+    element: (
+      <PrivateRoute allowedRoles={["secretaria"]}>
+        <AccountsControl />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/mensagens",
+    element: (
+      <PrivateRoute allowedRoles={["secretaria"]}>
+        <Support />
+      </PrivateRoute>
+    ),
+  },
+  {
     path: "/atrasos",
     element: (
       <PrivateRoute allowedRoles={["secretaria"]}>

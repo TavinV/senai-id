@@ -35,28 +35,31 @@ const Header = () => {
   return (
     <>
       {/* Barra superior */}
-      <nav className="top-0 w-full flex justify-start items-center py-2 px-5 text-white bg-red-500 font-[Montserrat]">
+      <nav className="top-0 w-full flex justify-start items-center py-2 px-3 sm:px-5 text-white bg-red-500 font-[Montserrat]">
         <a
-          className="flex gap-2 text-sm items-center font-semibold cursor-pointer"
+          className="flex gap-2 text-xs sm:text-sm items-center font-semibold cursor-pointer hover:opacity-80 transition"
           onClick={() => logout()}
         >
-          <ArrowLeftToLine /> Encerrar sessão
+          <ArrowLeftToLine size={18} className="sm:w-5 sm:h-5" /> 
+          <span className="hidden sm:inline">Encerrar sessão</span>
+          <span className="sm:hidden">Sair</span>
         </a>
       </nav>
 
       {/* Cabeçalho principal */}
-      <header className="w-full flex items-center justify-between text-black py-2 px-4 md:px-10 bg-white drop-shadow-md font-[Montserrat]">
+      <header className="w-full flex flex-row-reverse md:flex-row items-center justify-between text-black py-2 px-3 sm:px-6 md:px-10 bg-white drop-shadow-md font-[Montserrat]">
         {/* Logo */}
-        <NavLink to="/">
-          <img className="h-12" src={logo} alt="SENAI" />
+        <NavLink to="/" className="shrink-0">
+          <img className="h-10 sm:h-12" src={logo} alt="SENAI" />
         </NavLink>
 
         {/* Botão do menu mobile */}
         <button
-          className="md:hidden text-black p-2 rounded hover:bg-gray-100 transition"
+          className="md:hidden text-black p-1 sm:p-2 rounded hover:bg-gray-100 transition"
           onClick={toggleMenu}
+          aria-label="Menu"
         >
-          <Menu size={28} color="black" />
+          <Menu size={24} className="sm:w-7 sm:h-7" color="black" />
         </button>
 
         {/* Menu desktop */}
