@@ -1,29 +1,29 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 
-const useLateUsers = () => {
+const useLeaves = () => {
   const [loading, setLoading] = useState(true);
-  const [lateUsers, setLateUsers] = useState([]); // ← garante array
+  const [leaves, setLeaves] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await api.get("/late-entries");
-
+        const res = await api.get("/early-exits");
+        
         const data = res.data?.data;
 
         // ← Garantir que SEMPRE vira array
         if (Array.isArray(data)) {
-          setLateUsers(data);
+          setLeaves(data);
         } else if (data && typeof data === "object") {
-          setLateUsers([data]); // ← caso a API retorne um único objeto
+          setLeaves([data]); // ← caso a API retorne um único objeto
         } else {
-          setLateUsers([]);
+          setLeaves([]);
         }
         // eslint-disable-next-line no-unused-vars
       } catch (err) {
-        setError("Erro ao carregar usuários com atraso.");
+        setError("Erro ao carregar saídas antecipadas");
       } finally {
         setLoading(false);
       }
@@ -32,7 +32,7 @@ const useLateUsers = () => {
     load();
   }, []);
 
-  return { loading, error, lateUsers };
+  return { loading, error, leaves };
 };
 
-export default useLateUsers;
+export default useLeaves;

@@ -1,5 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
+import useUsers from "../hooks/useUsers.jsx";
+import { toast } from "react-toastify";
 
 // Components
 import LoggedHeader from "../components/layout/loggedHeader.jsx";
@@ -26,14 +28,19 @@ import maskCPF from "../util/maskCpf.js";
 
 function RegisterStudent() {
   const [formData, setFormData] = useState({
-    name: "",
-    cpf: "",
+    nome: "",
     matricula: "",
-    dateOfBirth: "",
-    course: "",
+    cpf: "",
+    data_nascimento: "",
+    curso: "",
+    turma: "",
+    cargo: "aluno",
+    email: "",
   });
   const [courses, setCourses] = useState([]);
   const [photoPreview, setPhotoPreview] = useState(null);
+
+  const { createUser } = useUsers();
 
   const handleInputChange = (field, value) => {
     setFormData((prev) => ({
@@ -43,8 +50,8 @@ function RegisterStudent() {
   };
 
   const handleDateOfBirthChange = (e) => {
-    // Transformar a data para o formato dd/mm/yyyy
 
+    // Transformar a data para o formato dd/mm/yyyy
     const date = new Date(e.target.value);
     const day = String(date.getDate() + 1).padStart(2, "0");
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -68,6 +75,43 @@ function RegisterStudent() {
     }
   };
 
+  const handleSubmit = async () => {
+    try {
+      const response = await createUser(formData); 
+      if (response) {
+        toast.success("Aluno cadastrado com sucesso!", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        // Limpa o formulário após o cadastro
+        setFormData({
+          
+        });
+        setPhotoPreview(null);
+      } else {
+        throw new Error("Erro ao cadastrar aluno");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Erro ao cadastrar aluno. Tente novamente.", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+
   useEffect(() => {
     fetch("/cursos.json")
       .then((response) => {
@@ -77,9 +121,9 @@ function RegisterStudent() {
         return response.json();
       })
       .then((data) => {
-        const options = data.map((course) => ({
-          value: course.nome,
-          label: course.nome,
+        const options = data.map((curso) => ({
+          value: curso.nome,
+          label: curso.nome,
         }));
         setCourses(options);
       })
@@ -98,18 +142,7 @@ function RegisterStudent() {
           title="Cadastro de aluno"
           buttonText="Cadastrar"
           width="3xl"
-          onSubmit={() => {
-            toast.success("Cadastrado com sucesso", {
-              position: "bottom-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-          }}
+          onSubmit={handleSubmit}
           className="px-4 md:px-0"
         >
           <FormRow className="flex-col md:flex-row">
