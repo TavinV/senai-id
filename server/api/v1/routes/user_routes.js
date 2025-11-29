@@ -39,11 +39,10 @@ router.get('/me/access', validateSessionToken(false), acesso)
 // --- CRUD de usuários ---
 router.get('/', validateSessionToken(true), getUsers)
 router.get('/me', validateSessionToken(false), getLoggedUser)
-router.get('/:id', getUser)
-router.get('/:id/profile-picture', getFotoPerfil)
+router.get('/:id', validateSessionToken(true), getUser)
+router.get('/:id/profile-picture', validateSessionToken(true), getFotoPerfil)
 router.put('/:id', validateSessionToken(true), upload.single("foto_perfil"), atualizarUsuario)
 router.delete('/:id', validateSessionToken(true), deletarUsuario)
-
 
 // --- E-mail e senha ---
 router.post('/:id/verify-email/request-token', pedirToken)

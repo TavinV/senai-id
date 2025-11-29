@@ -97,7 +97,6 @@ const getFotoPerfil = async (req, res) => {
 
 // GET api/v1/users/:id/primeiro-acesso
 const primeiroAcesso = async (req, res) => {
-    const cpf = req.params.cpf;
     const cpfFormatado = req.params.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
     
     const [user, findUserError] = await findUser({cpf: cpfFormatado})
@@ -108,6 +107,14 @@ const primeiroAcesso = async (req, res) => {
     } else if (findUserError == 404) {
         // Usuário não encontrado.
         return ApiResponse.NOTFOUND(res, "Usuário não foi encontrado.")
+    }
+
+    if (user.senha_foi_alterada) {
+        return ApiResponse.BADREQUEST(res, "Usuário já realizou o primeiro acesso.")
+    }
+
+    if (user.cargo === "secretaria") {
+        return ApiResponse.BADREQUEST(res, "Usuário não é um aluno ou funcionário.")
     }
 
     return ApiResponse.OK(res, {cpf: user.cpf, senha: user.senha_padrao, nome: user.nome, cargo: user.cargo})
