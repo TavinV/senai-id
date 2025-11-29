@@ -33,7 +33,7 @@ router.post('/', validateSessionToken(true), upload.single("foto_perfil"), valid
 router.post('/employees', validateSessionToken(true), upload.single("foto_perfil"), validarFuncionario, registrarFuncionario)
 
 // --- Ações do usuário ---
-router.get('/first-access', primeiroAcesso)
+router.get('/:cpf/first-access', primeiroAcesso)
 router.get('/me/access', validateSessionToken(false), acesso)
 
 // --- CRUD de usuários ---

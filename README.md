@@ -6,6 +6,7 @@ Senai ID é um sistema de controle de acesso desenvolvida para substituir as car
 
 ## 🚀 Tecnologias Utilizadas
 
+- **React.js** - Framework para desenvolvimento do Front-end
 - **Node.js** (v22.3.0 recomendado)
 - **Express** - Framework para construção da API REST
 - **MongoDB** (versão mais recente recomendada)
@@ -23,11 +24,14 @@ Senai ID é um sistema de controle de acesso desenvolvida para substituir as car
 ## 📂 Estrutura do Projeto
 
 ```
-api/
-│── v1/        # Código principal da API (controllers, services, middlewares, models, routes, etc.)
-│── db/        # Armazenamento de fotos de perfil
-│── logs/      # Logs do sistema (exceptions, info, rejection)
-│── .env.example  # Exemplo de configuração do ambiente
+client/
+│── src/       # Código do frontend (Componentes, Hooks, services)
+server/
+│──api/
+│──── v1/        # Código principal da API (controllers, services, middlewares, models, routes, etc.)
+│──── db/        # Armazenamento de fotos de perfil
+│──── logs/      # Logs do sistema (exceptions, info, rejection)
+│──── .env.example  # Exemplo de configuração do ambiente
 ```
 
 ---
@@ -62,14 +66,16 @@ LOG_LEVEL=info
 
 2. Instale as dependências:
    ```bash
-   npm install
+   cd server; npm install
+   cd client; npm install
    ```
 
 3. Configure o arquivo `.env` conforme o modelo `.env.example`.
 
 4. Inicie o servidor:
    ```bash
-   npm run start
+   cd server; npm run dev
+   cd client; npm run dev
    ```
    O servidor será executado na **porta 3000**.
 
@@ -77,7 +83,7 @@ LOG_LEVEL=info
 
 ## 🔑 Autenticação e Permissões
 
-O login é realizado via **nome de usuário e senha**, retornando um **token JWT** com as permissões do usuário autenticado.
+O login é realizado via **CPF e senha**, retornando um **token JWT** com as permissões do usuário autenticado.
 Essas são as permissões dos diferentes níveis de usuários:
 
 - **Usuários padrão (Alunos e Funcionários)**: acesso ao QR Code para entrada, troca de senha, solicitação de alteração cadastral.
@@ -96,12 +102,13 @@ Os logs são armazenados na pasta `api/logs/`, com nível padrão **INFO** (conf
 
 Dúvidas ou suporte? Entre em contato:
 📧 **otavioviniciusads@gmail.com**
+📧 **lucasgomesferreira2008@gmail.com**
 
 
 
 ## 📌 Documentação da API
 
-A documentação completa das rotas está disponível em breve.
+[Acesse aqui a documentação completa](./server/docs/README_API_Senai_ID.md)
 
 <hr>
 

@@ -649,13 +649,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/late-arrivals/me",
+              "raw": "{{base_url}}/api/late-entries/me",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
-                "late-arrivals",
+                "late-entries",
                 "me"
               ]
             },
@@ -678,13 +678,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/late-arrivals/me/:id",
+              "raw": "{{base_url}}/api/late-entries/me/:id",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
-                "late-arrivals",
+                "late-entries",
                 "me",
                 ":id"
               ]
@@ -708,13 +708,13 @@
             "method": "POST",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/late-arrivals/me/request",
+              "raw": "{{base_url}}/api/late-entries/me/request",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
-                "late-arrivals",
+                "late-entries",
                 "me",
                 "request"
               ]
@@ -738,13 +738,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/late-arrivals",
+              "raw": "{{base_url}}/api/late-entries",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
-                "late-arrivals"
+                "late-entries"
               ]
             },
             "auth": {
@@ -766,13 +766,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/late-arrivals/:id",
+              "raw": "{{base_url}}/api/late-entries/:id",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
-                "late-arrivals",
+                "late-entries",
                 ":id"
               ]
             },
@@ -795,13 +795,13 @@
             "method": "PUT",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/late-arrivals/:id/validate",
+              "raw": "{{base_url}}/api/late-entries/:id/validate",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
-                "late-arrivals",
+                "late-entries",
                 ":id",
                 "validate"
               ]
@@ -825,13 +825,13 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/late-arrivals/:id",
+              "raw": "{{base_url}}/api/late-entries/:id",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
-                "late-arrivals",
+                "late-entries",
                 ":id"
               ]
             },
@@ -859,13 +859,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/early-leaves/me",
+              "raw": "{{base_url}}/api/early-exits/me",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
-                "early-leaves",
+                "early-exits",
                 "me"
               ]
             },
@@ -888,13 +888,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/early-leaves/me/:id",
+              "raw": "{{base_url}}/api/early-exits/me/:id",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
-                "early-leaves",
+                "early-exits",
                 "me",
                 ":id"
               ]
@@ -918,13 +918,13 @@
             "method": "POST",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/early-leaves/me/request",
+              "raw": "{{base_url}}/api/early-exits/me/request",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
-                "early-leaves",
+                "early-exits",
                 "me",
                 "request"
               ]
@@ -948,13 +948,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/early-leaves",
+              "raw": "{{base_url}}/api/early-exits",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
-                "early-leaves"
+                "early-exits"
               ]
             },
             "auth": {
@@ -976,13 +976,13 @@
             "method": "PUT",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/early-leaves/:id/allow",
+              "raw": "{{base_url}}/api/early-exits/:id/allow",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
-                "early-leaves",
+                "early-exits",
                 ":id",
                 "allow"
               ]
@@ -1006,13 +1006,13 @@
             "method": "PUT",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/early-leaves/:id/deny",
+              "raw": "{{base_url}}/api/early-exits/:id/deny",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
-                "early-leaves",
+                "early-exits",
                 ":id",
                 "deny"
               ]
@@ -1036,13 +1036,13 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/early-leaves/:id",
+              "raw": "{{base_url}}/api/early-exits/:id",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
-                "early-leaves",
+                "early-exits",
                 ":id"
               ]
             },

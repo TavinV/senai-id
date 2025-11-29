@@ -21,7 +21,7 @@ import { useAuthContext } from '../context/authContext.jsx';
 function Login () {
     const [password, setPassword] = useState("");
     const { login, loading, error, clearError, isAuthenticated } = useAuthContext();
-    const [cpf, setCpf] = useState("");
+    const [cpf, setCpf] = useState(""); 
     const navigate = useNavigate();
 
     //Aplicando a máscara no CPF
@@ -44,7 +44,7 @@ function Login () {
         <>
             <Header />
             <MainContent>
-                <FormContainer buttonText={loading ? "Entrando...": "Entrar"} title="Faça o login" onSubmit={handleSubmit}>
+                <FormContainer buttonText="Entrar" loading={loading} loadingText={"Carregando..."} title="Faça o login" onSubmit={handleSubmit}>
                     <div className="flex flex-col gap-10">
                         <span>
                             <h2>Insira seu CPF</h2>
@@ -71,6 +71,7 @@ function Login () {
                         </span>
                         </div>
                     </div>
+                    <a href="../pages/firstAccessSelectRole.jsx">Primeiro acesso? Clique aqui</a>
                 </FormContainer>
             </MainContent>
             <Footer />

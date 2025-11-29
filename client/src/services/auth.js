@@ -2,7 +2,7 @@ import Api from './api.js';
 
 export async function loginUser(login, senha) {
     try{
-        const response = await Api.post('/login', {login, senha})
+        const response = await Api.post('/auth/', {login, senha})
 
         return response.data;   
     } catch (error){

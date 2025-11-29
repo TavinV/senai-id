@@ -5,21 +5,25 @@ import { createRoot } from 'react-dom/client';
 //Pages 
 import Login from './pages/login.jsx';
 import Support from './pages/support.jsx';
+import DelayControl from './pages/accountsControl.jsx';
 import RegisterStudent from './pages/registerStudent.jsx'
-import DelayControl from './pages/delayControl.jsx'; 
+import AccountsControl from './pages/accountsControl.jsx'; 
 import RegisterEmployee from './pages/registerEmployee.jsx';
+import FirstAccessSelectRole from '../src/pages/firstAccessSelectRole.jsx'
 
 import './index.css';
 
 import { AuthProvider } from './context/authContext.jsx';
 import PrivateRoute from './components/auth/PrivateRoute.jsx';
 
+
 const router = createBrowserRouter([
-  {
-    path: '/', element: <PrivateRoute element={<RegisterStudent/>}/>},
+  {path: '/', element: <PrivateRoute element={<RegisterStudent/>}/>},
   {path: '/login', element: <Login />},
   {path: '/suporte', element: <Support />},
+  {path: '/primeiro-acesso', element: <FirstAccessSelectRole />},
   {path: '/atrasos', element: <PrivateRoute element={<DelayControl/>}/>},
+  {path: '/contas', element: <PrivateRoute element={<AccountsControl/>}/>},
   {path: '/registrar-aluno', element: <PrivateRoute element={<RegisterStudent/>}/>},
   {path: '/registrar-funcionario', element: <PrivateRoute element={<RegisterEmployee/>}/>},
 ]);
