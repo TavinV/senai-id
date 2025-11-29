@@ -82,7 +82,7 @@ export default function TestUsers() {
 
                     <button
                         style={{ marginLeft: 12 }}
-                        onClick={() => deleteUser(u._id)}
+                        onClick={() => deleteUser(u.id)}
                     >
                         Excluir
                     </button>

@@ -119,7 +119,7 @@ export default function useUsers() {
       form.append("senha", generatePassword(data.cpf));
       form.append("foto_perfil", data.foto_perfil);
 
-      const res = await api.post("/employees", form);
+      const res = await api.post("/users/employees", form);
       const parsed = parseResponse(res);
 
       await fetchUsers();
@@ -181,7 +181,6 @@ export default function useUsers() {
     selectedUser,
     loading,
     error,
-
     fetchUsers,
     getUserById,
     updateUser,

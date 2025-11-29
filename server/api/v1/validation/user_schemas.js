@@ -19,7 +19,6 @@ export const funcionarioSchema = Joi.object({
     pis: Joi.string().length(11).required(), // PIS com 11 dígitos
     descricao: Joi.string().required(), // Descrição do funcionário
     nif: Joi.string().required(), // Número de identificação fiscal (se aplicável)
-    data_nascimento: Joi.string().required(), // Data 
     email: Joi.string().email().required(), // Email do funcionário
 });
 
