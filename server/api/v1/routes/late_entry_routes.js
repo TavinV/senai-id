@@ -7,7 +7,7 @@ import {
 } from '../controllers/user_controller.js'
 
 import {
-    atrasosDeUmAluno,
+    atrasoPorCodigo,
     atrasosDeTodosAlunos,
     validarAtraso,
     deletarAtraso
@@ -22,7 +22,7 @@ router.post('/me/request', validateSessionToken(false), pedirAtraso)
 
 // Secretaria
 router.get('/', validateSessionToken(true), atrasosDeTodosAlunos)
-router.get('/:id', validateSessionToken(true), atrasosDeUmAluno)
+router.get('/:id', validateSessionToken(true), atrasoPorCodigo)
 router.put('/:id/validate', validateSessionToken(true), validarAtraso)
 router.delete('/:id', validateSessionToken(true), deletarAtraso)
 

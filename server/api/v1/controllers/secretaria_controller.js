@@ -353,26 +353,17 @@ const validarAtraso = async (req, res) => {
 }
 
 // GET api/v1/secretaria/late-entries/:id
-const atrasosDeUmAluno = async (req, res) => {
+const atrasoPorCodigo = async (req, res) => {
     const id = req.params.id
-    const [atrasos, findAtrasosError] = await getLateEntries(id)
+    const [lateEntry, findLateEntryError] = await getLateEntry(id)
 
-    if (findAtrasosError) {
+    if (!lateEntry && findLateEntryError == 404) {
+        return ApiResponse.NOTFOUND(res, "Registro de atraso não encontrado.")
+    } else if (!lateEntry && findLateEntryError != 404) {
         return ApiResponse.ERROR(res, "Erro interno do servidor.")
     }
 
-    const [user, findUserError] = await findUserById(id)
-
-    if (!user && findUserError != 404) {
-        // Erro interno do servidor, algum problema com o banco de dados.
-        return ApiResponse.ERROR(res, `Erro interno do servidor.`)
-    } else if (findUserError == 404) {
-        // Usuário não encontrado.
-        return ApiResponse.NOTFOUND(res, "Usuário não foi encontrado.")
-    }
-
-
-    return ApiResponse.OK(res, { atrasos }, `Atrasos do aluno ${user.nome}.`)
+    return ApiResponse.OK(res, { lateEntry }, "Registro de atraso encontrado.")
 }
 
 // DEL api/v1/secretaria/late-entries/:id
@@ -580,4 +571,4 @@ const pedidosDeAtualizacao = async (req, res) => {
 }
 
 
-export { registrarAluno, registrarFuncionario, atualizarUsuario, deletarUsuario, aprovarPedido, rejeitarPedido, validarAtraso, atrasosDeUmAluno, deletarAtraso, validarSaidaAntecipada, negarSaidaAntecipada, deletarSaidaAntecipada, saidasAntecipadasDeTodosAlunos, atrasosDeTodosAlunos, pedidosDeAtualizacao };
+export { registrarAluno, registrarFuncionario, atualizarUsuario, deletarUsuario, aprovarPedido, rejeitarPedido, validarAtraso, atrasoPorCodigo, deletarAtraso, validarSaidaAntecipada, negarSaidaAntecipada, deletarSaidaAntecipada, saidasAntecipadasDeTodosAlunos, atrasosDeTodosAlunos, pedidosDeAtualizacao };
