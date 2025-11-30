@@ -2,14 +2,18 @@
 import { useState, useEffect } from "react";
 import api from "../services/api";
 
+// Função global geradora de senha
+function generatePassword(cpf) {
+  const lastTwo = cpf.replace(/\D/g, "").slice(-2);
+  return `senai117@${lastTwo}`;
+}
+
 export default function useUsers() {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Auxiliar padrão de resposta da API
   function parseResponse(res) {
     return {
       success: res?.data?.success ?? false,
@@ -18,31 +22,18 @@ export default function useUsers() {
     };
   }
 
-  // ==============================
-  // PASSWORD GENERATION
-  // ==============================
-  function generatePassword(cpf) {
-    const numeric = cpf.replace(/\D/g, "");
-    const lastTwo = numeric.slice(-2);
-    return `senai117@${lastTwo}`;
-  }
-
-  // ==============================
-  // LIST ALL USERS
-  // ==============================
+  /* =============================
+   LIST ALL USERS
+  ==============================*/
   async function fetchUsers() {
     try {
       setLoading(true);
-
       const res = await api.get("/users");
       const parsed = parseResponse(res);
-
       setUsers(parsed.data || []);
       return parsed;
     } catch (err) {
-      console.error(err);
       setError("Erro ao carregar usuários");
-      return null;
     } finally {
       setLoading(false);
     }
@@ -52,29 +43,26 @@ export default function useUsers() {
     fetchUsers();
   }, []);
 
-  // ==============================
-  // GET USER BY ID
-  // ==============================
+  /* =============================
+    GET USER BY ID
+  ==============================*/
   async function getUserById(id) {
     try {
       setLoading(true);
       const res = await api.get(`/users/${id}`);
       const parsed = parseResponse(res);
-
       setSelectedUser(parsed.data);
       return parsed;
-    } catch (err) {
-      console.error("Erro ao buscar usuário:", err);
+    } catch {
       setError("Usuário não encontrado");
-      return null;
     } finally {
       setLoading(false);
     }
   }
 
-  // ==============================
-  // CREATE STUDENT (POST /users)
-  // ==============================
+  /* =============================
+    CREATE STUDENT  /users
+  ==============================*/
   async function createStudent(data) {
     try {
       setLoading(true);
@@ -82,10 +70,11 @@ export default function useUsers() {
       const form = new FormData();
       form.append("nome", data.nome);
       form.append("cpf", data.cpf);
-      form.append("data_nascimento", data.data_nascimento);
-      form.append("descricao", data.descricao);
-      form.append("email", data.email);
       form.append("senha", generatePassword(data.cpf));
+      form.append("turma", data.turma);
+      form.append("matricula", data.matricula);
+      form.append("data_nascimento", data.data_nascimento);
+      form.append("curso", data.curso);
       form.append("foto_perfil", data.foto_perfil);
 
       const res = await api.post("/users", form);
@@ -102,9 +91,9 @@ export default function useUsers() {
     }
   }
 
-  // ==============================
-  // CREATE EMPLOYEE (POST /employees)
-  // ==============================
+  /* =============================
+    CREATE EMPLOYEE /employees
+  ==============================*/
   async function createEmployee(data) {
     try {
       setLoading(true);
@@ -112,11 +101,11 @@ export default function useUsers() {
       const form = new FormData();
       form.append("nome", data.nome);
       form.append("cpf", data.cpf);
-      form.append("cargo", data.cargo);
+      form.append("senha", generatePassword(data.cpf));
+      form.append("descricao", data.descricao);
       form.append("nif", data.nif);
       form.append("pis", data.pis);
       form.append("email", data.email);
-      form.append("senha", generatePassword(data.cpf));
       form.append("foto_perfil", data.foto_perfil);
 
       const res = await api.post("/users/employees", form);
@@ -133,19 +122,17 @@ export default function useUsers() {
     }
   }
 
-  // ==============================
-  // UPDATE USER
-  // ==============================
+  /* =============================
+    UPDATE USER
+  ==============================*/
   async function updateUser(id, data) {
     try {
       setLoading(true);
       const res = await api.put(`/users/${id}`, data);
       const parsed = parseResponse(res);
-
       await fetchUsers();
       return parsed;
-    } catch (err) {
-      console.error("Erro ao atualizar usuário:", err);
+    } catch {
       setError("Erro ao atualizar usuário");
       return null;
     } finally {
@@ -153,22 +140,17 @@ export default function useUsers() {
     }
   }
 
-  // ==============================
-  // DELETE USER
-  // ==============================
+  /* =============================
+    DELETE USER
+  ==============================*/
   async function deleteUser(id) {
     try {
       setLoading(true);
       await api.delete(`/users/${id}`);
-
-      if (selectedUser && selectedUser._id === id) {
-        setSelectedUser(null);
-      }
-
+      if (selectedUser && selectedUser._id === id) setSelectedUser(null);
       await fetchUsers();
       return true;
-    } catch (err) {
-      console.error("Erro ao excluir usuário:", err);
+    } catch {
       setError("Erro ao excluir usuário");
       return false;
     } finally {
@@ -181,12 +163,13 @@ export default function useUsers() {
     selectedUser,
     loading,
     error,
+
     fetchUsers,
     getUserById,
-    updateUser,
-    deleteUser,
     createStudent,
     createEmployee,
+    updateUser,
+    deleteUser,
     setSelectedUser,
   };
 }
