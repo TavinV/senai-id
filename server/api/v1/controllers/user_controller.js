@@ -594,10 +594,10 @@ const pedirSaidaAntecipada = async (req, res) => {
     if (getEarlyExitsError) {
         return ApiResponse.ERROR(res, `Erro ao buscar pedidos de liberação pendentes: ${getLateEntriesError}`)
     }
-    
+
     if (earlyExits.length > 0 && earlyExits.some(entry => entry.status === 'Pendente')) {
         console.log(earlyExits)
-        return ApiResponse.ERROR(res, "Você já tem um pedido de liberação em análise. Espere a resposta antes de solicitar outro.")
+        return ApiResponse.ALREADYEXISTS(res, "Você já tem um pedido de liberação em análise. Espere a resposta antes de solicitar outro.")
     }
 
     const [earlyExit, createEarlyExitError] = await requestEarlyExit(user_id, motivo, saidaDate);
