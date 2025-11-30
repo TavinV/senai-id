@@ -60,9 +60,7 @@ export default function useUsers() {
     }
   }
 
-  /* =============================
-    CREATE STUDENT  /users
-  ==============================*/
+  /* src/hooks/useUsers.jsx */
   async function createStudent(data) {
     try {
       setLoading(true);
@@ -77,11 +75,16 @@ export default function useUsers() {
       form.append("curso", data.curso);
       form.append("foto_perfil", data.foto_perfil);
 
-      const res = await api.post("/users", form);
-      const parsed = parseResponse(res);
+      const res = await api.post("/users", form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
+      const parsed = parseResponse(res);
       await fetchUsers();
       return parsed;
+
     } catch (err) {
       console.error("Erro ao criar aluno:", err);
       setError("Erro ao criar aluno");
@@ -90,6 +93,7 @@ export default function useUsers() {
       setLoading(false);
     }
   }
+
 
   /* =============================
     CREATE EMPLOYEE /employees
@@ -108,7 +112,11 @@ export default function useUsers() {
       form.append("email", data.email);
       form.append("foto_perfil", data.foto_perfil);
 
-      const res = await api.post("/users/employees", form);
+      const res = await api.post("/users/employees", form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       const parsed = parseResponse(res);
 
       await fetchUsers();

@@ -16,7 +16,12 @@ import CardAccess from "./pages/cardAccess.jsx";
 import EditUser from "./pages/editUser.jsx";
 import AskForDelay from "./pages/askForDelay.jsx";
 import LateEntriesHistory from "./pages/lateEntriesHistory.jsx";
+
 import TestUsers from "./pages/testUsers.jsx";
+import TestLateEntriesStudent from "./pages/testAtrasos.jsx";
+import TestLateEntriesAdmin from "./pages/testLateEntriesAdmin.jsx";
+import TestEarlyExitsStudent from "./pages/testEarlyExits.jsx";
+import TestEarlyExitsAdmin from "./pages/testEarlyExitsAdmin.jsx";
 
 // CSS
 
@@ -32,6 +37,10 @@ const router = createBrowserRouter([
   { path: "/primeiro-acesso", element: <FirstAccessSelectRole /> },
   { path: "/confirmar-cpf", element: <ConfirmCpf /> },
   { path: "/teste-usuarios", element: <TestUsers /> },
+  { path: "/teste-atrasos", element: <TestLateEntriesStudent /> },
+  { path: "/teste-atrasos-admin", element: <TestLateEntriesAdmin /> },
+  { path: "/teste-saidas", element: <TestEarlyExitsStudent /> },
+  { path: "/teste-saidas-admin", element: <TestEarlyExitsAdmin /> },
   {
     path: "/dashboard",
     element: (
@@ -105,7 +114,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/carteirinha-acesso",
+    path: "/carteirinha",
     element: (
       <PrivateRoute allowedRoles={["aluno", "funcionario"]}>
         <CardAccess />

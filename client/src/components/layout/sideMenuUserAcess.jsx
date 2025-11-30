@@ -74,7 +74,7 @@ export default function SideMenuUserAcess({ isOpen, onClose, user, onLogout }) {
 
           {/* Opções */}
           <nav className="flex flex-col gap-1 p-4 text-gray-700">
-            <NavItem to="/carteirinha-acesso" icon={<IdCard size={20} />} onClick={onClose}>
+            <NavItem to="/carteirinha" icon={<IdCard size={20} />} onClick={onClose}>
               Carteirinha
             </NavItem>
             <NavItem to="/meus-atrasos" icon={<Clock size={20} />} onClick={onClose}>

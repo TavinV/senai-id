@@ -30,7 +30,7 @@ function AskForDelay() {
 
   // Redireciona se não for aluno
   if (!authLoading && user && user.cargo?.toLowerCase() !== "aluno") {
-    navigate("/carteirinha-acesso");
+    navigate("/carteirinha");
     return null;
   }
 
@@ -91,7 +91,7 @@ function AskForDelay() {
 
         // Redireciona após 2 segundos
         setTimeout(() => {
-          navigate("/carteirinha-acesso");
+          navigate("/carteirinha");
         }, 2000);
       } else {
         toast.error("Erro ao enviar requisição. Tente novamente.");

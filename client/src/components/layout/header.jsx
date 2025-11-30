@@ -14,7 +14,7 @@ const Header = () => {
         return "/registrar-aluno";
       }
       
-      return "/carteirinha-acesso";
+      return "/carteirinha";
     };
 
     return (

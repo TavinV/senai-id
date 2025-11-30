@@ -17,6 +17,29 @@ export default function useEarlyExits() {
     };
   }
 
+  function handleApiError(err) {
+    // Verifica se é uma resposta da API com mensagem personalizada
+    if (err.response?.data?.message) {
+      const errorMessage = err.response.data.message;
+      setError(errorMessage);
+      return {
+        success: false,
+        message: errorMessage,
+        data: null
+      };
+    }
+
+    // Erro de rede ou outros erros
+    const genericMessage = "Erro ao processar solicitação";
+    console.error("Erro na API:", err);
+    setError(genericMessage);
+    return {
+      success: false,
+      message: genericMessage,
+      data: null
+    };
+  }
+
   /* =============================
    * ALUNO
    ============================= */
@@ -25,15 +48,14 @@ export default function useEarlyExits() {
   async function getMyEarlyExits() {
     try {
       setLoading(true);
+      setError(null);
       const res = await api.get("/early-exits/me");
       const parsed = parseResponse(res);
 
       setEarlyExits(parsed.data?.earlyExits || []);
       return parsed;
     } catch (err) {
-      console.error("Erro ao buscar saídas:", err);
-      setError("Erro ao buscar saídas");
-      return { success: false, message: "Erro ao buscar saídas", data: null };
+      return handleApiError(err);
     } finally {
       setLoading(false);
     }
@@ -43,15 +65,14 @@ export default function useEarlyExits() {
   async function getMyEarlyExitById(id) {
     try {
       setLoading(true);
+      setError(null);
       const res = await api.get(`/early-exits/me/${id}`);
       const parsed = parseResponse(res);
 
       setSelectedEarlyExit(parsed.data);
       return parsed;
     } catch (err) {
-      console.error("Erro ao buscar saída:", err);
-      setError("Erro ao buscar saída");
-      return { success: false, message: "Erro ao buscar saída", data: null };
+      return handleApiError(err);
     } finally {
       setLoading(false);
     }
@@ -61,12 +82,11 @@ export default function useEarlyExits() {
   async function createEarlyExit(data) {
     try {
       setLoading(true);
+      setError(null);
       const res = await api.post("/early-exits/me/request", data);
       return parseResponse(res);
     } catch (err) {
-      console.error("Erro ao solicitar saída:", err);
-      setError("Erro ao solicitar saída");
-      return { success: false, message: "Erro ao solicitar saída", data: null };
+      return handleApiError(err);
     } finally {
       setLoading(false);
     }
@@ -80,15 +100,14 @@ export default function useEarlyExits() {
   async function getEarlyExits() {
     try {
       setLoading(true);
+      setError(null);
       const res = await api.get("/early-exits");
       const parsed = parseResponse(res);
 
       setEarlyExits(parsed.data?.earlyExits || []);
       return parsed;
     } catch (err) {
-      console.error("Erro ao listar saídas:", err);
-      setError("Erro ao listar saídas");
-      return { success: false, message: "Erro ao listar saídas", data: null };
+      return handleApiError(err);
     } finally {
       setLoading(false);
     }
@@ -98,15 +117,14 @@ export default function useEarlyExits() {
   async function getEarlyExitById(id) {
     try {
       setLoading(true);
+      setError(null);
       const res = await api.get(`/early-exits/${id}`);
       const parsed = parseResponse(res);
 
       setSelectedEarlyExit(parsed.data);
       return parsed;
     } catch (err) {
-      console.error("Erro ao buscar saída:", err);
-      setError("Erro ao buscar saída");
-      return { success: false, message: "Erro ao buscar saída", data: null };
+      return handleApiError(err);
     } finally {
       setLoading(false);
     }
@@ -116,12 +134,11 @@ export default function useEarlyExits() {
   async function allowEarlyExit(id, data) {
     try {
       setLoading(true);
+      setError(null);
       const res = await api.put(`/early-exits/${id}/allow`, data);
       return parseResponse(res);
     } catch (err) {
-      console.error("Erro ao aprovar saída:", err);
-      setError("Erro ao aprovar saída");
-      return { success: false, message: "Erro ao aprovar saída", data: null };
+      return handleApiError(err);
     } finally {
       setLoading(false);
     }
@@ -131,12 +148,11 @@ export default function useEarlyExits() {
   async function denyEarlyExit(id, data) {
     try {
       setLoading(true);
+      setError(null);
       const res = await api.put(`/early-exits/${id}/deny`, data);
       return parseResponse(res);
     } catch (err) {
-      console.error("Erro ao negar saída:", err);
-      setError("Erro ao negar saída");
-      return { success: false, message: "Erro ao negar saída", data: null };
+      return handleApiError(err);
     } finally {
       setLoading(false);
     }
@@ -146,12 +162,11 @@ export default function useEarlyExits() {
   async function deleteEarlyExit(id) {
     try {
       setLoading(true);
+      setError(null);
       const res = await api.delete(`/early-exits/${id}`);
       return parseResponse(res);
     } catch (err) {
-      console.error("Erro ao excluir saída:", err);
-      setError("Erro ao excluir saída");
-      return { success: false, message: "Erro ao excluir saída", data: null };
+      return handleApiError(err);
     } finally {
       setLoading(false);
     }
@@ -171,5 +186,7 @@ export default function useEarlyExits() {
     denyEarlyExit,
     deleteEarlyExit,
     setSelectedEarlyExit,
+    // Função para limpar erros manualmente
+    clearError: () => setError(null),
   };
 }

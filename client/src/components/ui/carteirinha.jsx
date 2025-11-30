@@ -6,6 +6,7 @@ import { useState } from "react";
 import api from "../../services/api";
 
 const Carteirinha = ({
+  photoPreview = null,
   showQR = false,
   name = "Nome do Estudante",
   dateOfBirth = "00/00/0000",
@@ -62,11 +63,11 @@ const Carteirinha = ({
       </h2>
       {/* Foto do estudante/funcionário */}
       <div className="relative">
-        <img
-          src={user?.foto_perfil}
-          alt="Foto de perfil"
-          className={`w-24 h-24 sm:w-28 sm:h-28 md:w-40 md:h-40 rounded-full object-cover border-2 ${borderColor} bg-gray-800`}
-        />
+          <img
+            src={photoPreview || user?.foto_perfil || "/placeholder.png"}
+            alt="Foto de perfil"
+            className={`w-24 h-24 sm:w-28 sm:h-28 md:w-40 md:h-40 rounded-full object-cover border-2 ${borderColor} bg-gray-800`}
+          />
       </div>
       <div>
         {/* Cargo (apenas para funcionários) */}

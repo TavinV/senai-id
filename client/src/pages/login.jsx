@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import Header from "../components/layout/header.jsx";
@@ -25,10 +25,10 @@ function Login() {
   const initialPassword = location.state?.password || location.state?.senha || location.state?.senha_padrao || "";
   const [password, setPassword] = useState(initialPassword);
   const [cpf, setCpf] = useState(initialCpf);
-
-  const { login, loading, error, clearError } = useAuthContext();
+  const { login, loading, error, clearError, isAuthenticated, user } = useAuthContext();
   const navigate = useNavigate();
 
+  
   const handleCpfChange = (e) => {
     setCpf(maskCPF(e.target.value));
   };
@@ -37,14 +37,19 @@ function Login() {
     switch (role?.toLowerCase()) {
       case "secretaria":
         return navigate("/registrar-aluno", { replace: true });
-      case "aluno":
-        return navigate("/carteirinha-acesso", { replace: true });
-      case "funcionario":
-        return navigate("/carteirinha-acesso", { replace: true });
-      default:
+        case "aluno":
+          return navigate("/carteirinha", { replace: true });
+          case "funcionario":
+            return navigate("/carteirinha", { replace: true });
+            default:
         return navigate("/login", { replace: true });
     }
   };
+  
+  useEffect(() => {
+  if (isAuthenticated) {
+    redirectByRole(user?.cargo);
+  }}, [isAuthenticated, user]);
 
   const handleSubmit = async () => {
     const result = await login(cpf, password);

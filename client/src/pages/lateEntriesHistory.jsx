@@ -58,7 +58,7 @@ function LateEntriesHistory() {
 
   // Redireciona se não for aluno
   if (!authLoading && user && user.cargo?.toLowerCase() !== "aluno") {
-    navigate("/carteirinha-acesso");
+    navigate("/carteirinha");
     return null;
   }
 

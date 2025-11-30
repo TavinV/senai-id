@@ -17,7 +17,7 @@ const UserHeader = () => {
   };
 
   // Logo vai para página da carteirinha (usuário)
-  const getLogoDest = () => "/carteirinha-acesso";
+  const getLogoDest = () => "/carteirinha";
 
   const userInfo = {
     name: user?.nome || "Usuário",
