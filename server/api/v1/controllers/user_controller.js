@@ -229,6 +229,11 @@ const validarToken = async (req, res) => {
 const pedirAtraso = async (req, res) => {
     const id = req.decoded.id
     const [user, findUserError] = await findUserById(id)
+    const { motivo, observacao } = req.body
+
+    if (!motivo) {
+        return ApiResponse.BADREQUEST(res, "Motivo não foi fornecido")
+    }
 
     if (!user && findUserError != 404) {
         return ApiResponse.ERROR(res, `Erro interno do servidor.`)
@@ -247,7 +252,7 @@ const pedirAtraso = async (req, res) => {
     }
 
     try {
-        const [lateEntry, createLateEntryError] = await createLateEntry(user.id)
+        const [lateEntry, createLateEntryError] = await createLateEntry(user.id, motivo, observacao || "-")
 
         if (createLateEntryError) {
             return ApiResponse.ERROR(res, `Erro ao registrar o atraso.`)

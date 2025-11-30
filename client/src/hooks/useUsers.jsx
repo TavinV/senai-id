@@ -2,21 +2,37 @@
 import { useState, useEffect } from "react";
 import api from "../services/api";
 
+// Função global geradora de senha
+function generatePassword(cpf) {
+  const lastTwo = cpf.replace(/\D/g, "").slice(-2);
+  return `senai117@${lastTwo}`;
+}
+
 export default function useUsers() {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // LIST ALL USERS
+  function parseResponse(res) {
+    return {
+      success: res?.data?.success ?? false,
+      message: res?.data?.message ?? "Operação realizada",
+      data: res?.data?.data ?? null,
+    };
+  }
+
+  /* =============================
+   LIST ALL USERS
+  ==============================*/
   async function fetchUsers() {
     try {
       setLoading(true);
       const res = await api.get("/users");
-      setUsers(res.data?.data || []);
+      const parsed = parseResponse(res);
+      setUsers(parsed.data || []);
+      return parsed;
     } catch (err) {
-      console.error(err);
       setError("Erro ao carregar usuários");
     } finally {
       setLoading(false);
@@ -25,51 +41,98 @@ export default function useUsers() {
 
   useEffect(() => {
     fetchUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // GET USER BY ID (and set selectedUser)
+  /* =============================
+    GET USER BY ID
+  ==============================*/
   async function getUserById(id) {
     try {
       setLoading(true);
       const res = await api.get(`/users/${id}`);
-      const user = res.data?.data || null;
-      setSelectedUser(user);
-      return user;
-    } catch (err) {
-      console.error("Erro ao buscar usuário:", err);
+      const parsed = parseResponse(res);
+      setSelectedUser(parsed.data);
+      return parsed;
+    } catch {
       setError("Usuário não encontrado");
-      return null;
     } finally {
       setLoading(false);
     }
   }
 
-  // CREATE USER
-  async function createUser(data) {
+  /* =============================
+    CREATE STUDENT  /users
+  ==============================*/
+  async function createStudent(data) {
     try {
       setLoading(true);
-      const res = await api.post("/users", data);
+
+      const form = new FormData();
+      form.append("nome", data.nome);
+      form.append("cpf", data.cpf);
+      form.append("senha", generatePassword(data.cpf));
+      form.append("turma", data.turma);
+      form.append("matricula", data.matricula);
+      form.append("data_nascimento", data.data_nascimento);
+      form.append("curso", data.curso);
+      form.append("foto_perfil", data.foto_perfil);
+
+      const res = await api.post("/users", form);
+      const parsed = parseResponse(res);
+
       await fetchUsers();
-      return res.data;
+      return parsed;
     } catch (err) {
-      console.error("Erro ao criar usuário:", err);
-      setError("Erro ao criar usuário");
+      console.error("Erro ao criar aluno:", err);
+      setError("Erro ao criar aluno");
       return null;
     } finally {
       setLoading(false);
     }
   }
 
-  // UPDATE USER (PUT /users/:id)
+  /* =============================
+    CREATE EMPLOYEE /employees
+  ==============================*/
+  async function createEmployee(data) {
+    try {
+      setLoading(true);
+
+      const form = new FormData();
+      form.append("nome", data.nome);
+      form.append("cpf", data.cpf);
+      form.append("senha", generatePassword(data.cpf));
+      form.append("descricao", data.descricao);
+      form.append("nif", data.nif);
+      form.append("pis", data.pis);
+      form.append("email", data.email);
+      form.append("foto_perfil", data.foto_perfil);
+
+      const res = await api.post("/users/employees", form);
+      const parsed = parseResponse(res);
+
+      await fetchUsers();
+      return parsed;
+    } catch (err) {
+      console.error("Erro ao criar funcionário:", err);
+      setError("Erro ao criar funcionário");
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  /* =============================
+    UPDATE USER
+  ==============================*/
   async function updateUser(id, data) {
     try {
       setLoading(true);
       const res = await api.put(`/users/${id}`, data);
+      const parsed = parseResponse(res);
       await fetchUsers();
-      return res.data;
-    } catch (err) {
-      console.error("Erro ao atualizar usuário:", err);
+      return parsed;
+    } catch {
       setError("Erro ao atualizar usuário");
       return null;
     } finally {
@@ -77,41 +140,21 @@ export default function useUsers() {
     }
   }
 
-  // DELETE USER
+  /* =============================
+    DELETE USER
+  ==============================*/
   async function deleteUser(id) {
     try {
       setLoading(true);
       await api.delete(`/users/${id}`);
-      await fetchUsers();
-      // if deleted user was selectedUser, clear it
       if (selectedUser && selectedUser._id === id) setSelectedUser(null);
+      await fetchUsers();
       return true;
-    } catch (err) {
-      console.error("Erro ao excluir usuário:", err);
+    } catch {
       setError("Erro ao excluir usuário");
       return false;
     } finally {
       setLoading(false);
-    }
-  }
-
-  // UPLOAD IMAGE helper (tries POST /upload and returns URL)
-  // If your backend doesn't have /upload, adapte ou remova.
-  async function uploadImage(file) {
-    if (!file) return null;
-    try {
-      const form = new FormData();
-      form.append("file", file);
-
-      const res = await api.post("/upload", form, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
-      // expect: { url: 'https://...' } or similar. adapt if necessary.
-      return res.data?.url ?? res.data?.data?.url ?? null;
-    } catch (err) {
-      console.warn("Upload falhou, verifique endpoint /upload:", err);
-      return null;
     }
   }
 
@@ -120,12 +163,13 @@ export default function useUsers() {
     selectedUser,
     loading,
     error,
+
     fetchUsers,
     getUserById,
-    createUser,
+    createStudent,
+    createEmployee,
     updateUser,
     deleteUser,
-    uploadImage,
-    setSelectedUser, // exposto caso queira limpar/forçar seleção
+    setSelectedUser,
   };
 }

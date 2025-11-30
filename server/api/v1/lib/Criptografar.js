@@ -15,9 +15,7 @@ export function cripografarSenhaUsuario(usuario) {
 
     usuario.senha = senhaSegura
     usuario.salt = salt
-    if (usuario.cargo != 'funcionario') {
-        usuario.senha_padrao = senha
-    }
+    usuario.senha_padrao = senha
 
     return usuario
 }

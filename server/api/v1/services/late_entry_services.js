@@ -2,11 +2,11 @@ import lateEntry from '../models/late_entry_model.js'
 import logger from '../lib/logger.js'
 const childLogger = logger.child({ service: "late_entry_services" })
 
-const createLateEntry = async (user_id) => {
+const createLateEntry = async (user_id, motivo, observacao) => {
     const lateEntryId = Array.from({ length: 8 }, () => 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'[Math.floor(Math.random() * 62)]).join('');
 
     try {
-        const newEntry = await lateEntry.create({ id: lateEntryId, user_id, responsavel: "-", motivo: "-", observacao: "-" })
+        const newEntry = await lateEntry.create({ id: lateEntryId, user_id, responsavel: "-", motivo: motivo, observacao: observacao || "", status: 'Pendente' })
         childLogger.info(`Late entry created for user ${user_id}`)
 
         return [newEntry, null]

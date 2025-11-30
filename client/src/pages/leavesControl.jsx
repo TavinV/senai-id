@@ -4,7 +4,7 @@ import FormManagement from "../components/containers/formManagement.jsx";
 import LoggedHeader from "../components/layout/loggedHeader.jsx";
 import MainContent from "../components/layout/mainContent.jsx";
 import Footer from "../components/layout/footer.jsx";
-import UseLeaves from "../hooks/useLeaves.jsx";
+import useEarlyExits from "../hooks/useEarlyExits.jsx";
 import UserRow from "../components/layout/userRow.jsx";
 import LoadingScreen from "../components/ui/loadingScreen.jsx";
 
