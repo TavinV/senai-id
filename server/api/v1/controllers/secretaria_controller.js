@@ -308,7 +308,7 @@ const validarAtraso = async (req, res) => {
     const {responsavel, observacao } = req.body
 
     if (!responsavel) {
-        return ApiResponse.BADREQUEST(res, "O motivo e o responsável do redirecionamento são obrigatórios.")
+        return ApiResponse.BADREQUEST(res, "O responsável do redirecionamento é obrigatório.")
     }
 
     const [foundLateEntry, findLateEntryError] = await getLateEntry(id)
