@@ -556,6 +556,19 @@ const saidasAntecipadasDeTodosAlunos = async (req, res) => {
     return ApiResponse.OK(res, { earlyExits }, "Registros de liberações encontrados com sucesso.")
 }
 
+// GET api/v1/secretaria/early-exits/:id
+const saidaAntecipadaPorId = async (req, res) => {
+    const id = req.params.id
+    const [earlyExit, findEarlyExitError] = await getEarlyExit(id);
+    if (!earlyExit && findEarlyExitError == 404) {
+        return ApiResponse.NOTFOUND(res, "Pedido de liberação não encontrado.");
+    } else if (!earlyExit && findEarlyExitError != 404) {
+        return ApiResponse.ERROR(res, "Erro interno do servidor.");
+    }
+
+    return ApiResponse.OK(res, { earlyExit }, "Pedido de liberação encontrado com sucesso.")
+}
+
 // GET api/v1/secretaria/update-requests
 const pedidosDeAtualizacao = async (req, res) => {
     const [updateRequests, findUpdateRequestsError] = await findAllUpdateRequests()
@@ -571,4 +584,4 @@ const pedidosDeAtualizacao = async (req, res) => {
 }
 
 
-export { registrarAluno, registrarFuncionario, atualizarUsuario, deletarUsuario, aprovarPedido, rejeitarPedido, validarAtraso, atrasoPorCodigo, deletarAtraso, validarSaidaAntecipada, negarSaidaAntecipada, deletarSaidaAntecipada, saidasAntecipadasDeTodosAlunos, atrasosDeTodosAlunos, pedidosDeAtualizacao };
+export { registrarAluno, registrarFuncionario, atualizarUsuario, deletarUsuario, aprovarPedido, rejeitarPedido, validarAtraso, atrasoPorCodigo, deletarAtraso, saidaAntecipadaPorId, validarSaidaAntecipada, negarSaidaAntecipada, deletarSaidaAntecipada, saidasAntecipadasDeTodosAlunos, atrasosDeTodosAlunos, pedidosDeAtualizacao };

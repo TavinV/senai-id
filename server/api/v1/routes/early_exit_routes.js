@@ -11,7 +11,8 @@ import {
     saidasAntecipadasDeTodosAlunos,
     validarSaidaAntecipada,
     negarSaidaAntecipada,
-    deletarSaidaAntecipada
+    deletarSaidaAntecipada,
+    saidaAntecipadaPorId
 } from '../controllers/secretaria_controller.js'
 
 const router = express.Router()
@@ -23,6 +24,7 @@ router.post('/me/request', validateSessionToken(false), pedirSaidaAntecipada)
 
 // Secretaria
 router.get('/', validateSessionToken(true), saidasAntecipadasDeTodosAlunos)
+router.get('/:id', validateSessionToken(true), saidaAntecipadaPorId)
 router.put('/:id/allow', validateSessionToken(true), validarSaidaAntecipada)
 router.put('/:id/deny', validateSessionToken(true), negarSaidaAntecipada)
 router.delete('/:id', validateSessionToken(true), deletarSaidaAntecipada)
