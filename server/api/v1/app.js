@@ -16,18 +16,21 @@ const limiter = rateLimit({
     message: 'Muitas requisições vindas deste IP, por favor tente novamente mais tarde.'
 });
 
+const corsOptions = {
+    origin: ['http://localhost:5173'], // permite seu front
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'], // permite enviar token
+    credentials: true, // se quiser cookies ou auth headers
+};
+
 // Middlewares
 // app.use(limiter);
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cors(
-    {
-        origin: '*',
-        methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    }
-))
+
 
 // === Rotas ===
 import auth_routes from './routes/auth_routes.js'

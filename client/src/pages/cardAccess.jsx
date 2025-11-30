@@ -21,6 +21,7 @@ const CardAccess = () => {
   // Dados para carteirinha (layout igual para ambos)
   const propsCarteirinha = isFuncionario
     ? {
+        showQR: true,
         photoPreview: user.foto_perfil_url,
         name: user.nome,
         cpf: user.cpf,
@@ -32,7 +33,8 @@ const CardAccess = () => {
         matricula: user.matricula || "",
         dateOfBirth: user.data_nascimento || "",
       }
-    : {
+      : {
+        showQR: true,
         photoPreview: user.foto_perfil_url,
         name: user.nome,
         cpf: user.cpf,
