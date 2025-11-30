@@ -6,6 +6,7 @@ import MainContent from "../components/layout/mainContent.jsx";
 import AlertMessage from "../components/ui/alertMessage.jsx";
 import { IconInput } from "../components/inputs/iconInput.jsx";
 import { FormContainer } from "../components/containers/formContainer.jsx";
+import LoadingScreen from "../components/ui/loadingScreen.jsx";
 
 // icons
 import { GraduationCap, UserCheck } from "lucide-react";
@@ -71,6 +72,8 @@ function ConfirmCpf() {
       setLoading(false);
     }
   };
+
+  if (loading) return <LoadingScreen />;
 
   return (
     <>

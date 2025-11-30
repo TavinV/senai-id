@@ -14,6 +14,8 @@ import FirstAccessSelectRole from "../src/pages/firstAccessSelectRole.jsx";
 import ConfirmCpf from "./pages/confirmCpf.jsx";
 import CardAccess from "./pages/cardAccess.jsx";
 import EditUser from "./pages/editUser.jsx";
+import AskForDelay from "./pages/askForDelay.jsx";
+import LateEntriesHistory from "./pages/lateEntriesHistory.jsx";
 import TestUsers from "./pages/testUsers.jsx";
 
 // CSS
@@ -107,6 +109,22 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute allowedRoles={["aluno", "funcionario"]}>
         <CardAccess />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/pedir-atraso",
+    element: (
+      <PrivateRoute allowedRoles={["aluno"]}>
+        <AskForDelay />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/historico-atrasos",
+    element: (
+      <PrivateRoute allowedRoles={["aluno"]}>
+        <LateEntriesHistory />
       </PrivateRoute>
     ),
   },

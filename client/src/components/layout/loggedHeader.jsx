@@ -23,7 +23,7 @@ import {
 import { useAuthContext } from "../../context/authContext.jsx";
 
 const Header = () => {
-  const { logout } = useAuthContext();
+  const { logout, user } = useAuthContext();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -31,11 +31,14 @@ const Header = () => {
   };
 
   // Dados fictícios do usuário — podem vir do contexto de autenticação
-  const user = {
+  const userData = {
     name: "Otávio Vinícius",
     role: "Conta Técnica",
     avatar: "https://i.pravatar.cc/100?img=3",
   };
+
+  // Logo sempre vai para página de cadastro (secretaria)
+  const getLogoDest = () => "/registrar-aluno";
 
   return (
     <>
@@ -54,7 +57,7 @@ const Header = () => {
       {/* Cabeçalho principal */}
       <header className="w-full flex flex-row-reverse md:flex-row items-center justify-between text-black py-2 px-3 sm:px-6 md:px-10 bg-white drop-shadow-md font-[Montserrat]">
         {/* Logo */}
-        <NavLink to="/" className="shrink-0">
+        <NavLink to={getLogoDest()} className="shrink-0">
           <img className="h-10 sm:h-12" src={logo} alt="SENAI" />
         </NavLink>
 
@@ -132,7 +135,7 @@ const Header = () => {
       <SideMenu
         isOpen={menuOpen}
         onClose={() => setMenuOpen(false)}
-        user={user}
+        user={userData}
         onLogout={logout}
       />
     </>

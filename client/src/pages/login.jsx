@@ -8,6 +8,7 @@ import AlertMessage from "../components/ui/alertMessage.jsx";
 import { IconInput } from "../components/inputs/iconInput.jsx";
 import { PasswordInput } from "../components/inputs/passwordInput.jsx";
 import { FormContainer } from "../components/containers/formContainer.jsx";
+import LoadingScreen from "../components/ui/loadingScreen.jsx";
 
 // icons
 import { GraduationCap } from "lucide-react";
@@ -52,6 +53,8 @@ function Login() {
       redirectByRole(result.user.cargo);
     }
   };
+
+  if (loading) return <LoadingScreen />;
 
   return (
     <>

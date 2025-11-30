@@ -7,6 +7,7 @@ import MainContent from "../components/layout/mainContent.jsx";
 import Footer from "../components/layout/footer.jsx";
 import useLateEntries from "../hooks/useLateEntries.jsx";
 import UserRow from "../components/layout/userRow.jsx";
+import LoadingScreen from "../components/ui/loadingScreen.jsx";
 
 //icons
 import { FaClipboardList } from "react-icons/fa";
@@ -25,8 +26,8 @@ function DelayControl() {
     getLateEntries(); // Carrega atrasos do Admin
   }, []); // Executa só uma vez ao iniciar tela
 
-  if (loading) return <p>Carregando...</p>;
-  if (error) return <p>Erro ao carregar atrasos.</p>;
+  if (loading) return <LoadingScreen />;
+  if (error) return <p>Erro ao carregar usuários.</p>;
 
   if (!lateEntries || !Array.isArray(lateEntries)) {
     console.error("Resposta inesperada do servidor:", lateEntries);

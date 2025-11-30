@@ -245,6 +245,7 @@ function RegisterStudent() {
             course={formData.course || ""}
             matricula={formData.matricula || "00000000"}
             cpf={formData.cpf || "000.000.000-00"}
+            showQrButton={false}
           />
         </div>
       </MainContent>

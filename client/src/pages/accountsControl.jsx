@@ -8,6 +8,7 @@ import MainContent from "../components/layout/mainContent.jsx";
 import Footer from "../components/layout/footer.jsx";
 import UseUsers from "../hooks/useUsers.jsx";
 import UserRow from "../components/layout/userRow.jsx"
+import LoadingScreen from "../components/ui/loadingScreen.jsx";
 
 //icons
 import { HiUsers } from "react-icons/hi";
@@ -17,7 +18,7 @@ function AccountsControl() {
     const { loading, users, error } = UseUsers();
     const navigate = useNavigate();
 
-    if (loading) return <p>Carregando...</p>;
+    if (loading) return <LoadingScreen />;
     if (error) return <p>Erro ao carregar usuários.</p>;
 
   return (

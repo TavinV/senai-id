@@ -8,7 +8,7 @@ export default function MainContent({ children, className }) {
                 backgroundImage: `url(${background})`, 
                 backgroundSize: 'cover',
                 backgroundAttachment: 'fixed',
-                minHeight: 'calc(100vh - 120px)'
+                minHeight: '100vh', // Ajuste para considerar header e footer
             }}
         >
             {children}

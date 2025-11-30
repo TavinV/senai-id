@@ -6,6 +6,7 @@ import MainContent from "../components/layout/mainContent.jsx";
 import Footer from "../components/layout/footer.jsx";
 import Button from "../components/ui/button.jsx";
 import { toast } from "react-toastify";
+import LoadingScreen from "../components/ui/loadingScreen.jsx";
 
 const EditUser = () => {
   const { id } = useParams();
@@ -77,6 +78,8 @@ const EditUser = () => {
       toast.error("Erro ao atualizar dados.");
     }
   };
+
+  if (loading) return <LoadingScreen />;
 
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden">
