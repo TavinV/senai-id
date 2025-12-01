@@ -2,8 +2,6 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { createRoot } from "react-dom/client";
 
-import { Toaster } from 'react-hot-toast';
-
 //Pages
 import Login from "./pages/login.jsx";
 import Support from "./pages/support.jsx";
@@ -15,7 +13,6 @@ import RegisterEmployee from "./pages/registerEmployee.jsx";
 import FirstAccessSelectRole from "../src/pages/firstAccessSelectRole.jsx";
 import ConfirmCpf from "./pages/confirmCpf.jsx";
 import CardAccess from "./pages/cardAccess.jsx";
-import EditUser from "./pages/editUser.jsx";
 import AskForDelay from "./pages/askForDelay.jsx";
 import LateEntriesHistory from "./pages/lateEntriesHistory.jsx";
 import MyLateEntries from "./pages/myLateEntries.jsx";
@@ -32,7 +29,6 @@ import "./index.css";
 
 import { AuthProvider } from "./context/authContext.jsx";
 import PrivateRoute from "./components/auth/PrivateRoute.jsx";
-import MyEarlyExits from "./pages/myEarlyExits.jsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <Login /> },
@@ -149,28 +145,11 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
   },
-  {
-    path: "/minhas-liberacoes",
-    element: (
-      <PrivateRoute allowedRoles={["aluno"]}>
-        <MyEarlyExits />
-      </PrivateRoute>
-    ),
-  },
-  {
-    path: "/contas/editar/:id",
-    element: (
-      <PrivateRoute allowedRoles={["secretaria"]}>
-        <EditUser />
-      </PrivateRoute>
-    ),
-  },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-      <Toaster position="top-right" reverseOrder={false} />
       <RouterProvider router={router} />
     </AuthProvider>
   </React.StrictMode>

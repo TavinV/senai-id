@@ -46,16 +46,15 @@ export default function useUsers() {
   /* =============================
     GET USER BY ID
   ==============================*/
-  async function getUserById(_id) {
+  async function getUserById(id) {
     try {
       setLoading(true);
-      const res = await api.get(`/users/${_id}`);
+      const res = await api.get(`/users/${id}`);
       const parsed = parseResponse(res);
       setSelectedUser(parsed.data);
-      return parsed.data || null;
+      return parsed;
     } catch {
       setError("Usuário não encontrado");
-      return null;
     } finally {
       setLoading(false);
     }
@@ -76,13 +75,15 @@ export default function useUsers() {
       form.append("curso", data.curso);
       form.append("foto_perfil", data.foto_perfil);
 
-      // Let the browser/Axios set the Content-Type (including boundary)
-      const res = await api.post("/users", form);
+      const res = await api.post("/users", form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       const parsed = parseResponse(res);
       await fetchUsers();
       return parsed;
-
     } catch (err) {
       console.error("Erro ao criar aluno:", err);
       setError("Erro ao criar aluno");
@@ -91,7 +92,6 @@ export default function useUsers() {
       setLoading(false);
     }
   }
-
 
   /* =============================
     CREATE EMPLOYEE /employees
@@ -110,8 +110,11 @@ export default function useUsers() {
       form.append("email", data.email);
       form.append("foto_perfil", data.foto_perfil);
 
-      // Let the browser/Axios set the Content-Type (including boundary)
-      const res = await api.post("/users/employees", form);
+      const res = await api.post("/users/employees", form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       const parsed = parseResponse(res);
 
       await fetchUsers();
@@ -131,42 +134,29 @@ export default function useUsers() {
   async function updateUser(id, data) {
     try {
       setLoading(true);
-      // Build payload with only non-empty fields to satisfy server validation
-      const allowedPayload = {};
-      Object.keys(data || {}).forEach((k) => {
-        const v = data[k];
-        if (v !== undefined && v !== null) {
-          // include strings that are not empty
-          if (typeof v === "string") {
-            if (v.trim() !== "") allowedPayload[k] = v;
-          } else {
-            // include Files and other non-string values
-            allowedPayload[k] = v;
-          }
-        }
+
+      // CORREÇÃO: Obter o token do localStorage e adicionar ao cabeçalho
+      const token = localStorage.getItem("jwtToken");
+      if (!token) {
+        // Lança um erro se o token não for encontrado
+        throw new Error("Token de autenticação não encontrado.");
+      }
+      console.log("Atualizando usuário com ID:", id, "Dados:", data);
+
+      const res = await api.put(`/users/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json", // Garante o Content-Type correto
+        },
       });
 
-      let res;
-      // If foto_perfil is a File, send FormData so multer handles it
-      if (allowedPayload.foto_perfil && (allowedPayload.foto_perfil instanceof File || allowedPayload.foto_perfil?.name)) {
-        const form = new FormData();
-        Object.keys(allowedPayload).forEach((k) => {
-          form.append(k, allowedPayload[k]);
-        });
-        // Let Axios/browser set Content-Type with proper boundary
-        res = await api.put(`/users/${id}`, form);
-      } else {
-        // Send JSON with only allowed keys
-        res = await api.put(`/users/${id}`, allowedPayload);
-      }
-
       const parsed = parseResponse(res);
-      if (!parsed.success) console.error("updateUser failed:", parsed.message);
       await fetchUsers();
-      return parsed.success ?? false;
-    } catch {
+      return parsed;
+    } catch (err) {
+      console.error("Erro ao atualizar usuário:", err);
       setError("Erro ao atualizar usuário");
-      return false;
+      return null;
     } finally {
       setLoading(false);
     }
@@ -195,7 +185,7 @@ export default function useUsers() {
     selectedUser,
     loading,
     error,
-
+    
     fetchUsers,
     getUserById,
     createStudent,
