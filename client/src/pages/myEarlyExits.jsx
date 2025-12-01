@@ -482,8 +482,7 @@ function MyEarlyExits() {
                                                         exit.status
                                                     )}`}
                                                 >
-                                                    {getStatusIcon(exit.status)}
-                                                    <span>{exit.status || "Sem status"}</span>
+                                                    <span>{exit.status}</span>
                                                 </div>
                                             </div>
 
@@ -600,8 +599,9 @@ function MyEarlyExits() {
                                             selectedEarlyExit.status
                                         )}`}
                                     >
-                                        {getStatusIcon(selectedEarlyExit.status)}
-                                        <span>{selectedEarlyExit.status || "Sem status"}</span>
+                                        {getStatusIcon(selectedEarlyExit.earlyExit.status)}
+
+                                        <span>{selectedEarlyExit.earlyExit.status}</span>
                                     </div>
                                 </div>
 
