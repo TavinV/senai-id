@@ -84,7 +84,6 @@ export default function useUsers() {
       const parsed = parseResponse(res);
       await fetchUsers();
       return parsed;
-
     } catch (err) {
       console.error("Erro ao criar aluno:", err);
       setError("Erro ao criar aluno");
@@ -93,7 +92,6 @@ export default function useUsers() {
       setLoading(false);
     }
   }
-
 
   /* =============================
     CREATE EMPLOYEE /employees
@@ -136,11 +134,27 @@ export default function useUsers() {
   async function updateUser(id, data) {
     try {
       setLoading(true);
-      const res = await api.put(`/users/${id}`, data);
+
+      // CORREÇÃO: Obter o token do localStorage e adicionar ao cabeçalho
+      const token = localStorage.getItem("jwtToken");
+      if (!token) {
+        // Lança um erro se o token não for encontrado
+        throw new Error("Token de autenticação não encontrado.");
+      }
+      console.log("Atualizando usuário com ID:", id, "Dados:", data);
+
+      const res = await api.put(`/users/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json", // Garante o Content-Type correto
+        },
+      });
+
       const parsed = parseResponse(res);
       await fetchUsers();
       return parsed;
-    } catch {
+    } catch (err) {
+      console.error("Erro ao atualizar usuário:", err);
       setError("Erro ao atualizar usuário");
       return null;
     } finally {
@@ -171,7 +185,7 @@ export default function useUsers() {
     selectedUser,
     loading,
     error,
-
+    
     fetchUsers,
     getUserById,
     createStudent,

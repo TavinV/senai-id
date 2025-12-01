@@ -13,7 +13,6 @@ import RegisterEmployee from "./pages/registerEmployee.jsx";
 import FirstAccessSelectRole from "../src/pages/firstAccessSelectRole.jsx";
 import ConfirmCpf from "./pages/confirmCpf.jsx";
 import CardAccess from "./pages/cardAccess.jsx";
-import EditUser from "./pages/editUser.jsx";
 import AskForDelay from "./pages/askForDelay.jsx";
 import LateEntriesHistory from "./pages/lateEntriesHistory.jsx";
 import MyLateEntries from "./pages/myLateEntries.jsx";
@@ -143,14 +142,6 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute allowedRoles={["aluno"]}>
         <MyLateEntries />
-      </PrivateRoute>
-    ),
-  },
-  {
-    path: "/contas/editar/:id",
-    element: (
-      <PrivateRoute allowedRoles={"secretaria"}>
-        <EditUser />
       </PrivateRoute>
     ),
   },
