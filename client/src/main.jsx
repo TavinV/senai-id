@@ -16,6 +16,7 @@ import CardAccess from "./pages/cardAccess.jsx";
 import EditUser from "./pages/editUser.jsx";
 import AskForDelay from "./pages/askForDelay.jsx";
 import LateEntriesHistory from "./pages/lateEntriesHistory.jsx";
+import MyLateEntries from "./pages/myLateEntries.jsx";
 
 import TestUsers from "./pages/testUsers.jsx";
 import TestLateEntriesStudent from "./pages/testAtrasos.jsx";
@@ -134,6 +135,14 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute allowedRoles={["aluno"]}>
         <LateEntriesHistory />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/meus-atrasos",
+    element: (
+      <PrivateRoute allowedRoles={["aluno"]}>
+        <MyLateEntries />
       </PrivateRoute>
     ),
   },
