@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import api from "../services/api";
+import api, { setAuthToken } from "../services/api";
 
 // Components (mantive seus componentes)
 import LoggedHeader from "../components/layout/loggedHeader.jsx";
@@ -65,9 +65,9 @@ export default function RegisterEmployee() {
     try {
       setLoading(true);
 
-      // garante Authorization no axios
+      // garante Authorization no axios (usa helper para consistência)
       const token = localStorage.getItem("jwtToken");
-      if (token) api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      if (token) setAuthToken(token);
 
       // monta FormData corretamente
       const form = new FormData();
@@ -108,8 +108,14 @@ export default function RegisterEmployee() {
 
       // Mostra informações úteis
       if (err?.response) {
-        console.error("Resposta do servidor:", err.response.status, err.response.headers, err.response.data);
-        toast.error(err.response.data?.message || `Erro ${err.response.status}`);
+        console.error("Resposta do servidor:", err.response.status, err.response.headers);
+        try {
+          console.error("Resposta do servidor (data):", JSON.stringify(err.response.data, null, 2));
+        } catch (e) {
+          console.error("Resposta do servidor (data):", err.response.data);
+        }
+        const serverMessage = err.response.data?.message || err.response.data || `Erro ${err.response.status}`;
+        toast.error(Array.isArray(serverMessage) ? serverMessage.join(" \n") : String(serverMessage));
       } else if (err?.request) {
         console.error("Requisição enviada mas sem resposta (network/preflight):", err.request);
         toast.error("Erro de rede / preflight. Veja console Network.");

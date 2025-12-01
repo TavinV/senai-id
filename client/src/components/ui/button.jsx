@@ -4,6 +4,8 @@ const Button = ({
   icon = null,
   children,
   design = "inline-flex items-center gap-2 py-2 text-white px-5 font-semibold text-[1.05em] transition-all duration-300 rounded-xl bg-red-500 hover:bg-red-600 hover:scale-105 focus:active:scale-95",
+  type = "button",
+  ...rest
 }) => {
   const renderIcon = () => {
     if (!icon) return null;
@@ -21,7 +23,7 @@ const Button = ({
   };
 
   return (
-    <button className={`${design}`}>
+    <button type={type} {...rest} className={`${design} ${rest.className || ""}`}>
       <span className="flex items-center gap-2 whitespace-nowrap">
         {renderIcon()}
         <span>{children}</span>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import UseUsers from "../hooks/useUsers.jsx";
+import maskCPF from "../util/maskCpf.js";
 import LoggedHeader from "../components/layout/loggedHeader.jsx";
 import MainContent from "../components/layout/mainContent.jsx";
 import Footer from "../components/layout/footer.jsx";
@@ -43,37 +44,31 @@ const EditUser = () => {
   }, [id]);
 
   const handleInputChange = (field, value) => {
+    const newValue = field === "cpf" ? maskCPF(value) : value;
     setFormData((prev) => ({
       ...prev,
-      [field]: value,
+      [field]: newValue,
     }));
   };
-
-  const handleImageChange = async (e) => {
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      // Se tiver endpoint de upload, use o uploadImage do hook
-      if (typeof UseUsers().uploadImage === "function") {
-        const url = await UseUsers().uploadImage(file);
-        if (url) {
-          setFormData((prev) => ({ ...prev, foto_perfil: url }));
-          setPhotoPreview(url);
-        }
-      } else {
-        // fallback local preview
-        const imageURL = URL.createObjectURL(file);
-        setPhotoPreview(imageURL);
-        setFormData((prev) => ({ ...prev, foto_perfil: imageURL }));
-      }
-    }
+    if (!file) return;
+
+    // Preview locally
+    const imageURL = URL.createObjectURL(file);
+    setPhotoPreview(imageURL);
+
+    // Save the File object so updateUser() can send FormData
+    setFormData((prev) => ({ ...prev, foto_perfil: file }));
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const success = await updateUser(id, formData);
     if (success) {
       toast.success("Dados atualizados com sucesso!");
-      navigate("/contas");
+      navigate("/usuarios");
     } else {
       toast.error("Erro ao atualizar dados.");
     }

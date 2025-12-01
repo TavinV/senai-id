@@ -46,15 +46,16 @@ export default function useUsers() {
   /* =============================
     GET USER BY ID
   ==============================*/
-  async function getUserById(id) {
+  async function getUserById(_id) {
     try {
       setLoading(true);
-      const res = await api.get(`/users/${id}`);
+      const res = await api.get(`/users/${_id}`);
       const parsed = parseResponse(res);
       setSelectedUser(parsed.data);
-      return parsed;
+      return parsed.data || null;
     } catch {
       setError("Usuário não encontrado");
+      return null;
     } finally {
       setLoading(false);
     }
@@ -75,11 +76,8 @@ export default function useUsers() {
       form.append("curso", data.curso);
       form.append("foto_perfil", data.foto_perfil);
 
-      const res = await api.post("/users", form, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      // Let the browser/Axios set the Content-Type (including boundary)
+      const res = await api.post("/users", form);
 
       const parsed = parseResponse(res);
       await fetchUsers();
@@ -112,11 +110,8 @@ export default function useUsers() {
       form.append("email", data.email);
       form.append("foto_perfil", data.foto_perfil);
 
-      const res = await api.post("/users/employees", form, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      // Let the browser/Axios set the Content-Type (including boundary)
+      const res = await api.post("/users/employees", form);
       const parsed = parseResponse(res);
 
       await fetchUsers();
@@ -136,13 +131,42 @@ export default function useUsers() {
   async function updateUser(id, data) {
     try {
       setLoading(true);
-      const res = await api.put(`/users/${id}`, data);
+      // Build payload with only non-empty fields to satisfy server validation
+      const allowedPayload = {};
+      Object.keys(data || {}).forEach((k) => {
+        const v = data[k];
+        if (v !== undefined && v !== null) {
+          // include strings that are not empty
+          if (typeof v === "string") {
+            if (v.trim() !== "") allowedPayload[k] = v;
+          } else {
+            // include Files and other non-string values
+            allowedPayload[k] = v;
+          }
+        }
+      });
+
+      let res;
+      // If foto_perfil is a File, send FormData so multer handles it
+      if (allowedPayload.foto_perfil && (allowedPayload.foto_perfil instanceof File || allowedPayload.foto_perfil?.name)) {
+        const form = new FormData();
+        Object.keys(allowedPayload).forEach((k) => {
+          form.append(k, allowedPayload[k]);
+        });
+        // Let Axios/browser set Content-Type with proper boundary
+        res = await api.put(`/users/${id}`, form);
+      } else {
+        // Send JSON with only allowed keys
+        res = await api.put(`/users/${id}`, allowedPayload);
+      }
+
       const parsed = parseResponse(res);
+      if (!parsed.success) console.error("updateUser failed:", parsed.message);
       await fetchUsers();
-      return parsed;
+      return parsed.success ?? false;
     } catch {
       setError("Erro ao atualizar usuário");
-      return null;
+      return false;
     } finally {
       setLoading(false);
     }
