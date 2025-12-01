@@ -21,7 +21,7 @@ const UserHeader = () => {
 
   const userInfo = {
     name: user?.nome || "Usuário",
-    role: user?.cargo || "Cargo",
+    role: user?.cargo?.charAt(0).toUpperCase() + user?.cargo?.slice(1) || "Cargo",
     avatar: user?.foto_perfil || "https://i.pravatar.cc/100?img=3",
   };
 

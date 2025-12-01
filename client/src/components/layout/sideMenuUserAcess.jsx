@@ -8,6 +8,7 @@ import {
   Clock,
   IdCard,
   LogOut,
+  DoorOpen,
 } from "lucide-react";
 
 export default function SideMenuUserAcess({ isOpen, onClose, user, onLogout }) {
@@ -78,16 +79,10 @@ export default function SideMenuUserAcess({ isOpen, onClose, user, onLogout }) {
               Carteirinha
             </NavItem>
             <NavItem to="/meus-atrasos" icon={<Clock size={20} />} onClick={onClose}>
-              Meus atrasos
+              Atrasos
             </NavItem>
-            <NavItem to="/notificacoes" icon={<Bell size={20} />} onClick={onClose}>
-              Notificações
-            </NavItem>
-            <NavItem to="/redefinir-senha" icon={<KeyRound size={20} />} onClick={onClose}>
-              Redefinir senha
-            </NavItem>
-            <NavItem to="/alterar-dados" icon={<Edit3 size={20} />} onClick={onClose}>
-              Alterar dados
+            <NavItem to="/minhas-liberacoes" icon={<DoorOpen size={20} />} onClick={onClose}>
+              Liberações
             </NavItem>
             <NavItem to="/suporte" icon={<HelpCircle size={20} />} onClick={onClose}>
               Suporte
