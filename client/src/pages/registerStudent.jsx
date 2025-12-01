@@ -34,13 +34,12 @@ function RegisterStudent() {
     data_nascimento: "",
     curso: "",
     turma: "",
-    cargo: "aluno",
-    email: "",
+    cargo: "aluno"
   });
   const [courses, setCourses] = useState([]);
   const [photoPreview, setPhotoPreview] = useState(null);
 
-  const { createUser } = useUsers();
+  const { createStudent } = useUsers();
 
   const handleInputChange = (field, value) => {
     setFormData((prev) => ({
@@ -77,7 +76,7 @@ function RegisterStudent() {
 
   const handleSubmit = async () => {
     try {
-      const response = await createUser(formData); 
+      const response = await createStudent(formData); 
       if (response) {
         toast.success("Aluno cadastrado com sucesso!", {
           position: "bottom-right",

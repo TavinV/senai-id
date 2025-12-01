@@ -46,15 +46,16 @@ export default function useUsers() {
   /* =============================
     GET USER BY ID
   ==============================*/
-  async function getUserById(id) {
+  async function getUserById(_id) {
     try {
       setLoading(true);
-      const res = await api.get(`/users/${id}`);
+      const res = await api.get(`/users/${_id}`);
       const parsed = parseResponse(res);
       setSelectedUser(parsed.data);
-      return parsed;
+      return parsed.data || null;
     } catch {
       setError("Usuário não encontrado");
+      return null;
     } finally {
       setLoading(false);
     }
@@ -139,10 +140,10 @@ export default function useUsers() {
       const res = await api.put(`/users/${id}`, data);
       const parsed = parseResponse(res);
       await fetchUsers();
-      return parsed;
+      return parsed.success ?? false;
     } catch {
       setError("Erro ao atualizar usuário");
-      return null;
+      return false;
     } finally {
       setLoading(false);
     }

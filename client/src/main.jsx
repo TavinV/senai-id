@@ -149,7 +149,7 @@ const router = createBrowserRouter([
   {
     path: "/contas/editar/:id",
     element: (
-      <PrivateRoute allowedRoles={"secretaria"}>
+      <PrivateRoute allowedRoles={["secretaria"]}>
         <EditUser />
       </PrivateRoute>
     ),

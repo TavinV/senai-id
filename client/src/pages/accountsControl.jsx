@@ -42,7 +42,7 @@ function AccountsControl() {
                   icon1: <MdEdit />,
                   icon2: <MdDelete />,
                 }}
-                onAction1={() => {console.log(`Editando usuário: ${user._id}`),
+                onAction1={() => {console.log(`Editando usuário: ${user.id}`)
                 navigate(`/contas/editar/${user._id}`);
               }}
                 onAction2={() => console.log("Excluir", user)}

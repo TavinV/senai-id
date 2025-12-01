@@ -48,7 +48,7 @@ const Header = () => {
           className="flex gap-2 text-xs sm:text-sm items-center font-semibold cursor-pointer hover:opacity-80 transition"
           onClick={() => logout()}
         >
-          <ArrowLeftToLine size={18} className="sm:w-5 sm:h-5" /> 
+          <ArrowLeftToLine size={18} className="sm:w-5 sm:h-5" />
           <span className="hidden sm:inline">Encerrar sessão</span>
           <span className="sm:hidden">Sair</span>
         </a>
@@ -81,7 +81,7 @@ const Header = () => {
               title="Cadastro"
               subTitle="Quem será cadastrado?"
               icon={UserPlus}
-            > 
+            >
               <NavLink
                 children="Aluno"
                 to="/registrar-aluno"
@@ -92,32 +92,27 @@ const Header = () => {
                 to="/registrar-funcionario"
                 icon={ChevronRight}
                 className="flex justify-between items-center px-3 py-2 font-semibold text-black hover:text-blue-600 hover:bg-gray-100 transition"
-                
+
               />
             </MenuSelection>
-              
+
 
           </NavItem>
           <MenuSelection
             title="Gerenciamento"
-            subTitle={"Qual seção irá  acessar?"}
+            subTitle={"Qual seção irá acessar?"}
             icon={Users}
           >
             <NavLink
-                children="Contas"
-                to="/contas"
-                icon={Users}
-              />
-              <NavLink
-                children="Atrasos"
-                to="/atrasos"
-                icon={AlarmClock}
-              />
-              <NavLink
-                children="Saídas"
-                to="/saidas"
-                icon={LogOut}
-              />
+              children="Atrasos"
+              to="/atrasos"
+              icon={AlarmClock}
+            />
+            <NavLink
+              children="Saídas"
+              to="/saidas"
+              icon={LogOut}
+            />
           </MenuSelection>
           <NavItem to="/usuarios" icon={Users}>
             Usuários
@@ -128,7 +123,7 @@ const Header = () => {
           <NavItem to="/mensagens" icon={Mail}>
             Mensagens
           </NavItem>
-          </div>
+        </div>
       </header>
 
       {/* Side Menu Mobile */}
