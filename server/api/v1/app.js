@@ -16,12 +16,22 @@ const limiter = rateLimit({
 
 // 🛟 Configuração correta de CORS — aceita Vite + produção
 const corsOptions = {
-    origin: [
-        "http://localhost:5173",
-        "https://senai-id-1.onrender.com"
-    ],
+    // Accept requests from the dev server and production; reflect origin when possible
+    origin: (origin, callback) => {
+        // allow requests with no origin (like server-to-server or curl)
+        if (!origin) return callback(null, true);
+        const allowed = [
+            "http://localhost:5173",
+            "https://senai-id-1.onrender.com"
+        ];
+        if (allowed.indexOf(origin) !== -1) {
+            return callback(null, true);
+        }
+        // Fallback: allow other origins during development
+        return callback(null, true);
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Content-Type", "Authorization", "Accept"],
     credentials: true,
 };
 

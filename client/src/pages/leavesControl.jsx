@@ -4,7 +4,7 @@ import FormManagement from "../components/containers/formManagement.jsx";
 import LoggedHeader from "../components/layout/loggedHeader.jsx";
 import MainContent from "../components/layout/mainContent.jsx";
 import Footer from "../components/layout/footer.jsx";
-import useEarlyExits from "../hooks/useEarlyExits.jsx";
+import UseEarlyExits from "../hooks/useEarlyExits.jsx";
 import UserRow from "../components/layout/userRow.jsx";
 import LoadingScreen from "../components/ui/loadingScreen.jsx";
 
@@ -14,7 +14,7 @@ import { FaClipboardList } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
 
 function LeavesControl() {
-    const { loading, error, leaves } = UseLeaves([]);
+    const { loading, error, leaves } = UseEarlyExits([]);
 
     if (loading) return <LoadingScreen />;
     if (error) return <p>{error}</p>;
