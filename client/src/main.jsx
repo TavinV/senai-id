@@ -2,6 +2,8 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { createRoot } from "react-dom/client";
 
+import { Toaster } from 'react-hot-toast';
+
 //Pages
 import Login from "./pages/login.jsx";
 import Support from "./pages/support.jsx";
@@ -30,6 +32,7 @@ import "./index.css";
 
 import { AuthProvider } from "./context/authContext.jsx";
 import PrivateRoute from "./components/auth/PrivateRoute.jsx";
+import MyEarlyExits from "./pages/myEarlyExits.jsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <Login /> },
@@ -147,6 +150,14 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/minhas-liberacoes",
+    element: (
+      <PrivateRoute allowedRoles={["aluno"]}>
+        <MyEarlyExits />
+      </PrivateRoute>
+    ),
+  },
+  {
     path: "/contas/editar/:id",
     element: (
       <PrivateRoute allowedRoles={["secretaria"]}>
@@ -159,6 +170,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
+      <Toaster position="top-right" reverseOrder={false} />
       <RouterProvider router={router} />
     </AuthProvider>
   </React.StrictMode>
