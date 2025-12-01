@@ -4,7 +4,6 @@ const api = axios.create({
 	baseURL: 'https://senai-id-1.onrender.com/api/',
 	withCredentials: true, // 🔥 Permite envio de cookies e credenciais
 	headers: {
-		'Content-Type': 'application/json',
 		'Accept': 'application/json',
 	}
 });

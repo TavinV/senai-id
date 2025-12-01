@@ -34,8 +34,10 @@ function RegisterStudent() {
     data_nascimento: "",
     curso: "",
     turma: "",
-    cargo: "aluno"
+    cargo: "aluno",
+    foto_perfil: null
   });
+
   const [courses, setCourses] = useState([]);
   const [photoPreview, setPhotoPreview] = useState(null);
 
@@ -49,14 +51,12 @@ function RegisterStudent() {
   };
 
   const handleDateOfBirthChange = (e) => {
-
-    // Transformar a data para o formato dd/mm/yyyy
     const date = new Date(e.target.value);
-    const day = String(date.getDate() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = String(date.getFullYear());
-    const formattedDate = `${day}/${month}/${year}`;
-    handleInputChange("dateOfBirth", formattedDate);
+    const formatted = `${year}-${month}-${day}`;
+    handleInputChange("data_nascimento", formatted);
   };
 
   const handleCpfChange = (e) => {
@@ -66,9 +66,10 @@ function RegisterStudent() {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    handleInputChange("foto_perfil", file);
+
     if (file) {
-      const imageURL = URL.createObjectURL(file);
-      setPhotoPreview(imageURL);
+      setPhotoPreview(URL.createObjectURL(file));
     } else {
       setPhotoPreview(null);
     }
@@ -76,58 +77,39 @@ function RegisterStudent() {
 
   const handleSubmit = async () => {
     try {
-      const response = await createStudent(formData); 
-      if (response) {
-        toast.success("Aluno cadastrado com sucesso!", {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        // Limpa o formulário após o cadastro
+      const response = await createStudent(formData);
+
+      if (response?.success) {
+        toast.success("Aluno cadastrado com sucesso!");
+
         setFormData({
-          
+          nome: "",
+          matricula: "",
+          cpf: "",
+          data_nascimento: "",
+          curso: "",
+          turma: "",
+          cargo: "aluno",
+          foto_perfil: null
         });
         setPhotoPreview(null);
-      } else {
-        throw new Error("Erro ao cadastrar aluno");
       }
     } catch (error) {
       console.error(error);
-      toast.error("Erro ao cadastrar aluno. Tente novamente.", {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.error("Erro ao cadastrar aluno.");
     }
   };
 
   useEffect(() => {
     fetch("/cursos.json")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const options = data.map((curso) => ({
-          value: curso.nome,
-          label: curso.nome,
-        }));
-        setCourses(options);
-      })
-      .catch((error) => {
-        console.error("There was a problem with the fetch operation:", error);
+      .then(r => r.json())
+      .then(data => {
+        setCourses(
+          data.map(curso => ({
+            label: curso.nome,
+            value: curso.nome,
+          }))
+        );
       });
   }, []);
 
@@ -135,8 +117,7 @@ function RegisterStudent() {
     <div className="flex flex-col min-h-screen overflow-x-hidden">
       <LoggedHeader />
 
-      <MainContent className="flex p-5 flex-col md:flex-row gap-8 ">
-        {" "}
+      <MainContent className="flex p-5 flex-col md:flex-row gap-8">
         <FormContainer
           title="Cadastro de aluno"
           buttonText="Cadastrar"
@@ -152,10 +133,11 @@ function RegisterStudent() {
                 placeholder="Digite o nome completo"
                 type="text"
                 label="Nome"
-                value={formData.name}
-                onChange={(e) => handleInputChange("name", e.target.value)}
+                value={formData.nome}
+                onChange={(e) => handleInputChange("nome", e.target.value)}
               />
             </div>
+
             <div className="w-full md:w-[48%] flex flex-col gap-2">
               <h2>CPF</h2>
               <IconInput
@@ -169,6 +151,7 @@ function RegisterStudent() {
               />
             </div>
           </FormRow>
+
           <FormRow className="flex-col md:flex-row">
             <div className="w-full md:w-[48%] flex flex-col gap-2">
               <h2>Matrícula</h2>
@@ -183,11 +166,11 @@ function RegisterStudent() {
                 onChange={(e) => handleInputChange("matricula", e.target.value)}
               />
             </div>
+
             <div className="w-full md:w-[48%] flex flex-col gap-2">
               <h2>Data de nascimento</h2>
               <IconInput
                 icon={<Calendar />}
-                placeholder="Insira a data de nascimento"
                 type="date"
                 label="Data de nascimento"
                 width="100%"
@@ -195,39 +178,46 @@ function RegisterStudent() {
               />
             </div>
           </FormRow>
-          <FormRow className="flex-col md:flex-row">
-            <div className="w-full flex flex-col gap-2">
+
+          <FormRow>
+            <div className="w-full md:w-[48%] flex flex-col gap-2">
               <IconSelect
                 icon={<Wrench />}
                 options={courses}
                 label="Curso"
-                value={courses.find(
-                  (option) => option.value === formData.course
-                )}
-                onChange={(selectedOption) => {
-                  handleInputChange("course", selectedOption?.target?.value);
-                }}
+                value={courses.find(opt => opt.value === formData.curso)}
+                onChange={(selected) => handleInputChange("curso", selected.value)}
+              />
+            </div>
+
+            <div className="w-full md:w-[48%] flex flex-col gap-2">
+              <h2>Turma</h2>
+              <IconInput
+                icon={<SquareUser />}
+                placeholder="Digite a turma"
+                type="text"
+                label="Turma"
+                value={formData.turma}
+                onChange={(e) => handleInputChange("turma", e.target.value)}
               />
             </div>
           </FormRow>
-          <FormRow className="flex-col md:flex-row">
+
+          <FormRow>
             <div className="w-full flex flex-col gap-5">
-              <label className="text-gray-700 font-medium">
-                Foto do aluno</label>
+              <label className="text-gray-700 font-medium">Foto do aluno</label>
+
               <div className="flex items-center flex-col sm:flex-row gap-4">
                 <img
                   src={photoPreview || "/placeholder-foto.png"}
-                  alt=""
                   className="w-32 h-32 rounded-full object-cover bg-gray-800"
                 />
-                <div className="flex flex-col text-center justify-between gap-6 ">
-                  <FileInput onChange={handleImageChange}></FileInput>
+
+                <div className="flex flex-col text-center gap-6">
+                  <FileInput onChange={handleImageChange} />
+
                   <span>
-                    <h3>
-                      {photoPreview
-                        ? "Foto selecionada"
-                        : "Nenhuma foto selecionada"}
-                    </h3>
+                    <h3>{photoPreview ? "Foto selecionada" : "Nenhuma foto selecionada"}</h3>
                     <h3>Arquivos suportados: JPG, PNG</h3>
                   </span>
                 </div>
@@ -235,13 +225,13 @@ function RegisterStudent() {
             </div>
           </FormRow>
         </FormContainer>
-        {/* Carteirinha com dados em tempo real */}
+
         <div className="hidden md:block">
           <Carteirinha
             photoPreview={photoPreview}
-            name={formData.name || "Nome do Estudante"}
-            dateOfBirth={formData.dateOfBirth || "00/00/0000"}
-            course={formData.course || ""}
+            name={formData.nome || "Nome do Estudante"}
+            dateOfBirth={formData.data_nascimento || "00/00/0000"}
+            course={formData.curso || ""}
             matricula={formData.matricula || "00000000"}
             cpf={formData.cpf || "000.000.000-00"}
             showQrButton={false}
@@ -249,7 +239,7 @@ function RegisterStudent() {
         </div>
       </MainContent>
 
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 }
