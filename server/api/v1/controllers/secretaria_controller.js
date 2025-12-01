@@ -13,7 +13,7 @@ import moment from "moment-timezone";
 import logger from "../lib/logger.js";
 
 // Schemas
-import { updateUserSchema } from '../validation/user_schemas.js';
+import { alunoUpdateSchema, funcionarioUpdateSchema } from '../validation/user_schemas.js';
 
 // Templates
 import { approved_request_email_template } from "../templates/update_request_approved_template.js";
@@ -259,48 +259,54 @@ const rejeitarPedido = async (req, res) => {
 
 // PUT api/v1/secretaria/:id
 const atualizarUsuario = async (req, res) => {
-    const id = req.params.id
-    const updates = req.body // {nome: "nome", rg: "rg"}
-
-    // Se houver arquivo enviado (foto de perfil), adiciona ao objeto updates
-    if (req.file) {
-        updates.foto_perfil = req.file.path
-    }
-
-    if (Object.keys(updates).length <= 0 ) {
-        return ApiResponse.BADREQUEST(res, "Os campos de atualização são obrigatórios.")
-    }
+    const id = req.params.id;
+    const updates = req.body;
 
     if (!id) {
-        return ApiResponse.BADREQUEST(res, "O id do pedido é obrigatório.")
+        return ApiResponse.BADREQUEST(res, "O id do pedido é obrigatório.");
     }
 
-    const { error } = updateUserSchema.validate(updates, { abortEarly: false })
+    if (req.file) {
+        updates.foto_perfil = req.file.path;
+    }
+
+    if (Object.keys(updates).length <= 0) {
+        return ApiResponse.BADREQUEST(res, "Os campos de atualização são obrigatórios.");
+    }
+
+    const [user, findUserError] = await findUserById(id);
+
+    if (!user && findUserError !== 404) {
+        return ApiResponse.ERROR(res, "Erro interno do servidor.");
+    }
+
+    if (findUserError === 404) {
+        return ApiResponse.NOTFOUND(res, "Usuário não encontrado.");
+    }
+
+    // Seleciona o schema de acordo com o tipo do usuário
+    const schema = user.cargo === "funcionario"
+        ? funcionarioUpdateSchema
+        : alunoUpdateSchema;
+
+    const { error } = schema.validate(updates, {
+        abortEarly: false,
+        stripUnknown: false, // 🔥 NÃO remover os campos do outro tipo!
+    });
 
     if (error) {
-        // Retorna os erros de validação em formato mais amigável
-        const errorMessages = error.details.map(err => err.message)
-        return ApiResponse.BADREQUEST(res, errorMessages)
+        const errorMessages = error.details.map(err => err.message);
+        return ApiResponse.BADREQUEST(res, errorMessages);
     }
 
-    const [user, findUserError] = await findUserById(id)
-
-    if (!user && findUserError != 404) {
-        // Erro interno do servidor, algum problema com o banco de dados.
-        return ApiResponse.ERROR(res, `Erro interno do servidor.`)
-    } else if (findUserError == 404) {
-        // Usuário não encontrado.
-        return ApiResponse.NOTFOUND(res, "Usuário não foi encontrado.")
-    }
-
-    const [updated, updateUserError] = await updateUser(user.id, updates)
+    const [updated, updateUserError] = await updateUser(user.id, updates);
 
     if (!updated) {
-        return ApiResponse.ERROR(res, "Erro interno do servidor.")
+        return ApiResponse.ERROR(res, "Erro interno do servidor.");
     }
 
-    return ApiResponse.OK(res, updated, "Usuario atualizado.")
-}
+    return ApiResponse.OK(res, updated, "Usuário atualizado.");
+};
 
 // POST api/v1/secretaria/late-entries/:id/validate
 const validarAtraso = async (req, res) => {

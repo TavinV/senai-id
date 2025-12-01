@@ -1,5 +1,6 @@
 import Joi from "joi";
 
+// Schema completo de aluno
 export const alunoSchema = Joi.object({
     nome: Joi.string().required(),
     cpf: Joi.string().length(14).required(),
@@ -9,26 +10,28 @@ export const alunoSchema = Joi.object({
     data_nascimento: Joi.string().required(),
     curso: Joi.string().required(),
     foto_perfil: Joi.any(),
-})
-
-export const funcionarioSchema = Joi.object({
-    nome: Joi.string().required(),
-    foto_perfil: Joi.any(),
-    cpf: Joi.string().length(14).required(), // CPF com 14 dígitos
-    senha: Joi.string().required(),
-    pis: Joi.string().length(11).required(), // PIS com 11 dígitos
-    descricao: Joi.string().required(), // Descrição do funcionário
-    nif: Joi.string().required(), // Número de identificação fiscal (se aplicável)
-    email: Joi.string().email().required(), // Email do funcionário
 });
 
-export const updateUserSchema = Joi.object({
-    nome: Joi.string(),
-    cpf: Joi.string().length(14),
-    turma: Joi.string(),
-    horario_entrada: Joi.string(),
-    matricula: Joi.string(),
-    data_nascimento: Joi.string(),
-    curso: Joi.string(),
-    foto_perfil: Joi.string(),
-})
+// Schema completo de funcionário
+export const funcionarioSchema = Joi.object({
+    nome: Joi.string().required(),
+    cpf: Joi.string().length(14).required(),
+    senha: Joi.string().required(),
+    pis: Joi.string().length(11).required(),
+    descricao: Joi.string(),
+    nif: Joi.string(),
+    email: Joi.string().email().required(),
+    foto_perfil: Joi.any(),
+});
+
+// Schema UPDATE aluno
+export const alunoUpdateSchema = alunoSchema.fork(
+    Object.keys(alunoSchema.describe().keys),
+    (field) => field.optional()
+);
+
+// Schema UPDATE funcionário
+export const funcionarioUpdateSchema = funcionarioSchema.fork(
+    Object.keys(funcionarioSchema.describe().keys),
+    (field) => field.optional()
+);
