@@ -120,9 +120,6 @@ const Header = () => {
           <NavItem to="/suporte" icon={Headset}>
             Suporte
           </NavItem>
-          <NavItem to="/mensagens" icon={Mail}>
-            Mensagens
-          </NavItem>
         </div>
       </header>
 

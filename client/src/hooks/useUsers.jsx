@@ -34,6 +34,7 @@ export default function useUsers() {
       return parsed;
     } catch (err) {
       setError("Erro ao carregar usuários");
+      return null;
     } finally {
       setLoading(false);
     }
@@ -53,7 +54,8 @@ export default function useUsers() {
       const parsed = parseResponse(res);
       setSelectedUser(parsed.data);
       return parsed.data || null;
-    } catch {
+    } catch (err) {
+      console.error("Erro ao buscar usuário:", err);
       setError("Usuário não encontrado");
       return null;
     } finally {
@@ -61,7 +63,9 @@ export default function useUsers() {
     }
   }
 
-  /* src/hooks/useUsers.jsx */
+  /* =============================
+    CREATE STUDENT
+  ==============================*/
   async function createStudent(data) {
     try {
       setLoading(true);
@@ -76,9 +80,7 @@ export default function useUsers() {
       form.append("curso", data.curso);
       form.append("foto_perfil", data.foto_perfil);
 
-      // Let the browser/Axios set the Content-Type (including boundary)
       const res = await api.post("/users", form);
-
       const parsed = parseResponse(res);
       await fetchUsers();
       return parsed;
@@ -92,9 +94,8 @@ export default function useUsers() {
     }
   }
 
-
   /* =============================
-    CREATE EMPLOYEE /employees
+    CREATE EMPLOYEE
   ==============================*/
   async function createEmployee(data) {
     try {
@@ -110,10 +111,8 @@ export default function useUsers() {
       form.append("email", data.email);
       form.append("foto_perfil", data.foto_perfil);
 
-      // Let the browser/Axios set the Content-Type (including boundary)
       const res = await api.post("/users/employees", form);
       const parsed = parseResponse(res);
-
       await fetchUsers();
       return parsed;
     } catch (err) {
@@ -126,46 +125,99 @@ export default function useUsers() {
   }
 
   /* =============================
-    UPDATE USER
+    UPDATE USER (GENÉRICO - PARA AMBOS OS TIPOS)
   ==============================*/
-  async function updateUser(id, data) {
+  async function updateUser(id, data, userType = null) {
     try {
       setLoading(true);
-      // Build payload with only non-empty fields to satisfy server validation
-      const allowedPayload = {};
-      Object.keys(data || {}).forEach((k) => {
-        const v = data[k];
-        if (v !== undefined && v !== null) {
-          // include strings that are not empty
-          if (typeof v === "string") {
-            if (v.trim() !== "") allowedPayload[k] = v;
-          } else {
-            // include Files and other non-string values
-            allowedPayload[k] = v;
+
+      // Se não temos userType, tentamos determinar pelo ID ou dados
+      let actualUserType = userType;
+      if (!actualUserType) {
+        // Busca o usuário para determinar o tipo
+        const user = await getUserById(id);
+        actualUserType = user?.cargo === "aluno" ? "aluno" : "funcionario";
+      }
+
+      let formData = new FormData();
+      const endpoint = `/users/${id}`;
+
+      // Prepara os dados com base no tipo de usuário
+      if (actualUserType === "aluno") {
+
+        // Campos de aluno
+        if (data.nome) formData.append("nome", data.nome);
+        if (data.cpf) formData.append("cpf", data.cpf);
+        if (data.matricula) formData.append("matricula", data.matricula);
+        if (data.data_nascimento) formData.append("data_nascimento", data.data_nascimento);
+        if (data.curso) formData.append("curso", data.curso);
+        if (data.turma !== undefined) formData.append("turma", data.turma);
+        if (data.foto_perfil) {
+          if (data.foto_perfil instanceof File) {
+            formData.append("foto_perfil", data.foto_perfil);
+          } else if (typeof data.foto_perfil === 'string' && data.foto_perfil.startsWith('blob:')) {
+            // Se é um blob URL (preview local), não enviamos
+            console.log("Blob URL detectada - não enviando ao servidor");
+          } else if (typeof data.foto_perfil === 'string') {
+            // Se é uma URL existente do servidor, mantemos
           }
         }
-      });
+
+      } else if (actualUserType === "funcionario") {
+
+        // Campos de funcionário
+        if (data.nome) formData.append("nome", data.nome);
+        if (data.cpf) formData.append("cpf", data.cpf);
+        if (data.pis) formData.append("pis", data.pis);
+        if (data.nif) formData.append("nif", data.nif);
+        if (data.email) formData.append("email", data.email);
+        if (data.descricao) formData.append("descricao", data.descricao);
+        if (data.foto_perfil) {
+          if (data.foto_perfil instanceof File) {
+            formData.append("foto_perfil", data.foto_perfil);
+          } else if (typeof data.foto_perfil === 'string' && data.foto_perfil.startsWith('blob:')) {
+            // Blob URL - não enviar
+            console.log("Blob URL detectada - não enviando ao servidor");
+          } else if (typeof data.foto_perfil === 'string') {
+            // URL existente do servidor
+            formData.append("foto_perfil_url", data.foto_perfil);
+          }
+        }
+      } else {
+        throw new Error("Tipo de usuário não identificado");
+      }
+
+      // Verifica se temos campos para enviar
+      const hasEntries = [...formData.entries()].length > 0;
 
       let res;
-      // If foto_perfil is a File, send FormData so multer handles it
-      if (allowedPayload.foto_perfil && (allowedPayload.foto_perfil instanceof File || allowedPayload.foto_perfil?.name)) {
-        const form = new FormData();
-        Object.keys(allowedPayload).forEach((k) => {
-          form.append(k, allowedPayload[k]);
-        });
-        // Let Axios/browser set Content-Type with proper boundary
-        res = await api.put(`/users/${id}`, form);
+      if (hasEntries) {
+        // Envia como FormData (multipart/form-data)
+        res = await api.put(endpoint, formData);
       } else {
-        // Send JSON with only allowed keys
-        res = await api.put(`/users/${id}`, allowedPayload);
+        // Se não há dados, retorna erro
+        console.error("Nenhum dado válido para atualizar");
+        return false;
       }
 
       const parsed = parseResponse(res);
-      if (!parsed.success) console.error("updateUser failed:", parsed.message);
-      await fetchUsers();
+
+      if (parsed.success) {
+        // Atualiza a lista de usuários
+        await fetchUsers();
+        // Atualiza o usuário selecionado
+        if (selectedUser && selectedUser._id === id) {
+          await getUserById(id);
+        }
+      } else {
+        console.error("Erro na atualização:", parsed.message);
+      }
+
       return parsed.success ?? false;
-    } catch {
-      setError("Erro ao atualizar usuário");
+
+    } catch (err) {
+      console.error("Erro ao atualizar usuário:", err);
+      setError(err.response?.data?.message || "Erro ao atualizar usuário");
       return false;
     } finally {
       setLoading(false);
@@ -178,16 +230,40 @@ export default function useUsers() {
   async function deleteUser(id) {
     try {
       setLoading(true);
-      await api.delete(`/users/${id}`);
-      if (selectedUser && selectedUser._id === id) setSelectedUser(null);
+      const res = await api.delete(`/users/${id}`);
+      const parsed = parseResponse(res);
+
+      if (selectedUser && selectedUser.id === id) {
+        setSelectedUser(null);
+      }
+
+      // Atualiza a lista de usuários
       await fetchUsers();
-      return true;
-    } catch {
-      setError("Erro ao excluir usuário");
-      return false;
+      return !(parsed.success); // Retorna true se sucesso, false se falhou
+    } catch (err) {
+      console.error("Erro ao excluir usuário:", err);
+      setError(err.response?.data?.message || "Erro ao excluir usuário");
+      return false; // Sempre retorna false em caso de erro
     } finally {
       setLoading(false);
     }
+  }
+
+  /* =============================
+    GET USER TYPE
+    Função auxiliar para determinar o tipo de usuário
+  ==============================*/
+  function getUserType(user) {
+    if (!user) return null;
+    return user.cargo === "aluno" ? "aluno" : "funcionario";
+  }
+
+  /* =============================
+    FILTER USERS BY TYPE
+  ==============================*/
+  function filterUsersByType(type) {
+    if (!type) return users;
+    return users.filter(user => getUserType(user) === type);
   }
 
   return {
@@ -196,12 +272,17 @@ export default function useUsers() {
     loading,
     error,
 
+    // Funções principais
     fetchUsers,
     getUserById,
     createStudent,
     createEmployee,
     updateUser,
     deleteUser,
+
+    // Funções auxiliares
+    getUserType,
+    filterUsersByType,
     setSelectedUser,
   };
 }
