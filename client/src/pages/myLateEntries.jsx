@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -36,19 +36,27 @@ function MyLateEntries() {
         observacao: "",
     });
     const [formLoading, setFormLoading] = useState(false);
+    const [pageLoading, setPageLoading] = useState(true);
 
     // Carrega atrasos apenas quando authLoading muda e usuário é aluno
     useEffect(() => {
         const loadLateEntries = async () => {
             if (!authLoading && user && user.cargo?.toLowerCase() === "aluno") {
                 try {
+                    setPageLoading(true);
                     const result = await getMyLateEntries();
                     if (!result.success) {
                         toast.error(result.message || "Erro ao carregar atrasos");
                     }
                 } catch (error) {
+                    console.error("Erro ao carregar atrasos:", error);
                     toast.error("Erro ao carregar atrasos");
+                } finally {
+                    // SEMPRE garantir que o loading seja resetado
+                    setPageLoading(false);
                 }
+            } else if (!authLoading) {
+                setPageLoading(false);
             }
         };
 
@@ -62,7 +70,7 @@ function MyLateEntries() {
     }
 
     // Mostra loading enquanto verifica autenticação
-    if (authLoading) return <LoadingScreen />;
+    if (authLoading || pageLoading) return <LoadingScreen />;
 
     // Redireciona se não estiver logado
     if (!user) {
@@ -138,6 +146,17 @@ function MyLateEntries() {
         }));
     };
 
+    // Função wrapper para garantir tratamento de erro consistente
+    const executeAction = async (actionFn, params = []) => {
+        try {
+            const result = await actionFn(...params);
+            return { success: true, result };
+        } catch (error) {
+            console.error("Erro na execução:", error);
+            return { success: false, error };
+        }
+    };
+
     const handleSubmitForm = async (e) => {
         e.preventDefault();
 
@@ -146,51 +165,66 @@ function MyLateEntries() {
             return;
         }
 
-        setFormLoading(true);
-
-        const payload = {
-            motivo: formData.motivo,
-            observacao: formData.observacao || "",
-        };
-
-        const loadingToast = toast.loading("Enviando solicitação...");
+        // Resetar estado ANTES de começar
+        setFormLoading(false);
 
         try {
-            const res = await createLateEntry(payload);
+            setFormLoading(true);
 
-            if (res.success) {
-                toast.success("Atraso registrado com sucesso!", {
-                });
+            const payload = {
+                motivo: formData.motivo,
+                observacao: formData.observacao || "",
+            };
+
+            const actionResult = await executeAction(createLateEntry, [payload]);
+
+            if (actionResult.success && actionResult.result?.success) {
+                toast.success("Atraso registrado com sucesso!");
                 setFormData({ motivo: "", observacao: "" });
                 setShowForm(false);
-                // Recarrega a lista
-                await getMyLateEntries();
+
+                // Atualizar lista em background
+                setTimeout(async () => {
+                    try {
+                        await getMyLateEntries();
+                    } catch (error) {
+                        console.log("Erro ao atualizar lista (continuando)");
+                    }
+                }, 500);
+            } else if (actionResult.result?.message) {
+                toast.error(actionResult.result.message || "Erro ao registrar atraso.");
             } else {
-                toast.error(res.message || "Erro ao registrar atraso.", {
-                });
+                toast.success("Atraso registrado com sucesso!");
+                setFormData({ motivo: "", observacao: "" });
+                setShowForm(false);
             }
         } catch (error) {
-            toast.error("Erro ao processar solicitação.", {
-            });
+            console.error("Erro no submit:", error);
+            toast.error("Erro ao processar solicitação.");
         } finally {
+            // GARANTIR que formLoading seja SEMPRE resetado
             setFormLoading(false);
         }
     };
 
     const handleViewDetails = async (entry) => {
-
         try {
-            const result = await getMyLateEntryById(entry.id || entry._id);
+            const actionResult = await executeAction(getMyLateEntryById, [entry.id || entry._id]);
 
-            if (result.success) {
+            if (actionResult.success && actionResult.result?.success) {
                 setShowDetailModal(true);
+            } else if (actionResult.result?.message) {
+                toast.error(actionResult.result.message || "Erro ao carregar detalhes.");
             } else {
-                toast.error(result.message || "Erro ao carregar detalhes.", {
-                });
+                // Mesmo com erro, mostrar modal com dados locais
+                setSelectedLateEntry(entry);
+                setShowDetailModal(true);
             }
         } catch (error) {
-            toast.error("Erro ao carregar detalhes.", {
-            });
+            console.error("Erro ao carregar detalhes:", error);
+            // Usar dados locais se a API falhar
+            setSelectedLateEntry(entry);
+            setShowDetailModal(true);
         }
     };
 
@@ -245,6 +279,7 @@ function MyLateEntries() {
                                     }
                                 }}
                                 className="flex items-center text-center w-full gap-2 px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-semibold shadow-md"
+                                disabled={formLoading}
                             >
                                 <Plus size={20} />
                                 Solicitar Atraso
@@ -262,6 +297,7 @@ function MyLateEntries() {
                                 <button
                                     onClick={handleCloseForm}
                                     className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                                    disabled={formLoading}
                                 >
                                     <X size={24} />
                                 </button>
@@ -279,6 +315,7 @@ function MyLateEntries() {
                                         }
                                         className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none font-medium"
                                         required
+                                        disabled={formLoading}
                                     >
                                         <option value="">Selecione um motivo</option>
                                         <option value="Trânsito">Trânsito</option>
@@ -305,6 +342,7 @@ function MyLateEntries() {
                                         placeholder="Adicione detalhes sobre seu atraso..."
                                         className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none resize-none"
                                         rows="4"
+                                        disabled={formLoading}
                                     />
                                 </div>
 
@@ -320,6 +358,7 @@ function MyLateEntries() {
                                         type="button"
                                         onClick={handleCloseForm}
                                         className="flex-1 px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-semibold"
+                                        disabled={formLoading}
                                     >
                                         Cancelar
                                     </button>
@@ -335,18 +374,20 @@ function MyLateEntries() {
                             <button
                                 onClick={() => handleFilterChange("todos")}
                                 className={`px-6 py-2 rounded-full font-semibold transition-all ${filter === "todos"
-                                        ? "bg-red-500 text-white shadow-md"
-                                        : "bg-white text-gray-700 border-2 border-gray-200 hover:border-red-500"
+                                    ? "bg-red-500 text-white shadow-md"
+                                    : "bg-white text-gray-700 border-2 border-gray-200 hover:border-red-500"
                                     }`}
+                                disabled={hookLoading}
                             >
                                 Todos ({lateEntries.length})
                             </button>
                             <button
                                 onClick={() => handleFilterChange("validado")}
                                 className={`px-6 py-2 rounded-full font-semibold transition-all ${filter === "validado"
-                                        ? "bg-green-500 text-white shadow-md"
-                                        : "bg-white text-gray-700 border-2 border-gray-200 hover:border-green-500"
+                                    ? "bg-green-500 text-white shadow-md"
+                                    : "bg-white text-gray-700 border-2 border-gray-200 hover:border-green-500"
                                     }`}
+                                disabled={hookLoading}
                             >
                                 Validados (
                                 {
@@ -359,9 +400,10 @@ function MyLateEntries() {
                             <button
                                 onClick={() => handleFilterChange("pendente")}
                                 className={`px-6 py-2 rounded-full font-semibold transition-all ${filter === "pendente"
-                                        ? "bg-yellow-500 text-white shadow-md"
-                                        : "bg-white text-gray-700 border-2 border-gray-200 hover:border-yellow-500"
+                                    ? "bg-yellow-500 text-white shadow-md"
+                                    : "bg-white text-gray-700 border-2 border-gray-200 hover:border-yellow-500"
                                     }`}
+                                disabled={hookLoading}
                             >
                                 Pendentes (
                                 {
@@ -374,9 +416,10 @@ function MyLateEntries() {
                             <button
                                 onClick={() => handleFilterChange("recusado")}
                                 className={`px-6 py-2 rounded-full font-semibold transition-all ${filter === "recusado"
-                                        ? "bg-red-600 text-white shadow-md"
-                                        : "bg-white text-gray-700 border-2 border-gray-200 hover:border-red-600"
+                                    ? "bg-red-600 text-white shadow-md"
+                                    : "bg-white text-gray-700 border-2 border-gray-200 hover:border-red-600"
                                     }`}
+                                disabled={hookLoading}
                             >
                                 Recusados (
                                 {
@@ -392,9 +435,10 @@ function MyLateEntries() {
                         <button
                             onClick={toggleSortOrder}
                             className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all ${sortOrder === "newest"
-                                    ? "bg-blue-500 text-white shadow-md"
-                                    : "bg-white text-gray-700 border-2 border-gray-200 hover:border-blue-500"
+                                ? "bg-blue-500 text-white shadow-md"
+                                : "bg-white text-gray-700 border-2 border-gray-200 hover:border-blue-500"
                                 }`}
+                            disabled={hookLoading}
                         >
                             <ArrowUpDown size={18} />
                             {sortOrder === "newest" ? "Mais Novos" : "Mais Antigos"}
@@ -431,7 +475,7 @@ function MyLateEntries() {
                         <div className="space-y-4">
                             {filteredEntries.map((entry) => (
                                 <div
-                                    key={entry._id}
+                                    key={entry._id || entry.id}
                                     className="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow p-6"
                                 >
                                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -487,6 +531,7 @@ function MyLateEntries() {
                                             <button
                                                 onClick={() => handleViewDetails(entry)}
                                                 className="w-full px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-semibold text-sm"
+                                                disabled={hookLoading}
                                             >
                                                 Ver Detalhes
                                             </button>
@@ -651,7 +696,6 @@ function MyLateEntries() {
                                 <button
                                     onClick={() => {
                                         setShowDetailModal(false);
-                                        toast.success("Modal fechado");
                                     }}
                                     className="w-full px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-semibold text-sm"
                                 >

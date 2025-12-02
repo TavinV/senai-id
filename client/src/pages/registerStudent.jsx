@@ -186,7 +186,7 @@ function RegisterStudent() {
                 options={courses}
                 label="Curso"
                 value={courses.find(opt => opt.value === formData.curso)}
-                onChange={(selected) => handleInputChange("curso", selected.value)}
+                onChange={(selected) => handleInputChange("curso", selected.target.value)}
               />
             </div>
 

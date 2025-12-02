@@ -9,7 +9,7 @@ import Footer from "../components/layout/footer.jsx";
 import LoadingScreen from "../components/ui/loadingScreen.jsx";
 
 // Icons
-import { AlertCircle, CheckCircle, Clock, Plus, X, ArrowUpDown } from "lucide-react";
+import { AlertCircle, CheckCircle, Clock, Plus, X, ArrowUpDown, DoorOpen, Calendar } from "lucide-react";
 
 // Context & Services
 import { useAuthContext } from "../context/authContext.jsx";
@@ -37,6 +37,7 @@ function MyEarlyExits() {
         observacao: "",
     });
     const [formLoading, setFormLoading] = useState(false);
+    const [pageLoaded, setPageLoaded] = useState(false);
 
     // Carrega liberações apenas quando authLoading muda e usuário é aluno
     useEffect(() => {
@@ -48,7 +49,10 @@ function MyEarlyExits() {
                         toast.error(result.message || "Erro ao carregar liberações");
                     }
                 } catch (error) {
+                    console.log("Liberações carregadas:", error);
                     toast.error("Erro ao carregar liberações");
+                } finally {
+                    setPageLoaded(true);
                 }
             }
         };
@@ -136,11 +140,19 @@ function MyEarlyExits() {
 
     const formatTime = (timeString) => {
         if (!timeString) return "-";
-        const date = new Date(timeString);
-        return date.toLocaleTimeString("pt-BR", {
-            hour: "2-digit",
-            minute: "2-digit",
-        });
+        try {
+            const date = new Date(timeString);
+            return date.toLocaleTimeString("pt-BR", {
+                hour: "2-digit",
+                minute: "2-digit",
+            });
+        } catch (error) {
+            // Se for uma string de hora simples (ex: "14:30")
+            if (typeof timeString === 'string' && timeString.includes(':')) {
+                return timeString;
+            }
+            return "-";
+        }
     };
 
     const handleInputChange = (field, value) => {
@@ -199,19 +211,16 @@ function MyEarlyExits() {
     };
 
     const handleViewDetails = async (exit) => {
-
         try {
             const result = await getMyEarlyExitById(exit.id || exit._id);
 
             if (result.success) {
                 setShowDetailModal(true);
             } else {
-                toast.error(result.message || "Erro ao carregar detalhes.", {
-                });
+                toast.error(result.message || "Erro ao carregar detalhes.");
             }
         } catch (error) {
-            toast.error("Erro ao carregar detalhes.", {
-            });
+            toast.error("Erro ao carregar detalhes.");
         }
     };
 
@@ -243,7 +252,7 @@ function MyEarlyExits() {
     return (
         <>
             <UserHeader />
-            <MainContent>
+            <MainContent className="min-h-screen">
                 <div className="w-full max-w-6xl mx-auto px-4 py-8">
                     {/* Title Section */}
                     <div className="mb-10">
@@ -366,97 +375,8 @@ function MyEarlyExits() {
                         </div>
                     )}
 
-                    {/* Filter and Sort Section */}
-                    <div className="mb-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-                        {/* Filter Buttons */}
-                        <div className="flex flex-wrap gap-2">
-                            <button
-                                onClick={() => handleFilterChange("todos")}
-                                className={`px-6 py-2 rounded-full font-semibold transition-all ${filter === "todos"
-                                        ? "bg-red-500 text-white shadow-md"
-                                        : "bg-white text-gray-700 border-2 border-gray-200 hover:border-red-500"
-                                    }`}
-                            >
-                                Todos ({earlyExits.length})
-                            </button>
-                            <button
-                                onClick={() => handleFilterChange("permitida")}
-                                className={`px-6 py-2 rounded-full font-semibold transition-all ${filter === "permitida"
-                                        ? "bg-green-500 text-white shadow-md"
-                                        : "bg-white text-gray-700 border-2 border-gray-200 hover:border-green-500"
-                                    }`}
-                            >
-                                Permitidas (
-                                {
-                                    earlyExits.filter(
-                                        (e) => e.status?.toLowerCase() === "permitida"
-                                    ).length
-                                }
-                                )
-                            </button>
-                            <button
-                                onClick={() => handleFilterChange("pendente")}
-                                className={`px-6 py-2 rounded-full font-semibold transition-all ${filter === "pendente"
-                                        ? "bg-yellow-500 text-white shadow-md"
-                                        : "bg-white text-gray-700 border-2 border-gray-200 hover:border-yellow-500"
-                                    }`}
-                            >
-                                Pendentes (
-                                {
-                                    earlyExits.filter(
-                                        (e) => e.status?.toLowerCase() === "pendente"
-                                    ).length
-                                }
-                                )
-                            </button>
-                            <button
-                                onClick={() => handleFilterChange("não permitida")}
-                                className={`px-6 py-2 rounded-full font-semibold transition-all ${filter === "não permitida"
-                                        ? "bg-red-600 text-white shadow-md"
-                                        : "bg-white text-gray-700 border-2 border-gray-200 hover:border-red-600"
-                                    }`}
-                            >
-                                Não Permitidas (
-                                {
-                                    earlyExits.filter(
-                                        (e) => e.status?.toLowerCase() === "não permitida" ||
-                                            e.status?.toLowerCase() === "nao permitida"
-                                    ).length
-                                }
-                                )
-                            </button>
-                        </div>
-
-                        {/* Sort Button */}
-                        <button
-                            onClick={toggleSortOrder}
-                            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all ${sortOrder === "newest"
-                                    ? "bg-red-500 text-white shadow-md"
-                                    : "bg-white text-gray-700 border-2 border-gray-200 hover:border-red-500"
-                                }`}
-                        >
-                            <ArrowUpDown size={18} />
-                            {sortOrder === "newest" ? "Mais Novos" : "Mais Antigos"}
-                        </button>
-                    </div>
-
-                    {/* Count Section */}
-                    <div className="mb-8 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                            <p className="text-gray-700 font-semibold">
-                                Mostrando{" "}
-                                <span className="text-red-500">{filteredExits.length}</span> de{" "}
-                                <span className="text-red-500">{earlyExits.length}</span>{" "}
-                                registros
-                            </p>
-                            <p className="text-sm text-gray-600">
-                                Ordenado por: <span className="font-semibold">{sortOrder === "newest" ? "Mais recentes primeiro" : "Mais antigos primeiro"}</span>
-                            </p>
-                        </div>
-                    </div>
-
                     {/* Loading State */}
-                    {hookLoading && !earlyExits.length ? (
+                    {hookLoading && !pageLoaded ? (
                         <div className="bg-white rounded-lg shadow-sm p-12 text-center border border-gray-200">
                             <Clock
                                 size={48}
@@ -466,114 +386,250 @@ function MyEarlyExits() {
                                 Carregando suas liberações...
                             </p>
                         </div>
-                    ) : filteredExits.length > 0 ? (
-                        <div className="space-y-4">
-                            {filteredExits.map((exit) => (
-                                <div
-                                    key={exit._id || exit.id}
-                                    className="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow p-6"
-                                >
-                                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                                        {/* Left Section */}
-                                        <div className="flex-1">
-                                            <div className="flex items-center gap-3 mb-3">
-                                                <div
-                                                    className={`flex items-center gap-2 px-4 py-2 rounded-full border-2 font-semibold text-sm ${getStatusColor(
-                                                        exit.status
-                                                    )}`}
-                                                >
-                                                    <span>{exit.status}</span>
-                                                </div>
-                                            </div>
+                    ) : (
+                        <>
+                            {/* Filter and Sort Section - Só mostra se houver dados */}
+                            {(earlyExits.length > 0 || filteredExits.length > 0) && (
+                                <div className="mb-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+                                    {/* Filter Buttons */}
+                                    <div className="flex flex-wrap gap-2">
+                                        <button
+                                            onClick={() => handleFilterChange("todos")}
+                                            className={`px-6 py-2 rounded-full font-semibold transition-all ${filter === "todos"
+                                                ? "bg-red-500 text-white shadow-md"
+                                                : "bg-white text-gray-700 border-2 border-gray-200 hover:border-red-500"
+                                                }`}
+                                        >
+                                            Todos ({earlyExits.length})
+                                        </button>
+                                        <button
+                                            onClick={() => handleFilterChange("permitida")}
+                                            className={`px-6 py-2 rounded-full font-semibold transition-all ${filter === "permitida"
+                                                ? "bg-green-500 text-white shadow-md"
+                                                : "bg-white text-gray-700 border-2 border-gray-200 hover:border-green-500"
+                                                }`}
+                                        >
+                                            Permitidas (
+                                            {
+                                                earlyExits.filter(
+                                                    (e) => e.status?.toLowerCase() === "permitida"
+                                                ).length
+                                            }
+                                            )
+                                        </button>
+                                        <button
+                                            onClick={() => handleFilterChange("pendente")}
+                                            className={`px-6 py-2 rounded-full font-semibold transition-all ${filter === "pendente"
+                                                ? "bg-yellow-500 text-white shadow-md"
+                                                : "bg-white text-gray-700 border-2 border-gray-200 hover:border-yellow-500"
+                                                }`}
+                                        >
+                                            Pendentes (
+                                            {
+                                                earlyExits.filter(
+                                                    (e) => e.status?.toLowerCase() === "pendente"
+                                                ).length
+                                            }
+                                            )
+                                        </button>
+                                        <button
+                                            onClick={() => handleFilterChange("não permitida")}
+                                            className={`px-6 py-2 rounded-full font-semibold transition-all ${filter === "não permitida"
+                                                ? "bg-red-600 text-white shadow-md"
+                                                : "bg-white text-gray-700 border-2 border-gray-200 hover:border-red-600"
+                                                }`}
+                                        >
+                                            Não Permitidas (
+                                            {
+                                                earlyExits.filter(
+                                                    (e) => e.status?.toLowerCase() === "não permitida" ||
+                                                        e.status?.toLowerCase() === "nao permitida"
+                                                ).length
+                                            }
+                                            )
+                                        </button>
+                                    </div>
 
-                                            <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                                                {exit.motivo || "Saída Antecipada"}
-                                            </h3>
+                                    {/* Sort Button */}
+                                    <button
+                                        onClick={toggleSortOrder}
+                                        className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all ${sortOrder === "newest"
+                                            ? "bg-red-500 text-white shadow-md"
+                                            : "bg-white text-gray-700 border-2 border-gray-200 hover:border-red-500"
+                                            }`}
+                                    >
+                                        <ArrowUpDown size={18} />
+                                        {sortOrder === "newest" ? "Mais Novos" : "Mais Antigos"}
+                                    </button>
+                                </div>
+                            )}
 
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                                                <div>
-                                                    <p className="text-gray-600 font-medium mb-1">
-                                                        Data da Solicitação
-                                                    </p>
-                                                    <p className="text-gray-800">
-                                                        {formatDate(exit.timestamp || exit.createdAt)}
-                                                    </p>
-                                                </div>
-
-                                                <div>
-                                                    <p className="text-gray-600 font-medium mb-1">
-                                                        Horário de Saída
-                                                    </p>
-                                                    <p className="text-gray-800">
-                                                        {formatTime(exit.horario_saida)}
-                                                    </p>
-                                                </div>
-
-                                                {exit.responsavel && (
-                                                    <div>
-                                                        <p className="text-gray-600 font-medium mb-1">
-                                                            Responsável
-                                                        </p>
-                                                        <p className="text-gray-800">{exit.responsavel}</p>
-                                                    </div>
-                                                )}
-
-                                                {exit.observacao && (
-                                                    <div className="md:col-span-2">
-                                                        <p className="text-gray-600 font-medium mb-1">
-                                                            Observações
-                                                        </p>
-                                                        <p className="text-gray-800">{exit.observacao}</p>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-
-                                        {/* Right Section */}
-                                        <div className="md:w-32">
-                                            <button
-                                                onClick={() => handleViewDetails(exit)}
-                                                className="w-full px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-semibold text-sm"
-                                            >
-                                                Ver Detalhes
-                                            </button>
-                                        </div>
+                            {/* Count Section - Só mostra se houver dados */}
+                            {(earlyExits.length > 0 || filteredExits.length > 0) && (
+                                <div className="mb-8 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                                        <p className="text-gray-700 font-semibold">
+                                            Mostrando{" "}
+                                            <span className="text-red-500">{filteredExits.length}</span> de{" "}
+                                            <span className="text-red-500">{earlyExits.length}</span>{" "}
+                                            registros
+                                        </p>
+                                        <p className="text-sm text-gray-600">
+                                            Ordenado por: <span className="font-semibold">{sortOrder === "newest" ? "Mais recentes primeiro" : "Mais antigos primeiro"}</span>
+                                        </p>
                                     </div>
                                 </div>
-                            ))}
-                        </div>
-                    ) : (
-                        <div className="bg-white rounded-lg shadow-sm p-12 text-center border border-gray-200">
-                            <Clock size={48} className="mx-auto text-gray-400 mb-4" />
-                            <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                                Nenhum registro encontrado
-                            </h3>
-                            <p className="text-gray-600 mb-6">
-                                {filter === "todos"
-                                    ? "Você ainda não tem liberações solicitadas. Solicite uma nova saída antecipada para começar."
-                                    : `Você não tem liberações ${filter === "permitida"
-                                        ? "permitidas"
-                                        : filter === "pendente"
-                                            ? "pendentes"
-                                            : "não permitidas"
-                                    } no momento.`}
-                            </p>
-                            {filter !== "todos" && (
-                                <button
-                                    onClick={() => handleFilterChange("todos")}
-                                    className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-semibold"
-                                >
-                                    Ver Todos
-                                </button>
                             )}
-                        </div>
+
+                            {/* Lista de Liberações ou Estado Vazio */}
+                            {filteredExits.length > 0 ? (
+                                <div className="space-y-4">
+                                    {filteredExits.map((exit) => (
+                                        <div
+                                            key={exit._id || exit.id}
+                                            className="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow p-6"
+                                        >
+                                            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                                                {/* Left Section */}
+                                                <div className="flex-1">
+                                                    <div className="flex items-center gap-3 mb-3">
+                                                        <div
+                                                            className={`flex items-center gap-2 px-4 py-2 rounded-full border-2 font-semibold text-sm ${getStatusColor(
+                                                                exit.status
+                                                            )}`}
+                                                        >
+                                                            <span>{exit.status}</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                                                        {exit.motivo || "Saída Antecipada"}
+                                                    </h3>
+
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                                        <div>
+                                                            <p className="text-gray-600 font-medium mb-1">
+                                                                Data da Solicitação
+                                                            </p>
+                                                            <p className="text-gray-800">
+                                                                {formatDate(exit.timestamp || exit.createdAt)}
+                                                            </p>
+                                                        </div>
+
+                                                        <div>
+                                                            <p className="text-gray-600 font-medium mb-1">
+                                                                Horário de Saída
+                                                            </p>
+                                                            <p className="text-gray-800">
+                                                                {formatTime(exit.horario_saida)}
+                                                            </p>
+                                                        </div>
+
+                                                        {exit.responsavel && (
+                                                            <div>
+                                                                <p className="text-gray-600 font-medium mb-1">
+                                                                    Responsável
+                                                                </p>
+                                                                <p className="text-gray-800">{exit.responsavel}</p>
+                                                            </div>
+                                                        )}
+
+                                                        {exit.observacao && (
+                                                            <div className="md:col-span-2">
+                                                                <p className="text-gray-600 font-medium mb-1">
+                                                                    Observações
+                                                                </p>
+                                                                <p className="text-gray-800">{exit.observacao}</p>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+
+                                                {/* Right Section */}
+                                                <div className="md:w-32">
+                                                    <button
+                                                        onClick={() => handleViewDetails(exit)}
+                                                        className="w-full px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-semibold text-sm"
+                                                    >
+                                                        Ver Detalhes
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="bg-white rounded-xl shadow-sm p-12 text-center border-2 border-dashed border-gray-200">
+                                    <div className="flex flex-col items-center justify-center">
+                                        <div className="relative mb-6">
+                                            <div className="w-24 h-24 bg-red-50 rounded-full flex items-center justify-center">
+                                                <DoorOpen size={48} className="text-red-400" />
+                                            </div>
+                                            <div className="absolute -top-2 -right-2 w-12 h-12 bg-yellow-50 rounded-full flex items-center justify-center border-2 border-white">
+                                                <Calendar size={24} className="text-yellow-500" />
+                                            </div>
+                                        </div>
+
+                                        <h3 className="text-2xl font-bold text-gray-800 mb-3">
+                                            Nenhuma liberação encontrada
+                                        </h3>
+
+                                        <p className="text-gray-600 mb-8 max-w-md mx-auto">
+                                            {filter === "todos"
+                                                ? "Você ainda não solicitou nenhuma saída antecipada. Use o botão acima para fazer sua primeira solicitação!"
+                                                : `Você não tem liberações ${filter === "permitida"
+                                                    ? "permitidas"
+                                                    : filter === "pendente"
+                                                        ? "pendentes"
+                                                        : "não permitidas"
+                                                } no momento.`}
+                                        </p>
+
+                                        <div className="flex flex-col sm:flex-row gap-4">
+                                            {filter !== "todos" ? (
+                                                <button
+                                                    onClick={() => handleFilterChange("todos")}
+                                                    className="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-semibold shadow-md"
+                                                >
+                                                    <ArrowUpDown className="inline mr-2" size={18} />
+                                                    Ver Todas as Liberações
+                                                </button>
+                                            ) : (
+                                                <button
+                                                    onClick={() => setShowForm(true)}
+                                                    className="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-semibold shadow-md"
+                                                >
+                                                    <Plus className="inline mr-2" size={18} />
+                                                    Solicitar Minha Primeira Liberação
+                                                </button>
+                                            )}
+                                        </div>
+
+                                        {filter === "todos" && (
+                                            <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200 max-w-md">
+                                                <div className="flex items-start gap-3">
+                                                    <AlertCircle className="text-blue-500 mt-1 flex-shrink-0" size={20} />
+                                                    <div className="text-left">
+                                                        <p className="text-sm font-medium text-blue-800 mb-1">Como funciona?</p>
+                                                        <p className="text-sm text-blue-600">
+                                                            Suas solicitações de saída antecipada aparecerão aqui.
+                                                            A secretaria analisará cada pedido e atualizará o status.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                        </>
                     )}
                 </div>
 
                 {/* Detail Modal */}
                 {showDetailModal && selectedEarlyExit && (
                     <div className="fixed inset-0 bg-[#00000080] flex items-center justify-center p-4 z-50">
-                        <div className="bg-white rounded-lg shadow-2xl max-w-md w-full mx-auto">
+                        <div className="bg-white rounded-lg shadow-2xl max-w-md w-full mx-auto scale-85">
                             {/* Modal Header */}
                             <div className="bg-red-500 text-white p-6 rounded-t-lg">
                                 <div className="flex items-center justify-between">
@@ -599,9 +655,8 @@ function MyEarlyExits() {
                                             selectedEarlyExit.status
                                         )}`}
                                     >
-                                        {getStatusIcon(selectedEarlyExit.earlyExit.status)}
-
-                                        <span>{selectedEarlyExit.earlyExit.status}</span>
+                                        {getStatusIcon(selectedEarlyExit.status)}
+                                        <span>{selectedEarlyExit.status}</span>
                                     </div>
                                 </div>
 
@@ -711,7 +766,6 @@ function MyEarlyExits() {
                                 <button
                                     onClick={() => {
                                         setShowDetailModal(false);
-                                        toast.success("Modal fechado");
                                     }}
                                     className="w-full px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-semibold text-sm"
                                 >

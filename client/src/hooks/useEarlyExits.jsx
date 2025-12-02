@@ -5,13 +5,26 @@ import api from "../services/api";
 export default function useEarlyExits() {
   const [earlyExits, setEarlyExits] = useState([]);
   const [selectedEarlyExit, setSelectedEarlyExit] = useState(null);
+
+  // Estado de loading geral (para operações iniciais)
   const [loading, setLoading] = useState(false);
+
+  // Estados de loading específicos para cada operação
+  const [actionLoading, setActionLoading] = useState({
+    allow: false,
+    deny: false,
+    delete: false,
+    get: false,
+    create: false,
+    getMy: false
+  });
+
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
 
   function parseResponse(res) {
-    const success = res?.data?.success ?? true; // Assume sucesso se não especificado
+    const success = res?.data?.success ?? true;
     const message = res?.data?.message || "Operação realizada com sucesso";
     const data = res?.data?.data ?? null;
 
@@ -22,10 +35,15 @@ export default function useEarlyExits() {
     };
   }
 
-  function handleApiError(err) {
+  function handleApiError(err, action = "") {
     // Limpa estados de sucesso
     setSuccess(false);
     setSuccessMessage("");
+
+    // Limpa estado de loading específico
+    if (action) {
+      setActionLoading(prev => ({ ...prev, [action]: false }));
+    }
 
     // Verifica se é uma resposta da API com mensagem personalizada
     if (err.response?.data?.message) {
@@ -49,10 +67,15 @@ export default function useEarlyExits() {
     };
   }
 
-  function handleSuccess(message, data = null) {
+  function handleSuccess(message, data = null, action = "") {
     setError(null);
     setSuccess(true);
     setSuccessMessage(message);
+
+    // Limpa estado de loading específico
+    if (action) {
+      setActionLoading(prev => ({ ...prev, [action]: false }));
+    }
 
     // Auto-limpeza da mensagem de sucesso após 5 segundos
     setTimeout(() => {
@@ -71,10 +94,10 @@ export default function useEarlyExits() {
    * ALUNO
    ============================= */
 
-  // GET /early-exits/me
+  // GET /early-exits/me (para alunos verem suas próprias saídas)
   const getMyEarlyExits = useCallback(async () => {
     try {
-      setLoading(true);
+      setActionLoading(prev => ({ ...prev, getMy: true }));
       setError(null);
       setSuccess(false);
 
@@ -90,23 +113,23 @@ export default function useEarlyExits() {
 
       return parsed;
     } catch (err) {
-      return handleApiError(err);
+      return handleApiError(err, "getMy");
     } finally {
-      setLoading(false);
+      setActionLoading(prev => ({ ...prev, getMy: false }));
     }
   }, []);
 
-  // GET /early-exits/me/:id
+  // GET /early-exits/me/:id (para aluno ver uma saída específica)
   const getMyEarlyExitById = useCallback(async (id) => {
     try {
-      setLoading(true);
+      setActionLoading(prev => ({ ...prev, getMy: true }));
       setError(null);
       setSuccess(false);
 
       const res = await api.get(`/early-exits/me/${id}`);
       const parsed = parseResponse(res);
 
-      setSelectedEarlyExit(parsed.data);
+      setSelectedEarlyExit(parsed.data.earlyExit);
 
       if (parsed.success && parsed.message) {
         setSuccess(true);
@@ -115,35 +138,35 @@ export default function useEarlyExits() {
 
       return parsed;
     } catch (err) {
-      return handleApiError(err);
+      return handleApiError(err, "getMy");
     } finally {
-      setLoading(false);
+      setActionLoading(prev => ({ ...prev, getMy: false }));
     }
   }, []);
 
-  // POST /early-exits/me/request
+  // POST /early-exits/me/request (para aluno solicitar saída)
   const createEarlyExit = useCallback(async (data) => {
     try {
-      setLoading(true);
+      setActionLoading(prev => ({ ...prev, create: true }));
       setError(null);
       setSuccess(false);
 
       const res = await api.post("/early-exits/me/request", data);
       const parsed = parseResponse(res);
 
-      // Se a criação foi bem-sucedida, atualiza a lista
       if (parsed.success) {
-        // Recarrega a lista para incluir o novo item
+        // Se a criação foi bem-sucedida, atualiza a lista
         const refreshRes = await api.get("/early-exits/me");
         const refreshParsed = parseResponse(refreshRes);
         setEarlyExits(refreshParsed.data?.earlyExits || []);
 
         return handleSuccess(
           parsed.message || "Saída antecipada solicitada com sucesso!",
-          parsed.data
+          parsed.data,
+          "create"
         );
       } else {
-        // Se a API retornou sucesso: false
+        setActionLoading(prev => ({ ...prev, create: false }));
         setError(parsed.message || "Erro ao solicitar saída antecipada");
         return {
           success: false,
@@ -152,9 +175,7 @@ export default function useEarlyExits() {
         };
       }
     } catch (err) {
-      return handleApiError(err);
-    } finally {
-      setLoading(false);
+      return handleApiError(err, "create");
     }
   }, []);
 
@@ -162,7 +183,7 @@ export default function useEarlyExits() {
    * ADMIN
    ============================= */
 
-  // GET /early-exits
+  // GET /early-exits (para admin ver todas as saídas)
   const getEarlyExits = useCallback(async () => {
     try {
       setLoading(true);
@@ -187,10 +208,10 @@ export default function useEarlyExits() {
     }
   }, []);
 
-  // GET /early-exits/:id
+  // GET /early-exits/:id (para admin ver uma saída específica)
   const getEarlyExitById = useCallback(async (id) => {
     try {
-      setLoading(true);
+      setActionLoading(prev => ({ ...prev, get: true }));
       setError(null);
       setSuccess(false);
 
@@ -206,16 +227,16 @@ export default function useEarlyExits() {
 
       return parsed;
     } catch (err) {
-      return handleApiError(err);
+      return handleApiError(err, "get");
     } finally {
-      setLoading(false);
+      setActionLoading(prev => ({ ...prev, get: false }));
     }
   }, []);
 
   // PUT /early-exits/:id/allow
   const allowEarlyExit = useCallback(async (id, data = {}) => {
     try {
-      setLoading(true);
+      setActionLoading(prev => ({ ...prev, allow: true }));
       setError(null);
       setSuccess(false);
 
@@ -237,9 +258,11 @@ export default function useEarlyExits() {
 
         return handleSuccess(
           parsed.message || "Saída antecipada permitida com sucesso!",
-          parsed.data
+          parsed.data,
+          "allow"
         );
       } else {
+        setActionLoading(prev => ({ ...prev, allow: false }));
         setError(parsed.message || "Erro ao permitir saída antecipada");
         return {
           success: false,
@@ -248,16 +271,14 @@ export default function useEarlyExits() {
         };
       }
     } catch (err) {
-      return handleApiError(err);
-    } finally {
-      setLoading(false);
+      return handleApiError(err, "allow");
     }
   }, []);
 
   // PUT /early-exits/:id/deny
   const denyEarlyExit = useCallback(async (id, data = {}) => {
     try {
-      setLoading(true);
+      setActionLoading(prev => ({ ...prev, deny: true }));
       setError(null);
       setSuccess(false);
 
@@ -279,9 +300,11 @@ export default function useEarlyExits() {
 
         return handleSuccess(
           parsed.message || "Saída antecipada recusada com sucesso!",
-          parsed.data
+          parsed.data,
+          "deny"
         );
       } else {
+        setActionLoading(prev => ({ ...prev, deny: false }));
         setError(parsed.message || "Erro ao recusar saída antecipada");
         return {
           success: false,
@@ -290,16 +313,14 @@ export default function useEarlyExits() {
         };
       }
     } catch (err) {
-      return handleApiError(err);
-    } finally {
-      setLoading(false);
+      return handleApiError(err, "deny");
     }
   }, []);
 
   // DELETE /early-exits/:id
   const deleteEarlyExit = useCallback(async (id) => {
     try {
-      setLoading(true);
+      setActionLoading(prev => ({ ...prev, delete: true }));
       setError(null);
       setSuccess(false);
 
@@ -319,9 +340,11 @@ export default function useEarlyExits() {
 
         return handleSuccess(
           parsed.message || "Saída antecipada excluída com sucesso!",
-          parsed.data
+          parsed.data,
+          "delete"
         );
       } else {
+        setActionLoading(prev => ({ ...prev, delete: false }));
         setError(parsed.message || "Erro ao excluir saída antecipada");
         return {
           success: false,
@@ -330,9 +353,7 @@ export default function useEarlyExits() {
         };
       }
     } catch (err) {
-      return handleApiError(err);
-    } finally {
-      setLoading(false);
+      return handleApiError(err, "delete");
     }
   }, []);
 
@@ -348,6 +369,7 @@ export default function useEarlyExits() {
     earlyExits,
     selectedEarlyExit,
     loading,
+    actionLoading,
     error,
     success,
     successMessage,

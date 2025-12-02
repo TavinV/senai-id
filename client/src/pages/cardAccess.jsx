@@ -17,7 +17,7 @@ const CardAccess = () => {
 
   // Identifica se é aluno ou funcionário
   const isFuncionario = user.cargo && user.cargo.toLowerCase() !== "aluno";
-
+  console.log("User data in CardAccess:", user);
   // Dados para carteirinha (layout igual para ambos)
   const propsCarteirinha = isFuncionario
     ? {
