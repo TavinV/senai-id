@@ -540,7 +540,7 @@ const atrasosDeTodosAlunos = async (req, res) => {
     }
 
     if (!lateEntries || lateEntries.length === 0) {
-        return ApiResponse.NOTFOUND(res, "Nenhum registro de atraso encontrado.")
+        return ApiResponse.OK(res, { lateEntries: [] }, "Registros de atraso encontrados com sucesso.")
     }
 
     return ApiResponse.OK(res, { lateEntries }, "Registros de atraso encontrados com sucesso.")
@@ -556,7 +556,7 @@ const saidasAntecipadasDeTodosAlunos = async (req, res) => {
     }
 
     if (!earlyExits || earlyExits.length === 0) {
-        return ApiResponse.NOTFOUND(res, "Nenhum registro de liberação encontrado.")
+        return ApiResponse.OK(res, { earlyExits: [] }, "Registros de liberações encontrados com sucesso.")
     }
 
     return ApiResponse.OK(res, { earlyExits }, "Registros de liberações encontrados com sucesso.")
