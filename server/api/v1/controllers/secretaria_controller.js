@@ -347,13 +347,13 @@ const validarAtraso = async (req, res) => {
         return ApiResponse.NOTFOUND(res, "Usuário não foi encontrado.")
     }
 
-    const email = user.email
-    const emailHtml = late_entry_approved_email_template(user.nome, user.turma, moment().format("DD/MM/YYYY - HH:mm"), responsavel, motivo)
+    // const email = user.email
+    // const emailHtml = late_entry_approved_email_template(user.nome, user.turma, moment().format("DD/MM/YYYY - HH:mm"), responsavel)
 
-    const [info, sendEmailError] = await sendMail(email, `Atraso validado, siga para a sala. `, emailHtml)
-    if (sendEmailError) {
-        return ApiResponse.ERROR(res, `Erro ao enviar email.`)
-    }
+    // const [info, sendEmailError] = await sendMail(email, `Atraso validado, siga para a sala. `, emailHtml)
+    // if (sendEmailError) {
+    //     return ApiResponse.ERROR(res, `Erro ao enviar email.`)
+    // }
 
     return ApiResponse.OK(res, { result }, "Atraso validado!")
 }
@@ -439,13 +439,13 @@ const validarSaidaAntecipada = async (req, res) => {
         return ApiResponse.NOTFOUND(res, "Usuário associado ao pedido de liberação não foi encontrado.")
     }
 
-    const email = user.email
-    const emailHtml = early_exit_approved_template(earlyExit.id, user.nome, earlyExit.motivo, responsavel, moment(earlyExit.horario_saida).tz("America/Sao_Paulo").format("DD/MM/YYYY - HH:mm"), observacao)
+    // const email = user.email
+    // const emailHtml = early_exit_approved_template(earlyExit.id, user.nome, earlyExit.motivo, responsavel, moment(earlyExit.horario_saida).tz("America/Sao_Paulo").format("DD/MM/YYYY - HH:mm"), observacao)
 
-    const [info, sendEmailError] = await sendMail(email, `Pedido de liberação aprovado!`, emailHtml)
-    if (sendEmailError) {
-        return ApiResponse.ERROR(res, `Erro ao enviar email.`)
-    }
+    // const [info, sendEmailError] = await sendMail(email, `Pedido de liberação aprovado!`, emailHtml)
+    // if (sendEmailError) {
+    //     return ApiResponse.ERROR(res, `Erro ao enviar email.`)
+    // }
 
     return ApiResponse.OK(res, { result }, "Pedido de liberação validado!")
 
